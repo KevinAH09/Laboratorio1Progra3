@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
  *
  * @author colo7
  */
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
 
     @FXML
     private TextField txtUsuario;
@@ -36,5 +36,10 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @Override
+    public void initialize() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
