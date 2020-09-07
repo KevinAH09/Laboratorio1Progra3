@@ -1,8 +1,5 @@
-org\una\laboratorio\Controller.class
 org\una\laboratorio\LoginController.class
 org\una\laboratorio\SecondaryController.class
+org\una\laboratorio\PrimaryController.class
 org\una\laboratorio\App.class
-org\una\laboratorio\BaseController.class
-org\una\laboratorio\PrincipalController.class
 module-info.class
-org\una\laboratorio\util\FlowController.class
