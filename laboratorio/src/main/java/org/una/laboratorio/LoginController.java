@@ -7,26 +7,30 @@ package org.una.laboratorio;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.una.laboratorio.util.FlowController;
 
 /**
  * FXML Controller class
  *
  * @author colo7
  */
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable  {
 
     @FXML
     private TextField txtUsuario;
     @FXML
-    private TextField txtCancelar;
-    @FXML
     private Button btnCancelar;
     @FXML
     private Button btnIngresar;
+    @FXML
+    private PasswordField txtPassword;
 
 
     /**
@@ -36,5 +40,20 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void actionCancelar(ActionEvent event) {
+    }
+
+    @FXML
+    private void actionIngresar(ActionEvent event) {
+        FlowController.getInstance().goView("principal");
+       
+    }
+
+    @Override
+    public void initialize() {
+      
+    }
     
 }

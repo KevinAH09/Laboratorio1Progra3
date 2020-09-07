@@ -5,4 +5,6 @@ module org.una.laboratorio {
 
     opens org.una.laboratorio to javafx.fxml;
     exports org.una.laboratorio;
+    requires javafx.graphicsEmpty;
+    requires lombok;
 }
