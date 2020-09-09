@@ -8,6 +8,7 @@ package org.una.laboratorio.util;
 
 
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
@@ -100,6 +101,10 @@ public class FlowController {
 
     public void goView(String viewName, String accion) {
         goView(viewName, "Center", accion);
+    }
+    public Parent retornaSatge(String viewName) throws IOException{
+        Parent root = FXMLLoader.load(App.class.getResource(viewName+".fxml"));
+        return root;
     }
 
     public void goView(String viewName, String location, String accion) {
