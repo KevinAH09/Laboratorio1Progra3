@@ -17,7 +17,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 import javafx.stage.StageStyle;
-import org.una.laboratorio.util.FlowController;
+import org.una.laboratorio.utils.FlowController;
 
 /**
  * JavaFX App

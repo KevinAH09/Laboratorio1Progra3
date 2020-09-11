@@ -5,14 +5,22 @@
  */
 package org.una.laboratorio;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.una.laboratorio.util.FlowController;
+import org.una.laboratorio.controller.Usuariocontroller;
+import org.una.laboratorio.dto.UsuarioDTO;
+import org.una.laboratorio.utils.FlowController;
 
 /**
  * FXML Controller class
@@ -46,6 +54,23 @@ public class LoginController extends Controller implements Initializable {
 
     @FXML
     private void actionIngresar(ActionEvent event) {
+        
+        try {
+
+            List<UsuarioDTO> usudTOs = new ArrayList<>();
+            usudTOs = (List<UsuarioDTO>) Usuariocontroller.getInstance().getAll();
+            for (int i = 0; i < usudTOs.size(); i++) {
+                System.out.println(usudTOs.get(i).getCedula());
+            }
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         FlowController.getInstance().goView("Principal");
     }
     

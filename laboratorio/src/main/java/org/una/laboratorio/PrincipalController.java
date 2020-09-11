@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
-import org.una.laboratorio.util.FlowController;
+import org.una.laboratorio.utils.FlowController;
 
 public class PrincipalController extends Controller implements Initializable{
 
