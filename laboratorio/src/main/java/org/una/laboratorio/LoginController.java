@@ -16,12 +16,14 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.AuthenticationResponse;
 import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.FlowController;
+import org.una.laboratorio.utils.Mensaje;
 
 /**
  * FXML Controller class
@@ -59,11 +61,13 @@ public class LoginController extends Controller implements Initializable {
         
             
         try {
-//            AuthenticationResponse ar = new AuthenticationResponse();
-             Usuariocontroller.getInstance().Login(txtUsuario.getText(), txtCancelar.getText());
-//            if(ar!=null){
-//                 System.out.println( ar.getJwt());
-//            }
+            AuthenticationResponse ar = new AuthenticationResponse();
+            ar = (AuthenticationResponse)Usuariocontroller.getInstance().Login(txtUsuario.getText(), txtCancelar.getText());
+            if(ar!=null){
+               FlowController.getInstance().goView("Principal");
+            }else{
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");
+            }
            
 
 //            List<UsuarioDTO> usudTOs = new ArrayList<>();
@@ -79,7 +83,7 @@ public class LoginController extends Controller implements Initializable {
             
         
 //        
-//        FlowController.getInstance().goView("Principal");
+//        
     }
     
 }
