@@ -19,9 +19,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.AuthenticationResponse;
 import org.una.laboratorio.dto.UsuarioDTO;
+import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
 
@@ -64,17 +66,12 @@ public class LoginController extends Controller implements Initializable {
             AuthenticationResponse ar = new AuthenticationResponse();
             ar = (AuthenticationResponse)Usuariocontroller.getInstance().Login(txtUsuario.getText(), txtCancelar.getText());
             if(ar!=null){
+                AppContext.getInstance().set("token", ar.getJwt());
+                System.out.println(DepartamentoController.getInstance().getAll().get(0).getNombre());
                FlowController.getInstance().goView("Principal");
             }else{
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");
             }
-           
-
-//            List<UsuarioDTO> usudTOs = new ArrayList<>();
-//            usudTOs = (List<UsuarioDTO>) Usuariocontroller.getInstance().getAll();
-//            for (int i = 0; i < usudTOs.size(); i++) {
-//                System.out.println(usudTOs.get(i).getCedula());
-//            }
         } catch (ExecutionException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
