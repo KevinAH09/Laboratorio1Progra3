@@ -11,19 +11,42 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
+import org.una.laboratorio.dto.UsuarioDTO;
 
 /**
  *
  * @author colo7
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+
 public class AuthenticationResponse implements Serializable{
 
     private String jwt;
     private UsuarioDTO usuario;
     private List<PermisoOtorgadoDTO> permisos;
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<PermisoOtorgadoDTO> getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(List<PermisoOtorgadoDTO> permisos) {
+        this.permisos = permisos;
+    }
 
 }

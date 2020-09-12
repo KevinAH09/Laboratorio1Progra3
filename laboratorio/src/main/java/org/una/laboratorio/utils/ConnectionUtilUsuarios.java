@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.una.laboratorio.dto.AuthenticationRequest;
+import org.una.laboratorio.dto.AuthenticationResponse;
 import org.una.laboratorio.dto.UsuarioDTO;
 
 /**
@@ -27,9 +28,9 @@ import org.una.laboratorio.dto.UsuarioDTO;
  * @author colo7
  */
 
-public class ConnectionUtil {
+public class ConnectionUtilUsuarios {
 
-    private ConnectionUtil() {
+    private ConnectionUtilUsuarios() {
     }
 
     public static <T> List<UsuarioDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
@@ -82,5 +83,35 @@ public class ConnectionUtil {
                 response.append(responseLine.trim());
             }
         }
+    }
+    
+  public static <T> AuthenticationResponse ObjectLogin(String urlstring, Object object) throws MalformedURLException, IOException {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+         StringBuilder response = new StringBuilder();
+          Type type = new TypeToken<AuthenticationResponse>() {
+        }.getType();
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setRequestProperty("Accept", "application/json");
+        con.setDoOutput(true);
+
+        String data = gson.toJson(object);
+
+        try ( OutputStream os = con.getOutputStream()) {
+            byte[] input = data.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+           
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+       
+        }
+       return gson.fromJson(response.toString(), type);
     }
 }

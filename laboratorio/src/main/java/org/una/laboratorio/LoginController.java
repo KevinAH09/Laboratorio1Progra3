@@ -58,7 +58,7 @@ public class LoginController extends Controller implements Initializable {
         
             
         try {
-            Usuariocontroller.getInstance().add();
+            System.out.println( Usuariocontroller.getInstance().Login("admin", "Una2020").getJwt());
 
 //            List<UsuarioDTO> usudTOs = new ArrayList<>();
 //            usudTOs = (List<UsuarioDTO>) Usuariocontroller.getInstance().getAll();

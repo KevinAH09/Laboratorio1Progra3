@@ -14,6 +14,7 @@ org\una\laboratorio\utils\FlowController.class
 org\una\laboratorio\DisenoTramitesController.class
 org\una\laboratorio\dto\TransaccionDTO.class
 org\una\laboratorio\utils\ConnectionUtil.class
+org\una\laboratorio\utils\ConnectionUtil$2.class
 org\una\laboratorio\dto\AuthenticationResponse.class
 org\una\laboratorio\controller\Usuariocontroller.class
 org\una\laboratorio\MantenimientoController.class
