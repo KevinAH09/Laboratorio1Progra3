@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 import org.una.laboratorio.dto.AuthenticationRequest;
 import org.una.laboratorio.dto.AuthenticationResponse;
 import org.una.laboratorio.dto.UsuarioDTO;
-import org.una.laboratorio.utils.ConnectionUtilUsuarios;
+import org.una.laboratorio.service.UsuarioService;
 
 /**
  *
@@ -27,16 +27,16 @@ public class Usuariocontroller {
     }
 
     public List<UsuarioDTO> getAll() throws InterruptedException, ExecutionException, IOException {
-        return ConnectionUtilUsuarios.ListFromConnection(urlstring, UsuarioDTO.class);
+        return UsuarioService.ListFromConnection(urlstring, UsuarioDTO.class);
     }
 
     public void add(UsuarioDTO object) throws InterruptedException, ExecutionException, IOException {
-        ConnectionUtilUsuarios.ObjectToConnection(urlstring, object);
+        UsuarioService.ObjectToConnection(urlstring, object);
     }
 
     public Object Login(String cedula, String password) throws InterruptedException, ExecutionException, IOException {
         AuthenticationRequest authenticationRequest = new AuthenticationRequest(cedula, password);
-        Object o = ConnectionUtilUsuarios.ObjectLogin(urlstring, authenticationRequest);
+        Object o = UsuarioService.ObjectLogin(urlstring, authenticationRequest);
         return o;
 
     }
