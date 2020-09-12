@@ -53,23 +53,25 @@ public class LoginController extends Controller implements Initializable {
     }
 
     @FXML
-    private void actionIngresar(ActionEvent event) {
+    private void actionIngresar(ActionEvent event) throws InterruptedException {
         
-        try {
-
-            List<UsuarioDTO> usudTOs = new ArrayList<>();
-            usudTOs = (List<UsuarioDTO>) Usuariocontroller.getInstance().getAll();
-            for (int i = 0; i < usudTOs.size(); i++) {
-                System.out.println(usudTOs.get(i).getCedula());
-            }
+        
             
-        } catch (InterruptedException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            Usuariocontroller.getInstance().add();
+
+//            List<UsuarioDTO> usudTOs = new ArrayList<>();
+//            usudTOs = (List<UsuarioDTO>) Usuariocontroller.getInstance().getAll();
+//            for (int i = 0; i < usudTOs.size(); i++) {
+//                System.out.println(usudTOs.get(i).getCedula());
+//            }
         } catch (ExecutionException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+        
         
         FlowController.getInstance().goView("Principal");
     }

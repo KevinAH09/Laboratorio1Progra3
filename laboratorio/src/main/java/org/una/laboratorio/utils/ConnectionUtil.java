@@ -15,15 +15,18 @@ import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ResponseCache;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import org.una.laboratorio.dto.AuthenticationRequest;
 import org.una.laboratorio.dto.UsuarioDTO;
 
 /**
  *
  * @author colo7
  */
+
 public class ConnectionUtil {
 
     private ConnectionUtil() {
@@ -48,7 +51,13 @@ public class ConnectionUtil {
 
         }
     }
-
+//    public Respuesta Login(String cedula , String password){
+//        try {
+//            AuthenticationRequest authenticationRequest = new AuthenticationRequest(cedula, password);
+//            
+//        } catch (Exception e) {
+//        }
+//    }
     public static void ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 

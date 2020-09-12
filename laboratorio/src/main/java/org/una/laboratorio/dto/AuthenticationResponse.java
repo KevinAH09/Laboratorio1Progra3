@@ -5,6 +5,7 @@
  */
 package org.una.laboratorio.dto;
 
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AuthenticationResponse {
+public class AuthenticationResponse implements Serializable{
 
     private String jwt;
     private UsuarioDTO usuario;

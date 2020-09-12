@@ -23,4 +23,9 @@ public class AuthenticationRequest {
     private String cedula;
     private String password;
 
+    public AuthenticationRequest(String cedula, String password) {
+        this.cedula = cedula;
+        this.password = password;
+    }
+    
 }
