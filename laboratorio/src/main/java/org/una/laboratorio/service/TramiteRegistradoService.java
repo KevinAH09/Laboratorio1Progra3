@@ -17,16 +17,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import org.una.laboratorio.dto.RequisitoPresentadoDTO;
+import org.una.laboratorio.dto.TramiteRegistradoDTO;
 import org.una.laboratorio.utils.AppContext;
 /**
  *
  * @author Bosco
  */
 public class TramiteRegistradoService {
-    public static <T> List<RequisitoPresentadoDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
+    public static <T> List<TramiteRegistradoDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
-        Type listtype = new TypeToken<ArrayList<RequisitoPresentadoDTO>>() {
+        Type listtype = new TypeToken<ArrayList<TramiteRegistradoDTO>>() {
         }.getType();
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
