@@ -27,7 +27,6 @@ import org.una.laboratorio.dto.UsuarioDTO;
  *
  * @author colo7
  */
-
 public class ConnectionUtilUsuarios {
 
     private ConnectionUtilUsuarios() {
@@ -52,13 +51,7 @@ public class ConnectionUtilUsuarios {
 
         }
     }
-//    public Respuesta Login(String cedula , String password){
-//        try {
-//            AuthenticationRequest authenticationRequest = new AuthenticationRequest(cedula, password);
-//            
-//        } catch (Exception e) {
-//        }
-//    }
+
     public static void ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
@@ -84,11 +77,11 @@ public class ConnectionUtilUsuarios {
             }
         }
     }
-    
-  public static <T> AuthenticationResponse ObjectLogin(String urlstring, Object object) throws MalformedURLException, IOException {
+
+    public static <T> Object ObjectLogin(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-         StringBuilder response = new StringBuilder();
-          Type type = new TypeToken<AuthenticationResponse>() {
+        StringBuilder response = new StringBuilder();
+        Type type = new TypeToken<AuthenticationResponse>() {
         }.getType();
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -103,15 +96,17 @@ public class ConnectionUtilUsuarios {
             byte[] input = data.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
+        System.out.println("org.una.laboratorio.utils.ConnectionUtilUsuarios.ObjectLogin()");
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-           
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), type);
             }
-       
         }
-       return gson.fromJson(response.toString(), type);
+        return null;
     }
 }

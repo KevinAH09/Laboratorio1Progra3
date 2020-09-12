@@ -33,9 +33,12 @@ public class Usuariocontroller {
     public void add(UsuarioDTO object) throws InterruptedException, ExecutionException, IOException {
         ConnectionUtilUsuarios.ObjectToConnection(urlstring, object);
     }
-    public AuthenticationResponse Login(String cedula,String password) throws InterruptedException, ExecutionException, IOException {
+    public void Login(String cedula,String password) throws InterruptedException, ExecutionException, IOException {
         AuthenticationRequest authenticationRequest = new AuthenticationRequest(cedula, password);
-        return ConnectionUtilUsuarios.ObjectLogin(urlstring, authenticationRequest);
+        if(ConnectionUtilUsuarios.ObjectLogin(urlstring, authenticationRequest)!=null){
+            System.out.println("org.una.laboratorio.controller.Usuariocontroller.Login()" + "sadddddddddddddddddddddddddddddd");
+        }
+        
     }
     public static Usuariocontroller getInstance() {
         return UsuariocontrollerHolder.INSTANCE;

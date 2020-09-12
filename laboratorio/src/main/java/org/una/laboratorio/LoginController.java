@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.una.laboratorio.controller.Usuariocontroller;
+import org.una.laboratorio.dto.AuthenticationResponse;
 import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.FlowController;
 
@@ -58,7 +59,12 @@ public class LoginController extends Controller implements Initializable {
         
             
         try {
-            System.out.println( Usuariocontroller.getInstance().Login("admin", "Una2020").getJwt());
+//            AuthenticationResponse ar = new AuthenticationResponse();
+             Usuariocontroller.getInstance().Login(txtUsuario.getText(), txtCancelar.getText());
+//            if(ar!=null){
+//                 System.out.println( ar.getJwt());
+//            }
+           
 
 //            List<UsuarioDTO> usudTOs = new ArrayList<>();
 //            usudTOs = (List<UsuarioDTO>) Usuariocontroller.getInstance().getAll();
@@ -72,8 +78,8 @@ public class LoginController extends Controller implements Initializable {
         }
             
         
-        
-        FlowController.getInstance().goView("Principal");
+//        
+//        FlowController.getInstance().goView("Principal");
     }
     
 }
