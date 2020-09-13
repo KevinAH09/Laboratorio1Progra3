@@ -14,14 +14,53 @@ import lombok.ToString;
  *
  * @author colo7
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor 
-@ToString
+
 public class TramiteEstadoDTO {
     private Long id;
     private String nombre;
     private String descripcion;
     private String estadosSucesores;
+
+    public TramiteEstadoDTO(Long id, String nombre, String descripcion, String estadosSucesores) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estadosSucesores = estadosSucesores;
+    }
+
+    public TramiteEstadoDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEstadosSucesores() {
+        return estadosSucesores;
+    }
+
+    public void setEstadosSucesores(String estadosSucesores) {
+        this.estadosSucesores = estadosSucesores;
+    }
     
 }

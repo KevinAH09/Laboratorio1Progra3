@@ -15,20 +15,75 @@ import lombok.ToString;
  *
  * @author Bosco
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+
 public class TramiteTipoDTO {
     
-
-
     private Long id;
     private String descripcion;
     private boolean estado;
     private DepartamentoDTO departamento;
     private Date fechaRegistro;
     private Date fechaModificacion;
+
+    public TramiteTipoDTO(Long id, String descripcion, boolean estado, DepartamentoDTO departamento, Date fechaRegistro, Date fechaModificacion) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.departamento = departamento;
+        this.fechaRegistro = fechaRegistro;
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public TramiteTipoDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public DepartamentoDTO getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(DepartamentoDTO departamento) {
+        this.departamento = departamento;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
     
 
 

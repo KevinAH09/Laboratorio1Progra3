@@ -16,10 +16,7 @@ import lombok.ToString;
  *
  * @author cfugu
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+
 public class PermisoOtorgadoDTO {
 
     private Long id;
@@ -27,4 +24,56 @@ public class PermisoOtorgadoDTO {
     private Date fechaRegistro;
     private PermisoDTO permisoId;
     private UsuarioDTO usuarios;
+
+    public PermisoOtorgadoDTO(Long id, boolean estado, Date fechaRegistro, PermisoDTO permisoId, UsuarioDTO usuarios) {
+        this.id = id;
+        this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
+        this.permisoId = permisoId;
+        this.usuarios = usuarios;
+    }
+
+    public PermisoOtorgadoDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public PermisoDTO getPermisoId() {
+        return permisoId;
+    }
+
+    public void setPermisoId(PermisoDTO permisoId) {
+        this.permisoId = permisoId;
+    }
+
+    public UsuarioDTO getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(UsuarioDTO usuarios) {
+        this.usuarios = usuarios;
+    }
+    
 }
