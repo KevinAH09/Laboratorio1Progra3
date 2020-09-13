@@ -67,6 +67,26 @@ public class UsuarioService {
 
         }
     }
+    public static <T> UsuarioDTO FromConnectionCedulaPassword(String urlstring,String cedula,String passs, Class<T> type) throws MalformedURLException, IOException {
+        Gson gson = new Gson();
+        Type listtype = new TypeToken<UsuarioDTO>() {
+        }.getType();
+        urlstring = urlstring+"cedula/1/password_encriptado/$2a$10$LFGWdORhXlF38YSUP2ZyEeuIlSuAXqp0zRrWVBduEcEQbkafLgXr.";
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
+
+        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return gson.fromJson(response.toString(), listtype);
+
+        }
+    }
      public static <T> List<UsuarioDTO> FromConnectionCedula(String urlstring,String cedula, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<UsuarioDTO>>() {

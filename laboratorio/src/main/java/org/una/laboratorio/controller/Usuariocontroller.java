@@ -43,6 +43,9 @@ public class Usuariocontroller {
     public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
         return UsuarioService.FromConnectionID(urlstring, id,UsuarioDTO.class);
     }
+     public Object getCedulaPassword(String cedula,String pass)throws InterruptedException, ExecutionException, IOException {
+        return UsuarioService.FromConnectionCedulaPassword(urlstring, cedula,pass,UsuarioDTO.class);
+    }
     public Object getCedula(String cedula)throws InterruptedException, ExecutionException, IOException {
         return UsuarioService.FromConnectionCedula(urlstring+"cedula/", cedula,UsuarioDTO.class);
     }
