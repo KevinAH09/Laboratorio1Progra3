@@ -4,14 +4,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.laboratorio.DisenoTramitesController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="712.0" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.DisenoTramitesController">
    <children>
       <StackPane layoutX="130.0" layoutY="38.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,22 +26,41 @@
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0">
                      <children>
                         <TextField />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Buscar" />
+                        <Button mnemonicParsing="false" text="Borrar" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
                           <tabs>
-                            <Tab text="Untitled Tab 1">
+                            <Tab text="Variaciones">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="688.0">
+                                            <columns>
+                                              <TableColumn prefWidth="75.0" text="Id" />
+                                              <TableColumn prefWidth="229.0" text="Variación" />
+                                                <TableColumn minWidth="0.0" prefWidth="100.0" text="Estado" />
+                                                <TableColumn prefWidth="173.0" text="Grupo de exclusion" />
+                                                <TableColumn prefWidth="110.0" text="Acciones" />
+                                            </columns>
+                                          </TableView>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Untitled Tab 2">
+                            <Tab text="Requisitos">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="686.0">
+                                            <columns>
+                                              <TableColumn prefWidth="75.0" text="Id" />
+                                              <TableColumn prefWidth="166.0" text="Descripcion" />
+                                            </columns>
+                                          </TableView>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
                           </tabs>
@@ -49,8 +69,8 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Cancelar " />
+                        <Button mnemonicParsing="false" text="Guardar" />
                      </children>
                   </HBox>
                </children>

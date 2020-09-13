@@ -1,23 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.PrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.PrincipalController">
    <children>
       <BorderPane prefHeight="555.0" prefWidth="788.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <TreeView fx:id="treeView" prefHeight="544.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </left>
          <center>
             <VBox fx:id="vboxPrincipal" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#actionMantenimiento" text="Button" />
                </children></VBox>
          </center>
+         <left>
+            <VBox prefHeight="555.0" prefWidth="224.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="82.0" prefWidth="224.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="227.0" text="Nombre(Cerrar Sesión)" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="475.0" prefWidth="224.0">
+                     <children>
+                        <Accordion prefHeight="476.0" prefWidth="224.0">
+                          <panes>
+                            <TitledPane animated="false" prefHeight="326.0" prefWidth="224.0" text="Información">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox layoutY="1.0" prefHeight="411.0" prefWidth="222.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="232.0" text="Departamento" />
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="232.0" text="Tipo de Trámites" />
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="232.0" text="Diseño de Trámite" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Administración">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="411.0" prefWidth="222.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="232.0" text="Permisos" />
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="232.0" text="Usuarios" />
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="232.0" text="Parámetros" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
