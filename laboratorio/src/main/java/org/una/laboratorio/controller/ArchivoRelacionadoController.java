@@ -16,6 +16,7 @@ import org.una.laboratorio.service.ArchivoRelacionadoService;
  * @author Bosco
  */
 public class ArchivoRelacionadoController {
+
     private final String urlstring = "http://localhost:8099/archivos_relacionados/";
 
     public ArchivoRelacionadoController() {
@@ -29,7 +30,14 @@ public class ArchivoRelacionadoController {
         ArchivoRelacionadoService.ObjectToConnection(urlstring, object);
     }
 
-  
+    public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
+        return ArchivoRelacionadoService.FromConnectionID(urlstring, id, ArchivoRelacionadoDTO.class);
+    }
+
+    public void Update(ArchivoRelacionadoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        ArchivoRelacionadoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    }
+
     public static DepartamentoController getInstance() {
         return DepartamentoControllerHolder.INSTANCE;
     }

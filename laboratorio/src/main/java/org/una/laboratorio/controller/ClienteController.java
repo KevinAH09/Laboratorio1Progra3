@@ -29,7 +29,12 @@ public class ClienteController {
         ClienteService.ObjectToConnection(urlstring, object);
     }
 
-  
+  public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
+        return ClienteService.FromConnectionID(urlstring, id,ClienteDTO.class);
+    }
+     public void Update(ClienteDTO dep)throws InterruptedException, ExecutionException, IOException {
+        ClienteService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
+    }
     public static ClienteController getInstance() {
         return ClienteControllerHolder.INSTANCE;
     }

@@ -16,6 +16,7 @@ import org.una.laboratorio.service.NotaService;
  * @author Bosco
  */
 public class NotaController {
+
     private final String urlstring = "http://localhost:8099/notas/";
 
     public NotaController() {
@@ -29,7 +30,14 @@ public class NotaController {
         NotaService.ObjectToConnection(urlstring, object);
     }
 
-  
+    public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
+        return NotaService.FromConnectionID(urlstring, id, NotaDTO.class);
+    }
+
+    public void Update(NotaDTO dep) throws InterruptedException, ExecutionException, IOException {
+        NotaService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    }
+
     public static NotaController getInstance() {
         return NotaControllerHolder.INSTANCE;
     }
