@@ -25,11 +25,13 @@ C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\m
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\Usuariocontroller.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\ClienteController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\NotaController.java
+C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\AddEditWatchTipoTramiteController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\TramiteEstadoDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\service\ClienteService.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\PrincipalController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\utils\FlowController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\AddEditWatchDepartamentoController.java
+C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\AddEditWatchParametroController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\ArchivoRelacionadoDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\TramiteRegistradoDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\RequisitoDTO.java
@@ -56,6 +58,7 @@ C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\m
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\PermisoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\PermisoOtorgadoDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\TramiteTipoDTO.java
+C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\AddEditWatchPermisoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\service\PermisoService.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\utils\Respuesta.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\VariacionDTO.java
