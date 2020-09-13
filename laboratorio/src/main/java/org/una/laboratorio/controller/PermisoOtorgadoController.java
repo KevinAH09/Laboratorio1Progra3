@@ -33,6 +33,9 @@ public class PermisoOtorgadoController {
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
         return PermisoOtorgadoService.FromConnectionID(urlstring, id, PermisoOtorgadoDTO.class);
     }
+    public Object getUsuario(String usuarioId) throws InterruptedException, ExecutionException, IOException {
+        return PermisoOtorgadoService.FromConnectionUsuario(urlstring+"usuario/", usuarioId, PermisoOtorgadoDTO.class);
+    }
 
     public void Update(PermisoOtorgadoDTO dep) throws InterruptedException, ExecutionException, IOException {
         PermisoOtorgadoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
