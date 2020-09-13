@@ -57,6 +57,7 @@ public class DepartementoService {
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; utf-8");
         con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
         con.setDoOutput(true);
 
         String data = gson.toJson(object);

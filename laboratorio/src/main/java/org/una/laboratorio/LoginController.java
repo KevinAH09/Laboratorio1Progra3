@@ -86,8 +86,10 @@ public class LoginController extends Controller implements Initializable {
                 AuthenticationResponse ar = new AuthenticationResponse();
                 ar = (AuthenticationResponse) Usuariocontroller.getInstance().Login(txtUsuario.getText(), pass);
                 if (ar != null) {
+                    AppContext.getInstance().set("usuarioLog", ar.getUsuario());
+                    AppContext.getInstance().set("permisosOTG", ar.getPermisos());
                     AppContext.getInstance().set("token", ar.getJwt());
-                    System.out.println(DepartamentoController.getInstance().getAll().get(0).getNombre());
+                    System.out.println(((UsuarioDTO)Usuariocontroller.getInstance().getId("1")).getNombreCompleto());
                     FlowController.getInstance().goView("Principal");
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");

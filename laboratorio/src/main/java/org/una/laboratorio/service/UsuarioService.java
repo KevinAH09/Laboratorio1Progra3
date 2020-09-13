@@ -47,7 +47,46 @@ public class UsuarioService {
 
         }
     }
+    public static <T> UsuarioDTO FromConnectionID(String urlstring,String id, Class<T> type) throws MalformedURLException, IOException {
+        Gson gson = new Gson();
+        Type listtype = new TypeToken<UsuarioDTO>() {
+        }.getType();
+        urlstring = urlstring+id;
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
 
+        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return gson.fromJson(response.toString(), listtype);
+
+        }
+    }
+     public static <T> List<UsuarioDTO> FromConnectionCedula(String urlstring,String cedula, Class<T> type) throws MalformedURLException, IOException {
+        Gson gson = new Gson();
+        Type listtype = new TypeToken<ArrayList<UsuarioDTO>>() {
+        }.getType();
+        urlstring = urlstring+cedula;
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
+
+        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return gson.fromJson(response.toString(), listtype);
+
+        }
+    }
     public static void ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 

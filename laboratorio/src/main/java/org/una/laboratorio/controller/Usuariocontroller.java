@@ -21,7 +21,7 @@ import org.una.laboratorio.service.UsuarioService;
  */
 public class Usuariocontroller {
 
-    private final String urlstring = "http://localhost:8099/usuarios/login";
+    private final String urlstring = "http://localhost:8099/usuarios/";
 
     public Usuariocontroller() {
     }
@@ -36,11 +36,17 @@ public class Usuariocontroller {
 
     public Object Login(String cedula, String password) throws InterruptedException, ExecutionException, IOException {
         AuthenticationRequest authenticationRequest = new AuthenticationRequest(cedula, password);
-        Object o = UsuarioService.ObjectLogin(urlstring, authenticationRequest);
+        
+        Object o = UsuarioService.ObjectLogin(urlstring+"login", authenticationRequest);
         return o;
 
     }
-
+    public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
+        return UsuarioService.FromConnectionID(urlstring, id,UsuarioDTO.class);
+    }
+    public Object getCedula(String cedula)throws InterruptedException, ExecutionException, IOException {
+        return UsuarioService.FromConnectionCedula(urlstring+"cedula/", cedula,UsuarioDTO.class);
+    }
     public static Usuariocontroller getInstance() {
         return UsuariocontrollerHolder.INSTANCE;
     }

@@ -16,7 +16,6 @@ org\una\laboratorio\service\TransaccionService.class
 org\una\laboratorio\AddEditWatchDepartamentoController.class
 org\una\laboratorio\controller\DepartamentoController$DepartamentoControllerHolder.class
 org\una\laboratorio\dto\DepartamentoDTO.class
-org\una\laboratorio\utils\ConnectionUtilUsuarios$2.class
 org\una\laboratorio\controller\ArchivoRelacionadoController$DepartamentoControllerHolder.class
 org\una\laboratorio\controller\DepartamentoController.class
 org\una\laboratorio\dto\AuthenticationRequest.class
@@ -39,7 +38,6 @@ module-info.class
 org\una\laboratorio\service\TramiteRegistradoService.class
 org\una\laboratorio\dto\PermisoOtorgadoDTO.class
 org\una\laboratorio\controller\ClienteController.class
-org\una\laboratorio\utils\ConnectionUtilUsuarios.class
 org\una\laboratorio\service\ArchivoRelacionadoService$1.class
 org\una\laboratorio\controller\Usuariocontroller$UsuariocontrollerHolder.class
 org\una\laboratorio\dto\UsuarioDTO.class
@@ -79,15 +77,16 @@ org\una\laboratorio\service\ArchivoRelacionadoService.class
 org\una\laboratorio\controller\RequisitoPresentadoController.class
 org\una\laboratorio\dto\TramiteRegistradoDTO.class
 org\una\laboratorio\service\UsuarioService.class
+org\una\laboratorio\service\UsuarioService$3.class
 org\una\laboratorio\controller\NotaController.class
 org\una\laboratorio\utils\Mensaje.class
 org\una\laboratorio\LoginController.class
 org\una\laboratorio\service\NotaService.class
 org\una\laboratorio\controller\TramiteRegistradoController$TramiteRegistradoControllerHolder.class
 org\una\laboratorio\service\ClienteService$1.class
+org\una\laboratorio\utils\ApliParam.class
 org\una\laboratorio\utils\AppContext.class
 org\una\laboratorio\PrincipalController.class
-org\una\laboratorio\utils\ConnectionUtilUsuarios$1.class
 org\una\laboratorio\controller\TramiteEstadoController.class
 org\una\laboratorio\controller\PermisoOtorgadoController$PermisoOtorgadoControllerHolder.class
 org\una\laboratorio\dto\NotaDTO.class

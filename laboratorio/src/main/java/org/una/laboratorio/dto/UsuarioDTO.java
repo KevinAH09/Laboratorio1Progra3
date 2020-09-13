@@ -18,7 +18,6 @@ import org.una.laboratorio.dto.DepartamentoDTO;
  */
 public class UsuarioDTO {
 
-    private static final long serialVersionUID = 1L;
     private Long id;
     private String nombreCompleto;
     private String cedula;
