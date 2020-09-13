@@ -31,6 +31,12 @@ public class DepartamentoController {
     public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
         return DepartementoService.FromConnectionID(urlstring, id,DepartamentoDTO.class);
     }
+    public Object getNombre(String nombre)throws InterruptedException, ExecutionException, IOException {
+        return DepartementoService.FromConnectionNombre(urlstring+"nombre/", nombre,DepartamentoDTO.class);
+    }
+    public Object getEstado(String estado)throws InterruptedException, ExecutionException, IOException {
+        return DepartementoService.FromConnectionEstado(urlstring+"estado/", estado,DepartamentoDTO.class);
+    }
      public void Update(DepartamentoDTO dep)throws InterruptedException, ExecutionException, IOException {
         DepartementoService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
     }
