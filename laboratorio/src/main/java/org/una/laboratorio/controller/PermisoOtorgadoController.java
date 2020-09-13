@@ -17,7 +17,7 @@ import org.una.laboratorio.service.PermisoOtorgadoService;
  */
 public class PermisoOtorgadoController {
 
-    private final String urlstring = "http://localhost:8099/permisos_Otorgados/";
+    private final String urlstring = "http://localhost:8099/Permisos_Otorgados/";
 
     public PermisoOtorgadoController() {
     }
@@ -32,6 +32,9 @@ public class PermisoOtorgadoController {
 
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
         return PermisoOtorgadoService.FromConnectionID(urlstring, id, PermisoOtorgadoDTO.class);
+    }
+    public Object getUsuario(String usuarioId) throws InterruptedException, ExecutionException, IOException {
+        return PermisoOtorgadoService.FromConnectionUsuario(urlstring+"usuario/", usuarioId, PermisoOtorgadoDTO.class);
     }
 
     public void Update(PermisoOtorgadoDTO dep) throws InterruptedException, ExecutionException, IOException {
