@@ -17,7 +17,7 @@ import org.una.laboratorio.service.PermisoOtorgadoService;
  */
 public class PermisoOtorgadoController {
 
-    private final String urlstring = "http://localhost:8099/permisos_Otorgados/";
+    private final String urlstring = "http://localhost:8099/Permisos_Otorgados/";
 
     public PermisoOtorgadoController() {
     }

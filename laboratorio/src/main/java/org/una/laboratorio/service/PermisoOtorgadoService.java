@@ -119,9 +119,9 @@ public class PermisoOtorgadoService {
             }
         }
     }
-     public static <T> PermisoOtorgadoDTO FromConnectionUsuario(String urlstring,String usuarioId, Class<T> type) throws MalformedURLException, IOException {
+     public static <T> List<PermisoOtorgadoDTO> FromConnectionUsuario(String urlstring,String usuarioId, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
-        Type listtype = new TypeToken<PermisoOtorgadoDTO>() {
+        Type listtype = new TypeToken<ArrayList<PermisoOtorgadoDTO>>() {
         }.getType();
         urlstring = urlstring+usuarioId;
         URL url = new URL(urlstring);

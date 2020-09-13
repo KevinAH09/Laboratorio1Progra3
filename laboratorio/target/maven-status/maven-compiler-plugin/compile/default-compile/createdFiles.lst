@@ -48,6 +48,7 @@ org\una\laboratorio\service\TramiteRegistradoService.class
 org\una\laboratorio\service\ArchivoRelacionadoService$2.class
 org\una\laboratorio\dto\PermisoOtorgadoDTO.class
 org\una\laboratorio\controller\ClienteController.class
+.netbeans_automatic_build
 org\una\laboratorio\service\ParametroGeneralService$2.class
 org\una\laboratorio\service\ArchivoRelacionadoService$1.class
 org\una\laboratorio\controller\Usuariocontroller$UsuariocontrollerHolder.class
