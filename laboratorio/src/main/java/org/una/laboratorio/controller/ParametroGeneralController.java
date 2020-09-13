@@ -29,7 +29,12 @@ public class ParametroGeneralController {
         ParametroGeneralService.ObjectToConnection(urlstring, object);
     }
 
-  
+  public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
+        return ParametroGeneralService.FromConnectionID(urlstring, id,ParametroGeneralDTO.class);
+    }
+     public void Update(ParametroGeneralDTO dep)throws InterruptedException, ExecutionException, IOException {
+        ParametroGeneralService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
+    }
     public static ParametroGeneralController getInstance() {
         return ParametroGeneralControllerHolder.INSTANCE;
     }

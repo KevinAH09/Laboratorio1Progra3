@@ -27,7 +27,12 @@ public class RequisitoController {
         RequisitoService.ObjectToConnection(urlstring, object);
     }
 
-  
+  public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
+        return RequisitoService.FromConnectionID(urlstring, id,RequisitoDTO.class);
+    }
+     public void Update(RequisitoDTO dep)throws InterruptedException, ExecutionException, IOException {
+        RequisitoService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
+    }
     public static RequisitoController getInstance() {
         return RequesitoControllerHolder.INSTANCE;
     }

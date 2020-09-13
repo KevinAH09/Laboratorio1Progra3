@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import org.una.laboratorio.dto.PermisoDTO;
 import org.una.laboratorio.service.PermisoService;
+
 /**
  *
  * @author Bosco
  */
 public class PermisoController {
+
     private final String urlstring = "http://localhost:8099/permisos/";
 
     public PermisoController() {
@@ -28,7 +30,14 @@ public class PermisoController {
         PermisoService.ObjectToConnection(urlstring, object);
     }
 
-  
+    public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
+        return PermisoService.FromConnectionID(urlstring, id, PermisoDTO.class);
+    }
+
+    public void Update(PermisoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        PermisoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    }
+
     public static PermisoController getInstance() {
         return PermisoControllerHolder.INSTANCE;
     }

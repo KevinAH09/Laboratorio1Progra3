@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 package org.una.laboratorio.controller;
+
 import java.util.List;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import org.una.laboratorio.dto.RequisitoPresentadoDTO;
 import org.una.laboratorio.service.RequisitoPresentadoService;
+
 /**
  *
  * @author Bosco
  */
 public class RequisitoPresentadoController {
+
     private final String urlstring = "http://localhost:8099/requisitos_presentados/";
 
     public RequisitoPresentadoController() {
@@ -27,7 +30,14 @@ public class RequisitoPresentadoController {
         RequisitoPresentadoService.ObjectToConnection(urlstring, object);
     }
 
-  
+    public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
+        return RequisitoPresentadoService.FromConnectionID(urlstring, id, RequisitoPresentadoDTO.class);
+    }
+
+    public void Update(RequisitoPresentadoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        RequisitoPresentadoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    }
+
     public static RequisitoPresentadoController getInstance() {
         return RequisitoPresentadoControllerHolder.INSTANCE;
     }
