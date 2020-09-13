@@ -18,7 +18,6 @@ public class UsuarioDTO {
     private String nombreCompleto;
     private String cedula;
     private boolean estado;
-    private String passwordEncriptado;
     private Date fechaRegistro;
     private Date fechaModificacion;
     private DepartamentoDTO departamento;
@@ -90,14 +89,7 @@ public class UsuarioDTO {
         this.esJefe = esJefe;
     }
 
-    public String getPasswordEncriptado() {
-        return passwordEncriptado;
-    }
-
-    public void setPasswordEncriptado(String passwordEncriptado) {
-        this.passwordEncriptado = passwordEncriptado;
-    }
-    
+   
     
 
 }

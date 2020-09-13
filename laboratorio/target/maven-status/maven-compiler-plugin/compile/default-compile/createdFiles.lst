@@ -72,6 +72,7 @@ org\una\laboratorio\dto\TramiteEstadoDTO.class
 org\una\laboratorio\service\DepartementoService$2.class
 org\una\laboratorio\controller\ClienteController$ClienteControllerHolder.class
 org\una\laboratorio\controller\VariacionController$VariacionControllerHolder.class
+org\una\laboratorio\service\UsuarioService$5.class
 org\una\laboratorio\controller\ParametroGeneralController.class
 org\una\laboratorio\service\PermisoService.class
 org\una\laboratorio\service\UsuarioService$2.class

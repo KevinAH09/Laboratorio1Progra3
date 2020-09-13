@@ -82,14 +82,14 @@ public class LoginController extends Controller implements Initializable {
             } else {
                 pass = txtPassOculto.getText();
             }
-            if (!txtPassMostrado.getText().isEmpty() && (!txtPassOculto.getText().isEmpty() || !txtPassMostrado.getText().isEmpty())) {
+            if (!txtPassMostrado.getText().isEmpty() && ( (!txtPassMostrado.getText().isEmpty()))||(!txtPassOculto.getText().isEmpty())) {
                 AuthenticationResponse ar = new AuthenticationResponse();
                 ar = (AuthenticationResponse) Usuariocontroller.getInstance().Login(txtUsuario.getText(), pass);
                 if (ar != null) {
                     AppContext.getInstance().set("usuarioLog", ar.getUsuario());
-                    AppContext.getInstance().set("permisosOTG", ar.getPermisos());
+//                    AppContext.getInstance().set("permisosOTG", ar.getPermisos());
                     AppContext.getInstance().set("token", ar.getJwt());
-                    System.out.println(((UsuarioDTO)Usuariocontroller.getInstance().getId("1")).getPasswordEncriptado());
+                    System.out.println(((UsuarioDTO)AppContext.getInstance().get("usuarioLog")).getNombreCompleto());
                     FlowController.getInstance().goView("Principal");
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");
