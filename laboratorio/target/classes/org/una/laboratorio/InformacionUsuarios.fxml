@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -39,7 +40,7 @@
                                              <children>
                                                 <HBox alignment="CENTER" prefHeight="68.0" prefWidth="706.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="329.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="329.0" promptText="Buscar" />
                                                       <Button mnemonicParsing="false" text="Buscar" />
                                                       <Button mnemonicParsing="false" text="Borrar" />
                                                    </children>
@@ -133,23 +134,49 @@
                               </Tab>
                               <Tab text="Autorizaciones">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="327.0" prefWidth="699.0">
                                        <children>
-                                          <TableView layoutX="13.0" layoutY="90.0" prefHeight="200.0" prefWidth="686.0">
-                                             <columns>
-                                                <TableColumn prefWidth="75.0" text="Id" />
-                                                <TableColumn prefWidth="350.0" text="Descripcion" />
-                                                <TableColumn minWidth="6.0" prefWidth="128.0" text="Estado" />
-                                                <TableColumn prefWidth="132.0" text="Acciones" />
-                                             </columns>
-                                          </TableView>
-                                          <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0">
+                                          <VBox prefHeight="325.0" prefWidth="712.0">
                                              <children>
-                                                <TextField prefHeight="25.0" prefWidth="318.0" promptText="Buscar por nombre o numero de cedula" />
-                                                <Button mnemonicParsing="false" text="Buscar" />
-                                                <Button mnemonicParsing="false" text="Borrar" />
+                                                <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="318.0" promptText="Buscar por nombre o numero de cedula" />
+                                                      <Button mnemonicParsing="false" text="Buscar" />
+                                                      <Button mnemonicParsing="false" text="Borrar" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="57.0" prefWidth="712.0" spacing="80.0">
+                                                   <children>
+                                                      <Label text="Usuario:" />
+                                                      <Label text="Label" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets left="100.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox prefHeight="57.0" prefWidth="712.0" spacing="80.0">
+                                                   <children>
+                                                      <Label text="Cédula:" />
+                                                      <Label text="Label" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets left="100.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <TableView prefHeight="149.0" prefWidth="100.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="75.0">
+                                                         <graphic>
+                                                            <CheckBox mnemonicParsing="false" />
+                                                         </graphic>
+                                                      </TableColumn>
+                                                      <TableColumn prefWidth="109.0" text="Id" />
+                                                      <TableColumn minWidth="0.0" prefWidth="201.0" text="codigo" />
+                                                      <TableColumn minWidth="6.0" prefWidth="374.0" text="Nombre" />
+                                                   </columns>
+                                                </TableView>
                                              </children>
-                                          </HBox>
+                                          </VBox>
                                        </children>
                                     </AnchorPane>
                                  </content>

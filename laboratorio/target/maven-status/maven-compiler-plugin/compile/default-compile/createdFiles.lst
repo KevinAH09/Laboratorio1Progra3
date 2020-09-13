@@ -33,6 +33,7 @@ org\una\laboratorio\AddEditWatchUsuarioController.class
 org\una\laboratorio\service\RequisitoService.class
 org\una\laboratorio\controller\PermisoController.class
 org\una\laboratorio\controller\ArchivoRelacionadoController.class
+org\una\laboratorio\InformacionUsuariosController.class
 org\una\laboratorio\dto\ArchivoRelacionadoDTO.class
 org\una\laboratorio\BaseController.class
 org\una\laboratorio\controller\ParametroGeneralController$ParametroGeneralControllerHolder.class
