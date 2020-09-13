@@ -20,6 +20,7 @@ C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\m
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\App.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\ParametroGeneralDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\utils\Request.java
+C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\ParametroGeneralController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\module-info.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\Usuariocontroller.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\ClienteController.java
@@ -28,7 +29,7 @@ C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\m
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\service\ClienteService.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\PrincipalController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\utils\FlowController.java
-C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\ParametrosGeneralController.java
+C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\AddEditWatchDepartamentoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\ArchivoRelacionadoDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\TramiteRegistradoDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\RequisitoDTO.java
@@ -43,11 +44,11 @@ C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\m
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\NotaDTO.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\service\UsuarioService.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\AuthenticationResponse.java
+C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\RequisitoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\PermisoOtorgadoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\service\TramiteRegistradoService.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\dto\AuthenticationRequest.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\utils\AppContext.java
-C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\RequesitoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\LoginController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\controller\RequisitoPresentadoController.java
 C:\Users\Bosco\Desktop\Laboratorio1Progra3\Laboratorio1Progra3\laboratorio\src\main\java\org\una\laboratorio\service\DepartementoService.java
