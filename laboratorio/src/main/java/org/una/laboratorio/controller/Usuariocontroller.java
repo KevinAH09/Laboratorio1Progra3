@@ -36,7 +36,6 @@ public class Usuariocontroller {
 
     public Object Login(String cedula, String password) throws InterruptedException, ExecutionException, IOException {
         AuthenticationRequest authenticationRequest = new AuthenticationRequest(cedula, password);
-        
         Object o = UsuarioService.ObjectLogin(urlstring+"login", authenticationRequest);
         return o;
 
@@ -46,6 +45,9 @@ public class Usuariocontroller {
     }
     public Object getCedula(String cedula)throws InterruptedException, ExecutionException, IOException {
         return UsuarioService.FromConnectionCedula(urlstring+"cedula/", cedula,UsuarioDTO.class);
+    }
+     public void Update(UsuarioDTO usu)throws InterruptedException, ExecutionException, IOException {
+        UsuarioService.UpdateObjectToConnection(urlstring, usu.getId().toString(),usu);
     }
     public static Usuariocontroller getInstance() {
         return UsuariocontrollerHolder.INSTANCE;

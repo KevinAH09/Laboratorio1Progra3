@@ -28,7 +28,12 @@ public class DepartamentoController {
     public void add(DepartamentoDTO object) throws InterruptedException, ExecutionException, IOException {
         DepartementoService.ObjectToConnection(urlstring, object);
     }
-
+    public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
+        return DepartementoService.FromConnectionID(urlstring, id,DepartamentoDTO.class);
+    }
+     public void Update(DepartamentoDTO dep)throws InterruptedException, ExecutionException, IOException {
+        DepartementoService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
+    }
   
     public static DepartamentoController getInstance() {
         return DepartamentoControllerHolder.INSTANCE;

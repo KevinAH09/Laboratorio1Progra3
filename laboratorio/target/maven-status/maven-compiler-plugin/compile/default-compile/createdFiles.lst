@@ -59,6 +59,7 @@ org\una\laboratorio\controller\RequisitoPresentadoController$RequisitoPresentado
 org\una\laboratorio\dto\TramiteTipoDTO.class
 org\una\laboratorio\service\TramiteTipoService$1.class
 org\una\laboratorio\dto\TramiteEstadoDTO.class
+org\una\laboratorio\service\DepartementoService$2.class
 org\una\laboratorio\controller\ClienteController$ClienteControllerHolder.class
 org\una\laboratorio\controller\VariacionController$VariacionControllerHolder.class
 org\una\laboratorio\controller\ParametroGeneralController.class
