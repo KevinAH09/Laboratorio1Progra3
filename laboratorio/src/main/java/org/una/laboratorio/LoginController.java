@@ -18,7 +18,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.AuthenticationResponse;
@@ -37,12 +41,19 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private TextField txtUsuario;
     @FXML
-    private TextField txtCancelar;
-    @FXML
     private Button btnCancelar;
     @FXML
     private Button btnIngresar;
+    @FXML
+    private ImageView imgViewPassword;
+    @FXML
+    private PasswordField txtPassOculto;
+    @FXML
+    private TextField txtPassMostrado;
 
+    private String pass;
+    @FXML
+    private ImageView imgNotPassword;
 
     /**
      * Initializes the controller class.
@@ -50,7 +61,12 @@ public class LoginController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        txtPassMostrado.setVisible(false);
+        txtPassOculto.setText(txtPassMostrado.getText());
+        txtPassOculto.setVisible(true);
+        imgNotPassword.setVisible(false);
+        imgViewPassword.setVisible(true);
+    }
 
     @Override
     public void initialize() {
@@ -59,28 +75,53 @@ public class LoginController extends Controller implements Initializable {
 
     @FXML
     private void actionIngresar(ActionEvent event) throws InterruptedException {
-        
-        
-            
+
         try {
-            AuthenticationResponse ar = new AuthenticationResponse();
-            ar = (AuthenticationResponse)Usuariocontroller.getInstance().Login(txtUsuario.getText(), txtCancelar.getText());
-            if(ar!=null){
-                AppContext.getInstance().set("token", ar.getJwt());
-                System.out.println(DepartamentoController.getInstance().getAll().get(0).getNombre());
-               FlowController.getInstance().goView("Principal");
-            }else{
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");
+            if (txtPassMostrado.isVisible()) {
+                pass = txtPassMostrado.getText();
+            } else {
+                pass = txtPassOculto.getText();
             }
+            if (!txtPassMostrado.getText().isEmpty() && (!txtPassOculto.getText().isEmpty() || !txtPassMostrado.getText().isEmpty())) {
+                AuthenticationResponse ar = new AuthenticationResponse();
+                ar = (AuthenticationResponse) Usuariocontroller.getInstance().Login(txtUsuario.getText(), pass);
+                if (ar != null) {
+                    AppContext.getInstance().set("token", ar.getJwt());
+                    System.out.println(DepartamentoController.getInstance().getAll().get(0).getNombre());
+                    FlowController.getInstance().goView("Principal");
+                } else {
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");
+                }
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "Por favor complete todos campos");
+            }
+
         } catch (ExecutionException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        
+
 //        
 //        
     }
-    
+
+    @FXML
+    private void actionViewPass(MouseEvent event) {
+        if (txtPassMostrado.isVisible()) {
+            txtPassMostrado.setVisible(false);
+            txtPassOculto.setText(txtPassMostrado.getText());
+            txtPassOculto.setVisible(true);
+            imgNotPassword.setVisible(false);
+            imgViewPassword.setVisible(true);
+
+        } else {
+            txtPassOculto.setVisible(false);
+            txtPassMostrado.setText(txtPassOculto.getText());
+            txtPassMostrado.setVisible(true);
+            imgNotPassword.setVisible(true);
+            imgViewPassword.setVisible(false);
+        }
+    }
+
 }
