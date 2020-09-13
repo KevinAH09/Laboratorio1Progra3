@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 package org.una.laboratorio.controller;
+
 import java.util.List;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.service.TramiteTipoService;
+
 /**
  *
  * @author Bosco
  */
 public class TramiteTipoController {
+
     private final String urlstring = "http://localhost:8099/tramites_Tipos/";
 
     public TramiteTipoController() {
@@ -27,7 +30,14 @@ public class TramiteTipoController {
         TramiteTipoService.ObjectToConnection(urlstring, object);
     }
 
-  
+    public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
+        return TramiteTipoService.FromConnectionID(urlstring, id, TramiteTipoDTO.class);
+    }
+
+    public void Update(TramiteTipoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        TramiteTipoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    }
+
     public static TramiteTipoController getInstance() {
         return TramiteTipoControllerHolder.INSTANCE;
     }

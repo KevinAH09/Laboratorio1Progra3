@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 package org.una.laboratorio.controller;
+
 import java.util.List;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import org.una.laboratorio.dto.TramiteRegistradoDTO;
 import org.una.laboratorio.service.TramiteRegistradoService;
+
 /**
  *
  * @author Bosco
  */
 public class TramiteRegistradoController {
+
     private final String urlstring = "http://localhost:8099/tramites_registrados/";
 
     public TramiteRegistradoController() {
@@ -24,10 +27,17 @@ public class TramiteRegistradoController {
     }
 
     public void add(TramiteRegistradoDTO object) throws InterruptedException, ExecutionException, IOException {
-       TramiteRegistradoService.ObjectToConnection(urlstring, object);
+        TramiteRegistradoService.ObjectToConnection(urlstring, object);
     }
 
-  
+    public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
+        return TramiteRegistradoService.FromConnectionID(urlstring, id, TramiteRegistradoDTO.class);
+    }
+
+    public void Update(TramiteRegistradoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        TramiteRegistradoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    }
+
     public static TramiteRegistradoController getInstance() {
         return TramiteRegistradoControllerHolder.INSTANCE;
     }
