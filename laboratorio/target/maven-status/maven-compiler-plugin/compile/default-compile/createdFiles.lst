@@ -4,6 +4,7 @@ org\una\laboratorio\controller\TramiteEstadoController$TramiteEstadoControllerHo
 org\una\laboratorio\dto\PermisoDTO.class
 org\una\laboratorio\controller\PermisoOtorgadoController.class
 org\una\laboratorio\controller\RequisitoController.class
+org\una\laboratorio\service\UsuarioService$4.class
 org\una\laboratorio\dto\ClienteDTO.class
 org\una\laboratorio\service\UsuarioService$1.class
 org\una\laboratorio\service\ParametroGeneralService.class
@@ -19,6 +20,7 @@ org\una\laboratorio\dto\DepartamentoDTO.class
 org\una\laboratorio\controller\ArchivoRelacionadoController$DepartamentoControllerHolder.class
 org\una\laboratorio\controller\DepartamentoController.class
 org\una\laboratorio\dto\AuthenticationRequest.class
+org\una\laboratorio\AddEditWatchPermisoController.class
 org\una\laboratorio\Controller.class
 org\una\laboratorio\SecondaryController.class
 org\una\laboratorio\dto\RequisitoPresentadoDTO.class
@@ -27,6 +29,7 @@ org\una\laboratorio\DisenoTramitesController.class
 org\una\laboratorio\dto\TransaccionDTO.class
 org\una\laboratorio\service\TramiteEstadoService$1.class
 org\una\laboratorio\service\PermisoOtorgadoService.class
+org\una\laboratorio\AddEditWatchUsuarioController.class
 org\una\laboratorio\service\RequisitoService.class
 org\una\laboratorio\controller\PermisoController.class
 org\una\laboratorio\controller\ArchivoRelacionadoController.class
@@ -45,6 +48,7 @@ org\una\laboratorio\controller\TramiteTipoController$TramiteTipoControllerHolder
 org\una\laboratorio\service\RequisitoService$1.class
 org\una\laboratorio\service\TransaccionService$1.class
 org\una\laboratorio\controller\VariacionController.class
+org\una\laboratorio\AddEditWatchParametroController.class
 org\una\laboratorio\service\RequisitoPresentadoService$1.class
 org\una\laboratorio\utils\Respuesta.class
 org\una\laboratorio\service\NotaService$1.class
@@ -83,9 +87,12 @@ org\una\laboratorio\utils\Mensaje.class
 org\una\laboratorio\LoginController.class
 org\una\laboratorio\service\NotaService.class
 org\una\laboratorio\controller\TramiteRegistradoController$TramiteRegistradoControllerHolder.class
+org\una\laboratorio\AddEditWatchTipoTramiteController.class
 org\una\laboratorio\service\ClienteService$1.class
+org\una\laboratorio\AddEditWatchVariacionController.class
 org\una\laboratorio\utils\ApliParam.class
 org\una\laboratorio\utils\AppContext.class
+org\una\laboratorio\AddEditWatchRequisitoController.class
 org\una\laboratorio\PrincipalController.class
 org\una\laboratorio\controller\TramiteEstadoController.class
 org\una\laboratorio\controller\PermisoOtorgadoController$PermisoOtorgadoControllerHolder.class
