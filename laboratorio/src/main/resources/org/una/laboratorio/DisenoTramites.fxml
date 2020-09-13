@@ -57,7 +57,9 @@
                                           <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="686.0">
                                             <columns>
                                               <TableColumn prefWidth="75.0" text="Id" />
-                                              <TableColumn prefWidth="166.0" text="Descripcion" />
+                                              <TableColumn prefWidth="350.0" text="Descripcion" />
+                                                <TableColumn minWidth="6.0" prefWidth="128.0" text="Estado" />
+                                                <TableColumn prefWidth="132.0" text="Acciones" />
                                             </columns>
                                           </TableView>
                                        </children></AnchorPane>
