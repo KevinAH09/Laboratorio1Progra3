@@ -93,13 +93,15 @@ public class ParametrosViewController implements Initializable{
         colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getId()));
         TableColumn<ParametroGeneralDTO, String> colNombre = new TableColumn("Descripcion");
         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        TableColumn<ParametroGeneralDTO, String> colValor = new TableColumn("Valor");
+        colValor.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getValor()));
         TableColumn<ParametroGeneralDTO, String> colestado = new TableColumn("Estado");
         colestado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
         TableColumn<ParametroGeneralDTO, String> colFechaRe = new TableColumn("Fecha Registro");
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<ParametroGeneralDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colCedula,colNombre,colestado, colFechaRe, colFechaMo);
+        tableview.getColumns().addAll(colCedula,colNombre,colValor,colestado, colFechaRe, colFechaMo);
 
         try {
             List<ParametroGeneralDTO> tramiteList = ParametroGeneralController.getInstance().getAll();

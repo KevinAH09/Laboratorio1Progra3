@@ -60,8 +60,8 @@ public class AddEditWatchParametroController extends Controller implements Initi
     public void initialize(URL url, ResourceBundle rb) {
         parametroGeneralDTO = new ParametroGeneralDTO();
         comboEstado.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
-        if (AppContext.getInstance().get("DepaObject") != null) {
-            parametroGeneralDTO = (ParametroGeneralDTO) AppContext.getInstance().get("DepaObject");
+        if (AppContext.getInstance().get("ParaObject") != null) {
+            parametroGeneralDTO = (ParametroGeneralDTO) AppContext.getInstance().get("ParaObject");
             txtId.setText(parametroGeneralDTO.getId().toString());
             txtNombre.setText(parametroGeneralDTO.getNombre());
             txtValor.setText(parametroGeneralDTO.getValor());
