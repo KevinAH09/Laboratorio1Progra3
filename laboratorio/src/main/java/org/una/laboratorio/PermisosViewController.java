@@ -119,5 +119,7 @@ public class PermisosViewController extends Controller implements Initializable 
 
     @FXML
     private void save(ActionEvent event) {
+        AppContext.getInstance().set("PerObject",null);
+         FlowController.getInstance().goViewInWindowModal("AddEditWatchPermiso", ((Stage) btnBuscar.getScene().getWindow()), false);
     }
 }
