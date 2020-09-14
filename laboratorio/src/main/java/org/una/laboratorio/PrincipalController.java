@@ -135,7 +135,7 @@ public class PrincipalController extends Controller implements Initializable {
                     try {
                         if (item.getValue().equals("Usuarios")) {
                             AppContext.getInstance().set("objetoTabla", "Usuarios");
-                            cambiarPantalla("Usuarios");
+                            cambiarPantallaUsuario("Informacion");
 
                         } else if (item.getValue().equals("Departamentos")) {
                             AppContext.getInstance().set("objetoTabla", "Departamentos");
@@ -174,7 +174,14 @@ public class PrincipalController extends Controller implements Initializable {
         vboxPrincipal.getChildren()
                 .add(root);
     }
-
+    void cambiarPantallaUsuario(String pantalla) throws IOException
+    {
+        vboxPrincipal.getChildren().clear();
+        Parent root = FXMLLoader.load(App.class
+                .getResource("Informacion.fxml"));
+        vboxPrincipal.getChildren()
+                .add(root);
+    }
     @FXML
     private void actionTamano(MouseEvent event) {
         ancgor.setMaxWidth((double) AppContext.getInstance().get("whit"));

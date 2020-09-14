@@ -14,14 +14,14 @@
             <VBox fx:id="vboxPrincipal" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </center>
          <left>
-            <VBox prefHeight="555.0" prefWidth="224.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="522.0" prefWidth="230.0" BorderPane.alignment="CENTER">
                <children>
-                  <TreeView fx:id="treeAcciones" prefHeight="524.0" prefWidth="224.0" VBox.vgrow="ALWAYS" />
+                  <TreeView fx:id="treeAcciones" prefHeight="538.0" prefWidth="230.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </left>
          <top>
-            <HBox alignment="CENTER" prefHeight="33.0" prefWidth="788.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="788.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="lblNombreUSU" prefHeight="33.0" prefWidth="314.0" />
                   <Label prefHeight="33.0" prefWidth="246.0" />
