@@ -56,32 +56,15 @@ public class PrincipalController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        lblNombreUSU.setText(((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto());
         if (AppContext.getInstance().get("permisosOTG") != null) {
             ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
 
-            TreeItem<String> root = new TreeItem<>(lblNombreUSU.getText());
+            TreeItem<String> root = new TreeItem<>((((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
             treeAcciones.setRoot(root);
             TreeItem<String> itemInformacion = new TreeItem<>("Informacion");
             root.getChildren().add(itemInformacion);
             TreeItem<String> itemAdministracion = new TreeItem<>("Administracion");
             root.getChildren().add(itemAdministracion);
-            
-//USU5
-//USU6
-//USU7
-//DEP1
-//DEP2
-//DEP3
-//DEP4
-//TRA1
-//TRA2
-//TRA3
-//TRA4
-//TRA5
-//TRA6
-//TRD1
-//TRU1
 
             for (int i = 0; i < ListPerOtor.size(); i++) {
                 if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeUsu) {
@@ -123,6 +106,9 @@ public class PrincipalController extends Controller implements Initializable {
 
             }
 
+        }else{
+            TreeItem<String> root = new TreeItem<>((((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto())+" no posee permisos");
+            treeAcciones.setRoot(root);
         }
 
         treeAcciones.setOnMouseClicked(new EventHandler<MouseEvent>() {
