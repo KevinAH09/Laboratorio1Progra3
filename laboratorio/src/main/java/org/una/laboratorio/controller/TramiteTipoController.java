@@ -33,7 +33,12 @@ public class TramiteTipoController {
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
         return TramiteTipoService.FromConnectionID(urlstring, id, TramiteTipoDTO.class);
     }
-
+    public Object getEstado(String estado) throws InterruptedException, ExecutionException, IOException {
+        return TramiteTipoService.FromConnectionEstado(urlstring+"estado/", estado, TramiteTipoDTO.class);
+    }
+    public Object getDepartamento(String departamentoId) throws InterruptedException, ExecutionException, IOException {
+        return TramiteTipoService.FromConnectionDepartamento(urlstring+"departamento_id/", departamentoId, TramiteTipoDTO.class);
+    }
     public void Update(TramiteTipoDTO dep) throws InterruptedException, ExecutionException, IOException {
         TramiteTipoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
     }

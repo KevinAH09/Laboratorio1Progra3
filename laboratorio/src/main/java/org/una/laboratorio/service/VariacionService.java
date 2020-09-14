@@ -20,11 +20,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.una.laboratorio.utils.AppContext;
+
 /**
  *
  * @author Bosco
  */
 public class VariacionService {
+
     public static <T> List<VariacionDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<VariacionDTO>>() {
@@ -35,7 +37,7 @@ public class VariacionService {
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
@@ -59,12 +61,12 @@ public class VariacionService {
 
         String data = gson.toJson(object);
 
-        try ( OutputStream os = con.getOutputStream()) {
+        try (OutputStream os = con.getOutputStream()) {
             byte[] input = data.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
@@ -72,18 +74,19 @@ public class VariacionService {
             }
         }
     }
-    public static <T> VariacionDTO FromConnectionID(String urlstring,String id, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> VariacionDTO FromConnectionID(String urlstring, String id, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<VariacionDTO>() {
         }.getType();
-        urlstring = urlstring+id;
+        urlstring = urlstring + id;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
@@ -93,9 +96,10 @@ public class VariacionService {
 
         }
     }
-    public static void UpdateObjectToConnection(String urlstring,String id, Object object) throws MalformedURLException, IOException {
+
+    public static void UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-        urlstring = urlstring+id;
+        urlstring = urlstring + id;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
@@ -106,17 +110,61 @@ public class VariacionService {
 
         String data = gson.toJson(object);
 
-        try ( OutputStream os = con.getOutputStream()) {
+        try (OutputStream os = con.getOutputStream()) {
             byte[] input = data.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
+        }
+    }
+
+    public static <T> List<VariacionDTO> FromConnectionEstado(String urlstring, String estado, Class<T> type) throws MalformedURLException, IOException {
+        Gson gson = new Gson();
+        Type listtype = new TypeToken<ArrayList<VariacionDTO>>() {
+        }.getType();
+        urlstring = urlstring + estado;
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return gson.fromJson(response.toString(), listtype);
+
+        }
+    }
+
+    public static <T> List<VariacionDTO> FromConnectionTramiteTipo(String urlstring, String tramiteTipoId, Class<T> type) throws MalformedURLException, IOException {
+        Gson gson = new Gson();
+        Type listtype = new TypeToken<ArrayList<VariacionDTO>>() {
+        }.getType();
+        urlstring = urlstring + tramiteTipoId;
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return gson.fromJson(response.toString(), listtype);
+
         }
     }
 }

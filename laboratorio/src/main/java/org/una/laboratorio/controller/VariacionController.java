@@ -46,4 +46,12 @@ public class VariacionController {
 
         private static final VariacionController INSTANCE = new VariacionController();
     }
+
+    public Object getEstado(String estado) throws InterruptedException, ExecutionException, IOException {
+        return VariacionService.FromConnectionEstado(urlstring + "estado/", estado, VariacionDTO.class);
+    }
+
+    public Object getTramiteTipo(String tramiteTipoId) throws InterruptedException, ExecutionException, IOException {
+        return VariacionService.FromConnectionTramiteTipo(urlstring + "tramiteTipo_id/", tramiteTipoId, VariacionDTO.class);
+    }
 }
