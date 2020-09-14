@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.ParametroGeneralController;
 import org.una.laboratorio.dto.ParametroGeneralDTO;
 import org.una.laboratorio.controller.TramiteTipoController;
@@ -76,7 +77,7 @@ public class ParametrosViewController implements Initializable{
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
                     ParametroGeneralDTO para = (ParametroGeneralDTO) tableview.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("ParaObject",para);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", null, false);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", ((Stage) btnBuscar.getScene().getWindow()), false);
                     tableview.selectionModelProperty().get().clearSelection();
                 }
 
@@ -118,6 +119,6 @@ public class ParametrosViewController implements Initializable{
     @FXML
     private void add(ActionEvent event) {
         AppContext.getInstance().set("DepaObject",null);
-        FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", null, Boolean.FALSE);
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", ((Stage) btnBuscar.getScene().getWindow()), Boolean.FALSE);
     }
 }

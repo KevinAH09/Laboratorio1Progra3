@@ -7,7 +7,13 @@ package org.una.laboratorio;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -16,6 +22,19 @@ import javafx.fxml.Initializable;
  */
 public class AddEditWatchPermisoController implements Initializable {
 
+    @FXML
+    private TextField txtId;
+    @FXML
+    private TextField txtCodigo;
+    @FXML
+    private ComboBox<?> comboEstado;
+    @FXML
+    private Label lblFechaCreacion;
+    @FXML
+    private Label lblFechaModificacion;
+    @FXML
+    private TextArea txtDescripcion;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +42,13 @@ public class AddEditWatchPermisoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void actionCancelar(ActionEvent event) {
+    }
+
+    @FXML
+    private void actionguardar(ActionEvent event) {
+    }
     
 }

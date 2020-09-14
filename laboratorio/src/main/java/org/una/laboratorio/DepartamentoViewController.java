@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.dto.DepartamentoDTO;
 import org.una.laboratorio.utils.AppContext;
@@ -103,7 +104,7 @@ public class DepartamentoViewController extends Controller implements Initializa
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
                     DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("DepaObject",depa);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", stage, false);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), false);
                     tableview.selectionModelProperty().get().clearSelection();
                 }
 
@@ -154,6 +155,6 @@ public class DepartamentoViewController extends Controller implements Initializa
     @FXML
     private void save(ActionEvent event) {
         AppContext.getInstance().set("DepaObject",null);
-        FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", stage, Boolean.FALSE);
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), Boolean.FALSE);
     }
 }
