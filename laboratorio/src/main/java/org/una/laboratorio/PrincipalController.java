@@ -41,8 +41,6 @@ public class PrincipalController extends Controller implements Initializable {
     @FXML
     private VBox vboxPrincipal;
     @FXML
-    private Label lblNombreUSU;
-    @FXML
     private Label lblHora;
     @FXML
     private TreeView<String> treeAcciones;
@@ -174,6 +172,13 @@ public class PrincipalController extends Controller implements Initializable {
         ancgor.setMinWidth((double) AppContext.getInstance().get("whit"));
         ancgor.setMaxHeight((double) AppContext.getInstance().get("heig"));
         ancgor.setMinHeight((double) AppContext.getInstance().get("heig"));
+    }
+
+    @FXML
+    private void actionCerrarSesion(ActionEvent event) {
+        FlowController.getInstance().goMain();
+        FlowController.eliminar("Login");
+        FlowController.getInstance().goView("Login");
     }
 
 }
