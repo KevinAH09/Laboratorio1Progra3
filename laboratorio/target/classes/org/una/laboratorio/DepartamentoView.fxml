@@ -39,7 +39,7 @@
                   <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
                      <children>
                         <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancel" text="Cancelar " />
-                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Guardar" />
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Agregar" />
                      </children>
                   </HBox>
                </children>

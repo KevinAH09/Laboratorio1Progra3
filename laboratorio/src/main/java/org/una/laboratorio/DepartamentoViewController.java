@@ -22,16 +22,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import org.una.laboratorio.controller.DepartamentoController;
-import org.una.laboratorio.controller.TramiteTipoController;
-import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.DepartamentoDTO;
-import org.una.laboratorio.dto.TramiteTipoDTO;
-import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
+import org.una.laboratorio.utils.FlowController;
 
 /**
  * FXML Controller class
@@ -92,44 +87,14 @@ public class DepartamentoViewController extends Controller implements Initializa
 
 
     private void actionFilter(ActionEvent event) {
-        //if (txtClave.isDisable() && txtUsuario.isDisable()) {
-//        if (objeto.equals("Usuarios")) {
-//            if (texFieldFiltro != null) {
-//                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList.stream().filter(x -> x.getNombreCompleto().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
-//            } else {
-//                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
-//            }
-//        } else if (objeto.equals("Departamentos")) {
             if (txtBuscar != null) {
                 tableview.setItems(FXCollections.observableArrayList(departamentoList.stream().filter(x -> x.getNombre().toUpperCase().startsWith(txtBuscar.getText().toUpperCase())).collect(Collectors.toList())));
             } else {
                 tableview.setItems(FXCollections.observableArrayList(departamentoList));
             }
-//        } else if (objeto.equals("Tremites")) {
-//            if (texFieldFiltro != null) {
-//                tableviewTramiteTipo.setItems(FXCollections.observableArrayList(tramiteTipoList.stream().filter(x -> x.getDescripcion().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
-//            } else {
-//                tableviewTramiteTipo.setItems(FXCollections.observableArrayList(tramiteTipoList));
-//            }
-//        }
-        //}
+//    
     }
 
-
-//    private void actionTipoTramiteClick() {
-//        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-//                    TramiteTipoDTO depa = (TramiteTipoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-//                    AppContext.getInstance().set("selec", depa);
-//                    System.out.println(".handle()");
-//                    tableviewTramiteTipo.selectionModelProperty().get().clearSelection();
-//                }
-//
-//            }
-//        });
-//    }
 
     private void actionDepartamentoClick() {
         tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -137,8 +102,8 @@ public class DepartamentoViewController extends Controller implements Initializa
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
                     DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("selec", depa);
-                    System.out.println(".handle()");
+                    AppContext.getInstance().set("DepaObject",depa);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", stage, false);
                     tableview.selectionModelProperty().get().clearSelection();
                 }
 
@@ -173,41 +138,6 @@ public class DepartamentoViewController extends Controller implements Initializa
         }
     }
 
-//    private void llenarTramiteTipo() {
-//        TableColumn<TramiteTipoDTO, String> colNombre = new TableColumn("Descripcion");
-//        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-//        TableColumn<TramiteTipoDTO, String> colCedula = new TableColumn("Estado");
-//        colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-//        TableColumn<TramiteTipoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
-//        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-//        TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
-//        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-//         tableviewTramiteTipo.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//        tableviewTramiteTipo.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//        tableviewTramiteTipo.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
-//
-//        try {
-//            tramiteTipoList = TramiteTipoController.getInstance().getAll();
-//            if (tramiteTipoList != null && !tramiteTipoList.isEmpty()) {
-//                tableviewTramiteTipo.setItems(FXCollections.observableArrayList(tramiteTipoList));
-//                HboxTable.getChildren().clear();
-//                HboxTable.getChildren().add(tableviewTramiteTipo);
-//            } else {
-//                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-//            }
-//        } catch (Exception e) {
-//            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-//        }
-//    }
-
-//    private void actionMovenTam(MouseEvent event) {
-////        tableviewUsuario.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-////        tableviewUsuario.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//        tableviewTramiteTipo.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//        tableviewTramiteTipo.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//        tableviewDepartamento.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//        tableviewDepartamento.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-//    }
 
     @FXML
     private void buscar(ActionEvent event) {
@@ -223,5 +153,7 @@ public class DepartamentoViewController extends Controller implements Initializa
 
     @FXML
     private void save(ActionEvent event) {
+        AppContext.getInstance().set("DepaObject",null);
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", stage, Boolean.FALSE);
     }
 }

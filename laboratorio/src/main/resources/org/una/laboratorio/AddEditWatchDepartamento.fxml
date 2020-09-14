@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="712.0" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.AddEditWatchDepartamentoController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="712.0" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.AddEditWatchDepartamentoController">
    <children>
       <StackPane layoutX="243.0" layoutY="100.0" prefHeight="465.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,48 +21,48 @@
                         <Label text="Información de Departamentos" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="316.0" prefWidth="712.0">
+                  <VBox prefHeight="316.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="120.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="80.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Id:" />
-                              <TextField fx:id="txtId" prefHeight="29.0" prefWidth="324.0" />
+                              <Label prefWidth="60.0" text="Id:" />
+                              <TextField fx:id="txtId" disable="true" prefHeight="29.0" prefWidth="300.0" />
                            </children>
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="80.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="80.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Nombre:" />
-                              <TextField prefHeight="29.0" prefWidth="324.0" />
+                              <Label prefHeight="17.0" prefWidth="60.0" text="Nombre:" />
+                              <TextField fx:id="txtNombre" prefHeight="30.0" prefWidth="300.0" />
                            </children>
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="120.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="80.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label prefHeight="21.0" prefWidth="61.0" text="Estado" />
-                              <ComboBox prefHeight="31.0" prefWidth="246.0" />
+                              <Label prefHeight="21.0" prefWidth="60.0" text="Estado" />
+                              <ComboBox fx:id="comboEsatdo" prefHeight="31.0" prefWidth="300.0" />
                            </children>
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="120.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="90.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label prefHeight="21.0" prefWidth="128.0" text=" Creado el" />
-                              <Label text="Label" />
+                              <Label prefHeight="21.0" prefWidth="60.0" text=" Creado el" />
+                              <Label fx:id="lblFechaCreacion" prefHeight="30.0" prefWidth="300.0" />
                            </children>
                            <padding>
                               <Insets left="95.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="102.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="35.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label prefHeight="21.0" prefWidth="142.0" text="Última Modificación" />
-                              <Label text="Label" />
+                              <Label prefHeight="21.0" prefWidth="108.0" text="Última Modificación" />
+                              <Label fx:id="lblFechaModificacion" prefHeight="30.0" prefWidth="300.0" />
                            </children>
                            <padding>
                               <Insets left="100.0" />
@@ -70,10 +70,10 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="712.0">
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" text="Cancelar" />
-                        <Button mnemonicParsing="false" text="Guardar" />
+                        <Button mnemonicParsing="false" onAction="#actionCancelar" text="Cancelar" />
+                        <Button mnemonicParsing="false" onAction="#actionguardar" text="Guardar" />
                      </children>
                   </HBox>
                </children>

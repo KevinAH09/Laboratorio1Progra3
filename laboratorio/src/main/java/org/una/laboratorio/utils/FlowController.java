@@ -34,6 +34,7 @@ public class FlowController {
     private static Stage mainStage; //El stage es la ventana 
     private static ResourceBundle idioma;
     private static HashMap<String, FXMLLoader> loaders = new HashMap<>(); //FXMLLoader es el que permite cargar los archivos fxml (vistas)
+    private Stage s;
     //El objeto loader es un Hashmap que guarda cada objeto de FXMLLoader mediante una llave.
     
     private FlowController() {
@@ -113,6 +114,7 @@ public class FlowController {
         controller.setAccion(accion);
         controller.initialize();
         Stage stage = controller.getStage();
+        s = stage;
         if (stage == null) {
             stage = this.mainStage;
             controller.setStage(stage);
@@ -190,7 +192,7 @@ public class FlowController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(parentStage);
+        stage.initOwner(s);
         stage.centerOnScreen();
         stage.showAndWait();
 
