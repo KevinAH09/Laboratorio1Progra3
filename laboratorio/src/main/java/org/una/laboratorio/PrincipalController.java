@@ -127,15 +127,15 @@ public class PrincipalController extends Controller implements Initializable {
                             .getSelectedItem();
                     try {
                         if (item.getValue().equals("Usuarios")) {
-
+                            AppContext.getInstance().set("objetoTabla", "Usuarios");
                             cambiarPantalla("Usuarios");
 
                         } else if (item.getValue().equals("Departamentos")) {
-
+                            AppContext.getInstance().set("objetoTabla", "Departamentos");
                             cambiarPantalla("Departamentos");
 
                         } else if (item.getValue().equals("Tremites")) {
-
+                            AppContext.getInstance().set("objetoTabla", "Tremites");
                             cambiarPantalla("Tramites");
 
                         }
