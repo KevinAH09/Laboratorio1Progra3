@@ -31,6 +31,7 @@ org\una\laboratorio\DisenoTramitesController.class
 org\una\laboratorio\service\TransaccionService$2.class
 org\una\laboratorio\dto\TransaccionDTO.class
 org\una\laboratorio\service\TramiteEstadoService$1.class
+org\una\laboratorio\service\TramiteTipoService$3.class
 org\una\laboratorio\service\PermisoOtorgadoService.class
 org\una\laboratorio\service\ClienteService$2.class
 org\una\laboratorio\AddEditWatchUsuarioController.class
@@ -40,6 +41,7 @@ org\una\laboratorio\controller\PermisoController.class
 org\una\laboratorio\controller\ArchivoRelacionadoController.class
 org\una\laboratorio\InformacionUsuariosController.class
 org\una\laboratorio\dto\ArchivoRelacionadoDTO.class
+org\una\laboratorio\service\ParametroGeneralService$3.class
 org\una\laboratorio\BaseController.class
 org\una\laboratorio\controller\ParametroGeneralController$ParametroGeneralControllerHolder.class
 org\una\laboratorio\dto\VariacionDTO.class
@@ -60,6 +62,7 @@ org\una\laboratorio\service\TramiteEstadoService$2.class
 org\una\laboratorio\service\RequisitoService$1.class
 org\una\laboratorio\service\TransaccionService$1.class
 org\una\laboratorio\controller\VariacionController.class
+org\una\laboratorio\service\TramiteTipoService$4.class
 org\una\laboratorio\AddEditWatchParametroController.class
 org\una\laboratorio\service\RequisitoPresentadoService$1.class
 org\una\laboratorio\utils\Respuesta.class
@@ -76,6 +79,7 @@ org\una\laboratorio\service\PermisoOtorgadoService$3.class
 org\una\laboratorio\service\DepartementoService$2.class
 org\una\laboratorio\controller\ClienteController$ClienteControllerHolder.class
 org\una\laboratorio\InformacionController.class
+org\una\laboratorio\service\VariacionService$4.class
 org\una\laboratorio\controller\VariacionController$VariacionControllerHolder.class
 org\una\laboratorio\service\UsuarioService$5.class
 org\una\laboratorio\controller\ParametroGeneralController.class
@@ -92,6 +96,7 @@ org\una\laboratorio\dto\ParametroGeneralDTO.class
 org\una\laboratorio\App.class
 org\una\laboratorio\service\ClienteService.class
 org\una\laboratorio\service\PermisoOtorgadoService$1.class
+org\una\laboratorio\service\RequisitoService$3.class
 org\una\laboratorio\service\TramiteRegistradoService$1.class
 org\una\laboratorio\controller\RequisitoController$RequesitoControllerHolder.class
 org\una\laboratorio\service\ArchivoRelacionadoService.class
@@ -116,6 +121,7 @@ org\una\laboratorio\service\PermisoService$2.class
 org\una\laboratorio\PrincipalController.class
 org\una\laboratorio\service\TramiteTipoService$2.class
 org\una\laboratorio\controller\TramiteEstadoController.class
+org\una\laboratorio\service\VariacionService$3.class
 org\una\laboratorio\controller\PermisoOtorgadoController$PermisoOtorgadoControllerHolder.class
 org\una\laboratorio\dto\NotaDTO.class
 org\una\laboratorio\service\RequisitoPresentadoService.class

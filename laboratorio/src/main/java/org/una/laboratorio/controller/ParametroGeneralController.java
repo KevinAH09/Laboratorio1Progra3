@@ -30,7 +30,10 @@ public class ParametroGeneralController {
     }
 
   public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
-        return ParametroGeneralService.FromConnectionID(urlstring, id,ParametroGeneralDTO.class);
+        return ParametroGeneralService.FromConnectionID(urlstring, id, ParametroGeneralDTO.class);
+    }
+  public Object getNombre(String nombre)throws InterruptedException, ExecutionException, IOException {
+        return ParametroGeneralService.FromConnectionNombre(urlstring+"nombre/", nombre, ParametroGeneralDTO.class);
     }
      public void Update(ParametroGeneralDTO dep)throws InterruptedException, ExecutionException, IOException {
         ParametroGeneralService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
