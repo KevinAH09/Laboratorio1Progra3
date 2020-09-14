@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import org.una.laboratorio.controller.DepartamentoController;
@@ -44,25 +46,27 @@ public class PrincipalController extends Controller implements Initializable {
     private Label lblHora;
     @FXML
     private TreeView<String> treeAcciones;
-    
+
     public List<PermisoOtorgadoDTO> ListPerOtor = new ArrayList<>();
     boolean TreeUsu = true;
     boolean TreeDep = true;
     boolean TreeTra = true;
-    
+    @FXML
+    private AnchorPane ancgor;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         lblNombreUSU.setText(((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto());
         if (AppContext.getInstance().get("permisosOTG") != null) {
             ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
-            
+
             TreeItem<String> root = new TreeItem<>(lblNombreUSU.getText());
             treeAcciones.setRoot(root);
-
-            TreeItem<String> itemAdministracion = new TreeItem<>("Administracion");
-            root.getChildren().add(itemAdministracion);
             TreeItem<String> itemInformacion = new TreeItem<>("Informacion");
             root.getChildren().add(itemInformacion);
+            TreeItem<String> itemAdministracion = new TreeItem<>("Administracion");
+            root.getChildren().add(itemAdministracion);
+            
 //USU5
 //USU6
 //USU7
@@ -80,8 +84,8 @@ public class PrincipalController extends Controller implements Initializable {
 //TRU1
 
             for (int i = 0; i < ListPerOtor.size(); i++) {
-                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("USU") && TreeUsu) {
-                    TreeItem<String> item = new TreeItem<>("Usuarios");
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeUsu) {
+                    TreeItem<String> item = new TreeItem<>("Tipos de Trámites");
                     itemInformacion.getChildren().add(item);
                     TreeUsu = false;
                 } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
@@ -90,25 +94,28 @@ public class PrincipalController extends Controller implements Initializable {
                     treeAcciones.getSelectionModel().select(item);
                     TreeDep = false;
                 } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeTra) {
-                    TreeItem<String> item = new TreeItem<>("Tramites");
+                    TreeItem<String> item = new TreeItem<>("Diseño de Trámites");
                     itemInformacion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
                     TreeTra = false;
                 }
 
             }
+            TreeUsu = true;
+            TreeDep = true;
+            TreeTra = true;
             for (int i = 0; i < ListPerOtor.size(); i++) {
-                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("USU") && TreeUsu) {
-                    TreeItem<String> item = new TreeItem<>("Usuarios");
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("PER") && TreeUsu) {
+                    TreeItem<String> item = new TreeItem<>("Permisos");
                     itemAdministracion.getChildren().add(item);
                     TreeUsu = false;
-                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
-                    TreeItem<String> item = new TreeItem<>("Departamentos");
+                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("USU") && TreeDep) {
+                    TreeItem<String> item = new TreeItem<>("Usuarios");
                     itemAdministracion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
                     TreeDep = false;
-                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeTra) {
-                    TreeItem<String> item = new TreeItem<>("Tramites");
+                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("PAR") && TreeTra) {
+                    TreeItem<String> item = new TreeItem<>("Parametros");
                     itemAdministracion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
                     TreeTra = false;
@@ -153,20 +160,27 @@ public class PrincipalController extends Controller implements Initializable {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @FXML
-    private void actionMantenimiento(ActionEvent event) throws InterruptedException, ExecutionException, IOException   {
+    private void actionMantenimiento(ActionEvent event) throws InterruptedException, ExecutionException, IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class.getResource("Mantenimiento.fxml"));
         vboxPrincipal.getChildren().add(root);
 //       System.out.println(((List<DepartamentoDTO>)DepartamentoController.getInstance().getEstado("1")));
     }
-    
-      void cambiarPantalla(String pantalla) throws IOException {
+
+    void cambiarPantalla(String pantalla) throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
                 .getResource("Mantenimiento.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
+    }
+
+    @FXML
+    private void actionTamano(MouseEvent event) {
+        ancgor.setMaxWidth((double) AppContext.getInstance().get("whit"));
+        ancgor.setMinWidth((double) AppContext.getInstance().get("whit"));
+        ancgor.setMaxHeight((double) AppContext.getInstance().get("heig"));
+        ancgor.setMinHeight((double) AppContext.getInstance().get("heig"));
     }
 
 }

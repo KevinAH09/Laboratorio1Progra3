@@ -74,6 +74,7 @@ org\una\laboratorio\service\TramiteTipoService.class
 org\una\laboratorio\utils\Request.class
 org\una\laboratorio\controller\RequisitoPresentadoController$RequisitoPresentadoControllerHolder.class
 org\una\laboratorio\dto\TramiteTipoDTO.class
+org\una\laboratorio\AppContex.class
 org\una\laboratorio\service\TramiteTipoService$1.class
 org\una\laboratorio\dto\TramiteEstadoDTO.class
 org\una\laboratorio\service\PermisoOtorgadoService$3.class

@@ -7,7 +7,11 @@ package org.una.laboratorio;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import org.una.laboratorio.utils.AppContext;
 
 /**
  * FXML Controller class
@@ -16,6 +20,9 @@ import javafx.fxml.Initializable;
  */
 public class BaseController implements Initializable {
 
+    @FXML
+    private BorderPane base;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +30,12 @@ public class BaseController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void moveMaouse(MouseEvent event) {
+        AppContext.getInstance().set("whit",base.getWidth());
+        AppContext.getInstance().set("heig",base.getHeight());
+        
+    }
     
 }
