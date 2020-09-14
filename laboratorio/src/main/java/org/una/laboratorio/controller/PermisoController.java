@@ -34,6 +34,10 @@ public class PermisoController {
         return PermisoService.FromConnectionID(urlstring, id, PermisoDTO.class);
     }
 
+    public Object getEstado(String estado) throws InterruptedException, ExecutionException, IOException {
+        return PermisoService.FromConnectionEstado(urlstring + "estado/", estado, PermisoDTO.class);
+    }
+
     public void Update(PermisoDTO dep) throws InterruptedException, ExecutionException, IOException {
         PermisoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
     }
