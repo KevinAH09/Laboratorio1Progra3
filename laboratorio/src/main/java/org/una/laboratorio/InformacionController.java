@@ -44,7 +44,9 @@ public class InformacionController implements Initializable {
     @FXML
     private TextField texFieldFiltro;
     @FXML
-    private Button btnFilter;
+    private Button btnBuscar;
+    @FXML
+    private Button btnCancelar;
 
     /**
      * Initializes the controller class.

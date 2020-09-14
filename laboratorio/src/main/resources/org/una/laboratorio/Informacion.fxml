@@ -13,8 +13,8 @@
             <HBox alignment="CENTER" prefHeight="68.0" prefWidth="706.0">
                <children>
                   <TextField fx:id="texFieldFiltro" prefHeight="25.0" prefWidth="329.0" promptText="Buscar" />
-                  <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" />
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionFilter" text="Borrar" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionFilter" text="Buscar" />
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" text="Borrar" />
                </children>
             </HBox>
             <HBox fx:id="Hbox" prefHeight="255.0" prefWidth="712.0" />
