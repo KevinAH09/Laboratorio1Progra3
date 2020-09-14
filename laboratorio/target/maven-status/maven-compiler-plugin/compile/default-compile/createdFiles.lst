@@ -1,4 +1,5 @@
 org\una\laboratorio\controller\TramiteRegistradoController.class
+org\una\laboratorio\MantenimientoController$1.class
 org\una\laboratorio\service\DepartementoService$1.class
 org\una\laboratorio\controller\TramiteEstadoController$TramiteEstadoControllerHolder.class
 org\una\laboratorio\dto\PermisoDTO.class
@@ -51,10 +52,12 @@ org\una\laboratorio\service\TramiteRegistradoService.class
 org\una\laboratorio\service\ArchivoRelacionadoService$2.class
 org\una\laboratorio\dto\PermisoOtorgadoDTO.class
 org\una\laboratorio\controller\ClienteController.class
+org\una\laboratorio\MantenimientoController$2.class
 org\una\laboratorio\service\DepartementoService$3.class
 org\una\laboratorio\service\ParametroGeneralService$2.class
 org\una\laboratorio\service\ArchivoRelacionadoService$1.class
 org\una\laboratorio\controller\Usuariocontroller$UsuariocontrollerHolder.class
+org\una\laboratorio\MantenimientoController$3.class
 org\una\laboratorio\AutorizacionesController.class
 org\una\laboratorio\service\DepartementoService$4.class
 org\una\laboratorio\dto\UsuarioDTO.class
@@ -93,6 +96,7 @@ org\una\laboratorio\dto\AuthenticationResponse.class
 org\una\laboratorio\service\VariacionService$1.class
 org\una\laboratorio\controller\Usuariocontroller.class
 org\una\laboratorio\MantenimientoController.class
+org\una\laboratorio\service\PermisoService$3.class
 org\una\laboratorio\service\TramiteEstadoService.class
 org\una\laboratorio\dto\ParametroGeneralDTO.class
 org\una\laboratorio\App.class

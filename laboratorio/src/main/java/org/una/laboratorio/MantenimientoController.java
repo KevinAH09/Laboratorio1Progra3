@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.controller.TramiteTipoController;
@@ -31,12 +32,14 @@ import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
+
 /**
  * FXML Controller class
  *
  * @author colo7
  */
 public class MantenimientoController extends Controller implements Initializable {
+
     @FXML
     private HBox txtTitulo;
     @FXML
@@ -59,36 +62,33 @@ public class MantenimientoController extends Controller implements Initializable
     @FXML
     private Button btnSave;
     @FXML
-    private HBox HboxTable ;
+    private HBox HboxTable;
     /**
      * Initializes the controller class.
      */
     String objeto;
+    @FXML
+    private AnchorPane anchor;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tableviewTramiteTipo=new TableView<>();
-        tableviewDepartamento=new TableView<>();
+        tableviewTramiteTipo = new TableView<>();
+        tableviewDepartamento = new TableView<>();
         tableviewUsuario = new TableView<>();
-         objeto=(String) AppContext.getInstance().get("objetoTabla");
-         if(objeto.equals("Usuarios"))
-         {
-             actionusuarioClick();
-             llenarUsuario();
-             
-         }
-         else if(objeto.equals("Departamentos"))
-         {
-             actionDepartamentoClick();
-             llenarDepartamento();
-         }
-         else if(objeto.equals("Tremites"))
-         {
-             actionTipoTramiteClick();
-             llenarTramiteTipo();
-         }
-         
-         
-    }    
+        objeto = (String) AppContext.getInstance().get("objetoTabla");
+        if (objeto.equals("Usuarios")) {
+            actionusuarioClick();
+            llenarUsuario();
+
+        } else if (objeto.equals("Departamentos")) {
+            actionDepartamentoClick();
+            llenarDepartamento();
+        } else if (objeto.equals("Tremites")) {
+            actionTipoTramiteClick();
+            llenarTramiteTipo();
+        }
+
+    }
 
     @Override
     public void initialize() {
@@ -102,31 +102,26 @@ public class MantenimientoController extends Controller implements Initializable
     @FXML
     private void actionFilter(ActionEvent event) {
         //if (txtClave.isDisable() && txtUsuario.isDisable()) {
-        if(objeto.equals("Usuarios"))
-        {
+        if (objeto.equals("Usuarios")) {
             if (texFieldFiltro != null) {
                 tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList.stream().filter(x -> x.getNombreCompleto().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
             } else {
                 tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
             }
-        }
-        else if(objeto.equals("Departamentos"))
-        {
+        } else if (objeto.equals("Departamentos")) {
             if (texFieldFiltro != null) {
                 tableviewDepartamento.setItems(FXCollections.observableArrayList(departamentoList.stream().filter(x -> x.getNombre().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
             } else {
                 tableviewDepartamento.setItems(FXCollections.observableArrayList(departamentoList));
             }
-        }
-         else if(objeto.equals("Tremites"))
-        {
+        } else if (objeto.equals("Tremites")) {
             if (texFieldFiltro != null) {
                 tableviewTramiteTipo.setItems(FXCollections.observableArrayList(tramiteTipoList.stream().filter(x -> x.getDescripcion().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
             } else {
                 tableviewTramiteTipo.setItems(FXCollections.observableArrayList(tramiteTipoList));
             }
         }
-       //}
+        //}
     }
 
     @FXML
@@ -136,65 +131,66 @@ public class MantenimientoController extends Controller implements Initializable
     @FXML
     private void actionSave(ActionEvent event) {
     }
-    private void actionTipoTramiteClick()
-    {
+
+    private void actionTipoTramiteClick() {
         tableviewTramiteTipo.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                 if (mouseEvent.getClickCount() == 2&&tableviewTramiteTipo.selectionModelProperty().get().getSelectedItem() != null) {
-                     TramiteTipoDTO depa=(TramiteTipoDTO) tableviewTramiteTipo.selectionModelProperty().get().getSelectedItem();
-                     AppContext.getInstance().set("selec", depa);
-                     System.out.println(".handle()");
-                     tableviewTramiteTipo.selectionModelProperty().get().clearSelection();
-                 }
-              
+                if (mouseEvent.getClickCount() == 2 && tableviewTramiteTipo.selectionModelProperty().get().getSelectedItem() != null) {
+                    TramiteTipoDTO depa = (TramiteTipoDTO) tableviewTramiteTipo.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("selec", depa);
+                    System.out.println(".handle()");
+                    tableviewTramiteTipo.selectionModelProperty().get().clearSelection();
+                }
+
             }
         });
     }
-    private void actionDepartamentoClick()
-    {
+
+    private void actionDepartamentoClick() {
         tableviewDepartamento.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                 if (mouseEvent.getClickCount() == 2&&tableviewDepartamento.selectionModelProperty().get().getSelectedItem() != null) {
-                     DepartamentoDTO depa=(DepartamentoDTO) tableviewDepartamento.selectionModelProperty().get().getSelectedItem();
-                     AppContext.getInstance().set("selec", depa);
-                     System.out.println(".handle()");
-                     tableviewDepartamento.selectionModelProperty().get().clearSelection();
-                 }
-              
+                if (mouseEvent.getClickCount() == 2 && tableviewDepartamento.selectionModelProperty().get().getSelectedItem() != null) {
+                    DepartamentoDTO depa = (DepartamentoDTO) tableviewDepartamento.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("selec", depa);
+                    System.out.println(".handle()");
+                    tableviewDepartamento.selectionModelProperty().get().clearSelection();
+                }
+
             }
         });
     }
+
     private void actionusuarioClick() {
         tableviewUsuario.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                 if (mouseEvent.getClickCount() == 2&&tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null) {
-                     UsuarioDTO usuario=(UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
-                     AppContext.getInstance().set("selec", usuario);
-                     System.out.println(".handle()");
-                     tableviewUsuario.selectionModelProperty().get().clearSelection();
-                 }
-              
+                if (mouseEvent.getClickCount() == 2 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null) {
+                    UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("selec", usuario);
+                    System.out.println(".handle()");
+                    tableviewUsuario.selectionModelProperty().get().clearSelection();
+                }
+
             }
         });
     }
-    
-    private void llenarUsuario()
-    {
-        TableColumn<UsuarioDTO,String> colNombre = new TableColumn("Nombre");
-         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombreCompleto()));
-          TableColumn<UsuarioDTO,String> colCedula = new TableColumn("Cedula");
-          colCedula.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getCedula()));
-          TableColumn <UsuarioDTO,String>colFechaRe = new TableColumn("Fecha Registro");
-          colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-          TableColumn <UsuarioDTO,String>colFechaMo = new TableColumn("Fecha Modificacion");
-          colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-          tableviewUsuario.setPrefSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-          tableviewUsuario.getColumns().addAll(colNombre ,colCedula ,colFechaRe,colFechaMo);
+
+    private void llenarUsuario() {
+        TableColumn<UsuarioDTO, String> colNombre = new TableColumn("Nombre");
+        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombreCompleto()));
+        TableColumn<UsuarioDTO, String> colCedula = new TableColumn("Cedula");
+        colCedula.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getCedula()));
+        TableColumn<UsuarioDTO, String> colFechaRe = new TableColumn("Fecha Registro");
+        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
+        TableColumn<UsuarioDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
+        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
+         tableviewUsuario.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewUsuario.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewUsuario.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
         try {
-            usuarioList=Usuariocontroller.getInstance().getAll();
+            usuarioList = Usuariocontroller.getInstance().getAll();
             if (usuarioList != null && !usuarioList.isEmpty()) {
                 tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
                 HboxTable.getChildren().clear();
@@ -206,22 +202,22 @@ public class MantenimientoController extends Controller implements Initializable
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
         }
     }
-    
-    private void llenarDepartamento()
-    {
-        TableColumn<DepartamentoDTO,String> colNombre = new TableColumn("Nombre");
-         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombre()));
-          TableColumn<DepartamentoDTO,String> colCedula = new TableColumn("Estado");
-          colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-          TableColumn <DepartamentoDTO,String>colFechaRe = new TableColumn("Fecha Registro");
-          colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-          TableColumn <DepartamentoDTO,String>colFechaMo = new TableColumn("Fecha Modificacion");
-          colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-          tableviewDepartamento.setPrefSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-          tableviewDepartamento.getColumns().addAll(colNombre ,colCedula ,colFechaRe,colFechaMo);
-          
+
+    private void llenarDepartamento() {
+        TableColumn<DepartamentoDTO, String> colNombre = new TableColumn("Nombre");
+        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombre()));
+        TableColumn<DepartamentoDTO, String> colCedula = new TableColumn("Estado");
+        colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
+        TableColumn<DepartamentoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
+        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
+        TableColumn<DepartamentoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
+        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
+         tableviewDepartamento.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewDepartamento.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewDepartamento.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
+
         try {
-            departamentoList=DepartamentoController.getInstance().getAll();
+            departamentoList = DepartamentoController.getInstance().getAll();
             if (departamentoList != null && !departamentoList.isEmpty()) {
                 tableviewDepartamento.setItems(FXCollections.observableArrayList(departamentoList));
                 HboxTable.getChildren().clear();
@@ -233,22 +229,22 @@ public class MantenimientoController extends Controller implements Initializable
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
         }
     }
-    
-    private void llenarTramiteTipo()
-    {
-        TableColumn<TramiteTipoDTO,String> colNombre = new TableColumn("Descripcion");
-         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-          TableColumn<TramiteTipoDTO,String> colCedula = new TableColumn("Estado");
-          colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-          TableColumn <TramiteTipoDTO,String>colFechaRe = new TableColumn("Fecha Registro");
-          colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-          TableColumn <TramiteTipoDTO,String>colFechaMo = new TableColumn("Fecha Modificacion");
-          colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-          tableviewTramiteTipo.setPrefSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-          tableviewTramiteTipo.getColumns().addAll(colNombre ,colCedula ,colFechaRe,colFechaMo);
-          
+
+    private void llenarTramiteTipo() {
+        TableColumn<TramiteTipoDTO, String> colNombre = new TableColumn("Descripcion");
+        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        TableColumn<TramiteTipoDTO, String> colCedula = new TableColumn("Estado");
+        colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
+        TableColumn<TramiteTipoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
+        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
+        TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
+        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
+         tableviewTramiteTipo.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewTramiteTipo.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewTramiteTipo.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
+
         try {
-            tramiteTipoList=TramiteTipoController.getInstance().getAll();
+            tramiteTipoList = TramiteTipoController.getInstance().getAll();
             if (tramiteTipoList != null && !tramiteTipoList.isEmpty()) {
                 tableviewTramiteTipo.setItems(FXCollections.observableArrayList(tramiteTipoList));
                 HboxTable.getChildren().clear();
@@ -259,5 +255,15 @@ public class MantenimientoController extends Controller implements Initializable
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
         }
+    }
+
+    @FXML
+    private void actionMovenTam(MouseEvent event) {
+        tableviewUsuario.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewUsuario.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewTramiteTipo.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewTramiteTipo.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewDepartamento.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+        tableviewDepartamento.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
     }
 }
