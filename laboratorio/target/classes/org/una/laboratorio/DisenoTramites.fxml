@@ -25,9 +25,9 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0">
                      <children>
-                        <TextField />
-                        <Button mnemonicParsing="false" text="Buscar" />
-                        <Button mnemonicParsing="false" text="Borrar" />
+                        <TextField fx:id="txtBuscar" />
+                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
+                        <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -38,13 +38,12 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="688.0">
+                                          <TableView fx:id="tableview" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="688.0">
                                             <columns>
-                                              <TableColumn prefWidth="75.0" text="Id" />
-                                              <TableColumn prefWidth="229.0" text="Variación" />
-                                                <TableColumn minWidth="0.0" prefWidth="100.0" text="Estado" />
-                                                <TableColumn prefWidth="173.0" text="Grupo de exclusion" />
-                                                <TableColumn prefWidth="110.0" text="Acciones" />
+                                              <TableColumn fx:id="id" prefWidth="75.0" text="Id" />
+                                              <TableColumn fx:id="variacion" prefWidth="271.0" text="Variación" />
+                                                <TableColumn fx:id="estado" minWidth="0.0" prefWidth="192.0" text="Estado" />
+                                                <TableColumn fx:id="grupo" prefWidth="149.0" text="Grupo de exclusion" />
                                             </columns>
                                           </TableView>
                                        </children></AnchorPane>
@@ -71,8 +70,8 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Cancelar " />
-                        <Button mnemonicParsing="false" text="Guardar" />
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancel" text="Cancelar " />
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Guardar" />
                      </children>
                   </HBox>
                </children>
