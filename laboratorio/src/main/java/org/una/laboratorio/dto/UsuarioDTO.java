@@ -6,7 +6,6 @@
 package org.una.laboratorio.dto;
 
 import java.util.Date;
-import org.una.laboratorio.dto.DepartamentoDTO;
 
 /**
  *
