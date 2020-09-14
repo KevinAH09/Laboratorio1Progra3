@@ -57,7 +57,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        llenarVariacion();
     }
 
     @Override

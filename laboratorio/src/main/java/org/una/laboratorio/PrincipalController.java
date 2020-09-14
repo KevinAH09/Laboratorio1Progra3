@@ -69,12 +69,14 @@ public class PrincipalController extends Controller implements Initializable {
                     TreeItem<String> item = new TreeItem<>("Tipos de Trámites");
                     itemInformacion.getChildren().add(item);
                     TreeUsu = false;
-                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
+                }
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
                     TreeItem<String> item = new TreeItem<>("Departamentos");
                     itemInformacion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
                     TreeDep = false;
-                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeTra) {
+                }
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeTra) {
                     TreeItem<String> item = new TreeItem<>("Diseño de Trámites");
                     itemInformacion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
@@ -90,12 +92,14 @@ public class PrincipalController extends Controller implements Initializable {
                     TreeItem<String> item = new TreeItem<>("Permisos");
                     itemAdministracion.getChildren().add(item);
                     TreeUsu = false;
-                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("USU") && TreeDep) {
+                }
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("USU") && TreeDep) {
                     TreeItem<String> item = new TreeItem<>("Usuarios");
                     itemAdministracion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
                     TreeDep = false;
-                } else if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("PAR") && TreeTra) {
+                }
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("PAR") && TreeTra) {
                     TreeItem<String> item = new TreeItem<>("Parametros");
                     itemAdministracion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);
@@ -104,8 +108,8 @@ public class PrincipalController extends Controller implements Initializable {
 
             }
 
-        }else{
-            TreeItem<String> root = new TreeItem<>((((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto())+" no posee permisos");
+        } else {
+            TreeItem<String> root = new TreeItem<>((((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()) + " no posee permisos");
             treeAcciones.setRoot(root);
         }
 
@@ -125,11 +129,12 @@ public class PrincipalController extends Controller implements Initializable {
                             AppContext.getInstance().set("objetoTabla", "Departamentos");
                             cambiarPantalla("Departamentos");
 
-                        } else if (item.getValue().equals("Tremites")) {
-                            AppContext.getInstance().set("objetoTabla", "Tremites");
-                            cambiarPantalla("Tramites");
+                        } else if (item.getValue().equals("Diseño de Trámites")) {
+                            AppContext.getInstance().set("objetoTabla", "Tramites");
+                            cambiarDiseño("Tramites");
 
                         }
+
                     } catch (IOException ex) {
                         Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -158,14 +163,23 @@ public class PrincipalController extends Controller implements Initializable {
         vboxPrincipal.getChildren()
                 .add(root);
     }
-    void cambiarPantallaUsuario(String pantalla) throws IOException
-    {
+
+    void cambiarPantallaUsuario(String pantalla) throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
                 .getResource("Informacion.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
     }
+
+    void cambiarDiseño(String pantalla) throws IOException {
+        vboxPrincipal.getChildren().clear();
+        Parent root = FXMLLoader.load(App.class
+                .getResource("DisenoTramites.fxml"));
+        vboxPrincipal.getChildren()
+                .add(root);
+    }
+
     @FXML
     private void actionTamano(MouseEvent event) {
         ancgor.setMaxWidth((double) AppContext.getInstance().get("whit"));
