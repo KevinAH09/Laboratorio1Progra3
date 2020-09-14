@@ -167,7 +167,7 @@ public class PrincipalController extends Controller implements Initializable {
     void cambiarUsuario(String pantalla) throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
-                .getResource("Informacion.fxml"));
+                .getResource("InformacionUsuarios.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
     }

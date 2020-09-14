@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
  *
  * @author cfugu
  */
-public class AddEditWatchUsuarioController implements Initializable {
+public class AddEditWatchUsuarioController extends Controller implements Initializable {
 
     @FXML
     private TextField txtId;
@@ -28,5 +28,10 @@ public class AddEditWatchUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @Override
+    public void initialize() {
+        // new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
