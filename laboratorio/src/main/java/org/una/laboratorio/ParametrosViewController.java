@@ -24,6 +24,8 @@ import javafx.scene.input.MouseEvent;
 import org.una.laboratorio.controller.ParametroGeneralController;
 import org.una.laboratorio.dto.ParametroGeneralDTO;
 import org.una.laboratorio.controller.TramiteTipoController;
+import org.una.laboratorio.utils.AppContext;
+import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
 
 
@@ -44,7 +46,7 @@ public class ParametrosViewController implements Initializable{
     @FXML
     private Button btnCancelar;
     @FXML
-    private Button btnGuardar;
+    private Button btnAgregar;
 
     @FXML
     private void buscar(ActionEvent event) {
@@ -58,9 +60,6 @@ public class ParametrosViewController implements Initializable{
     private void cancel(ActionEvent event) {
     }
 
-    @FXML
-    private void save(ActionEvent event) {
-    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -75,7 +74,9 @@ public class ParametrosViewController implements Initializable{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    ParametroGeneralDTO depa = (ParametroGeneralDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                    ParametroGeneralDTO para = (ParametroGeneralDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("ParaObject",para);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", null, false);
                     tableview.selectionModelProperty().get().clearSelection();
                 }
 
@@ -105,10 +106,16 @@ public class ParametrosViewController implements Initializable{
             if (tramiteList != null && !tramiteList.isEmpty()) {
                 tableview.setItems(FXCollections.observableArrayList(tramiteList));
             } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Parametros Vacios", null, "No existen parametros");
             }
         } catch (Exception e) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error Parametros", null, "Ocurrio un error al cunsultar parametros");
         }
+    }
+
+    @FXML
+    private void add(ActionEvent event) {
+        AppContext.getInstance().set("DepaObject",null);
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", null, Boolean.FALSE);
     }
 }

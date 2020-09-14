@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.laboratorio.ParametrosViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.ParametrosViewController">
    <children>
       <StackPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -40,7 +39,7 @@
                   <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
                      <children>
                         <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancel" text="Cancelar " />
-                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Guardar" />
+                        <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#add" text="Agregar" />
                      </children>
                   </HBox>
                </children>

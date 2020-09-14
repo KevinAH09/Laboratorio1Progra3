@@ -42,6 +42,7 @@ public class AddEditWatchDepartamentoController extends Controller implements In
     private Label lblFechaCreacion;
     @FXML
     private Label lblFechaModificacion;
+    
     DepartamentoDTO departamentoDTO;
 
     /**
@@ -80,7 +81,7 @@ public class AddEditWatchDepartamentoController extends Controller implements In
         try {
             if (txtId.getText().equals("Nuevo")) {
                 System.out.println("org.una.laboratorio.AddEditWatchDepartamentoController.actionguardar()");
-                if (!txtNombre.getText().isEmpty()) {
+                if (!txtNombre.getText().isEmpty() && !comboEsatdo.getValue().isEmpty()) {
                     departamentoDTO.setNombre(txtNombre.getText());
                     if (comboEsatdo.getValue().equals("Activo")) {
                         departamentoDTO.setEstado(true);
