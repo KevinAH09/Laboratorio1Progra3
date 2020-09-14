@@ -22,8 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.PermisoController;
 import org.una.laboratorio.dto.PermisoDTO;
+import org.una.laboratorio.utils.AppContext;
+import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
 
 /**
@@ -53,20 +56,24 @@ public class PermisosViewController extends Controller implements Initializable 
     public void initialize(URL url, ResourceBundle rb) {
         actionPermisosClick();
         llenarTableView();
-    }    
+    }
+
     private void actionPermisosClick() {
         tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    PermisoDTO depa = (PermisoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                    PermisoDTO per = (PermisoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("PerObject", per);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchPermiso", ((Stage) btnBuscar.getScene().getWindow()), false);
                     tableview.selectionModelProperty().get().clearSelection();
                 }
 
             }
         });
     }
-     private void llenarTableView() {
+
+    private void llenarTableView() {
         TableColumn<PermisoDTO, String> colID = new TableColumn("ID");
         colID.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getId()));
         TableColumn<PermisoDTO, String> colDescripcion = new TableColumn("Descripcion");
@@ -79,7 +86,7 @@ public class PermisosViewController extends Controller implements Initializable 
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<PermisoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colID,colDescripcion,colNombre, colestado, colFechaRe, colFechaMo);
+        tableview.getColumns().addAll(colID, colDescripcion, colNombre, colestado, colFechaRe, colFechaMo);
 
         try {
             List<PermisoDTO> lisPer = PermisoController.getInstance().getAll();
@@ -112,5 +119,7 @@ public class PermisosViewController extends Controller implements Initializable 
 
     @FXML
     private void save(ActionEvent event) {
+        AppContext.getInstance().set("PerObject",null);
+         FlowController.getInstance().goViewInWindowModal("AddEditWatchPermiso", ((Stage) btnBuscar.getScene().getWindow()), false);
     }
 }
