@@ -2,6 +2,7 @@ org\una\laboratorio\controller\TramiteRegistradoController.class
 org\una\laboratorio\service\DepartementoService$1.class
 org\una\laboratorio\controller\TramiteEstadoController$TramiteEstadoControllerHolder.class
 org\una\laboratorio\dto\PermisoDTO.class
+org\una\laboratorio\PrincipalController$1.class
 org\una\laboratorio\controller\PermisoOtorgadoController.class
 org\una\laboratorio\controller\RequisitoController.class
 org\una\laboratorio\service\UsuarioService$4.class

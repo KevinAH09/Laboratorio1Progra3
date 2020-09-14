@@ -24,8 +24,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.una.laboratorio.controller.DepartamentoController;
+import org.una.laboratorio.controller.PermisoOtorgadoController;
 import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.AuthenticationResponse;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
@@ -82,14 +84,20 @@ public class LoginController extends Controller implements Initializable {
             } else {
                 pass = txtPassOculto.getText();
             }
-            if (!txtPassMostrado.getText().isEmpty() && ( (!txtPassMostrado.getText().isEmpty()))||(!txtPassOculto.getText().isEmpty())) {
+            if (!txtPassMostrado.getText().isEmpty() && ((!txtPassMostrado.getText().isEmpty())) || (!txtPassOculto.getText().isEmpty())) {
                 AuthenticationResponse ar = new AuthenticationResponse();
                 ar = (AuthenticationResponse) Usuariocontroller.getInstance().Login(txtUsuario.getText(), pass);
                 if (ar != null) {
-                    AppContext.getInstance().set("usuarioLog", ar.getUsuario());
-//                    AppContext.getInstance().set("permisosOTG", ar.getPermisos());
                     AppContext.getInstance().set("token", ar.getJwt());
-                    System.out.println(((UsuarioDTO)AppContext.getInstance().get("usuarioLog")).getNombreCompleto());
+                    AppContext.getInstance().set("usuarioLog", ar.getUsuario());
+                    List<PermisoOtorgadoDTO> list = (List<PermisoOtorgadoDTO>) PermisoOtorgadoController.getInstance().getUsuario(ar.getUsuario().getId().toString());
+                    if (!list.isEmpty()) {
+                        AppContext.getInstance().set("permisosOTG", list);
+                    } else {
+                        AppContext.getInstance().set("permisosOTG", null);
+                    }
+
+                    System.out.println(((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto());
                     FlowController.getInstance().goView("Principal");
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error de incio de Sesion", null, "La contraseña o cedula estan incorecctas");
