@@ -1,107 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.InformacionController">
    <children>
       <VBox prefHeight="316.0" prefWidth="712.0">
          <children>
             <HBox alignment="CENTER" prefHeight="68.0" prefWidth="706.0">
                <children>
-                  <TextField prefHeight="25.0" prefWidth="329.0" promptText="Buscar" />
-                  <Button mnemonicParsing="false" text="Buscar" />
-                  <Button mnemonicParsing="false" text="Borrar" />
+                  <TextField fx:id="texFieldFiltro" prefHeight="25.0" prefWidth="329.0" promptText="Buscar" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" />
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionFilter" text="Borrar" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="120.0">
-               <children>
-                  <Label text="Id:" />
-                  <TextField fx:id="txtId" prefHeight="29.0" prefWidth="324.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="35.0">
-               <children>
-                  <Label text="Nombre completo:" />
-                  <TextField prefHeight="29.0" prefWidth="324.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="30.0">
-               <children>
-                  <Label text="Password encriptado:" />
-                  <JFXPasswordField prefHeight="29.0" prefWidth="313.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="95.0">
-               <children>
-                  <Label text="Cédula:" />
-                  <TextField prefHeight="29.0" prefWidth="324.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="75.0">
-               <children>
-                  <Label prefHeight="21.0" prefWidth="61.0" text="Estado" />
-                  <ComboBox prefHeight="31.0" prefWidth="324.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="55.0">
-               <children>
-                  <Label text="Departamento:" />
-                  <TextField prefHeight="29.0" prefWidth="324.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="100.0">
-               <children>
-                  <Label text="Es jefe:" />
-                  <TextField prefHeight="29.0" prefWidth="324.0" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="102.0">
-               <children>
-                  <Label prefHeight="21.0" prefWidth="142.0" text="Última Modificación" />
-                  <Label text="Label" />
-               </children>
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="120.0">
-               <children>
-                  <Label prefHeight="21.0" prefWidth="128.0" text=" Creado el" />
-                  <Label text="Label" />
-               </children>
-               <padding>
-                  <Insets left="95.0" />
-               </padding>
-            </HBox>
+            <HBox fx:id="Hbox" prefHeight="255.0" prefWidth="712.0" />
          </children>
       </VBox>
    </children>

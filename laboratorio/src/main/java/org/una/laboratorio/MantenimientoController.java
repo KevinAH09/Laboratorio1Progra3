@@ -48,13 +48,13 @@ public class MantenimientoController extends Controller implements Initializable
     private Button btnFilter;
     @FXML
     private Button btnFilterCancel;
-    private TableView<UsuarioDTO> tableviewUsuario;
+    
     private TableView<DepartamentoDTO> tableviewDepartamento;
     private TableView<UsuarioDTO> tableviewVariaciones;
     private TableView<TramiteTipoDTO> tableviewTramiteTipo;
     private TableView<UsuarioDTO> tableviewRegistro;
     private TableView<UsuarioDTO> tableviewParametro;
-    public List<UsuarioDTO> usuarioList;
+    
     public List<DepartamentoDTO> departamentoList;
     public List<TramiteTipoDTO> tramiteTipoList;
     @FXML
@@ -74,11 +74,10 @@ public class MantenimientoController extends Controller implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         tableviewTramiteTipo = new TableView<>();
         tableviewDepartamento = new TableView<>();
-        tableviewUsuario = new TableView<>();
+        
         objeto = (String) AppContext.getInstance().get("objetoTabla");
         if (objeto.equals("Usuarios")) {
-            actionusuarioClick();
-            llenarUsuario();
+            
 
         } else if (objeto.equals("Departamentos")) {
             actionDepartamentoClick();
@@ -103,11 +102,11 @@ public class MantenimientoController extends Controller implements Initializable
     private void actionFilter(ActionEvent event) {
         //if (txtClave.isDisable() && txtUsuario.isDisable()) {
         if (objeto.equals("Usuarios")) {
-            if (texFieldFiltro != null) {
-                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList.stream().filter(x -> x.getNombreCompleto().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
-            } else {
-                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
-            }
+//            if (texFieldFiltro != null) {
+//                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList.stream().filter(x -> x.getNombreCompleto().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
+//            } else {
+//                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
+//            }
         } else if (objeto.equals("Departamentos")) {
             if (texFieldFiltro != null) {
                 tableviewDepartamento.setItems(FXCollections.observableArrayList(departamentoList.stream().filter(x -> x.getNombre().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
@@ -162,46 +161,9 @@ public class MantenimientoController extends Controller implements Initializable
         });
     }
 
-    private void actionusuarioClick() {
-        tableviewUsuario.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null) {
-                    UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("selec", usuario);
-                    System.out.println(".handle()");
-                    tableviewUsuario.selectionModelProperty().get().clearSelection();
-                }
+    
 
-            }
-        });
-    }
-
-    private void llenarUsuario() {
-        TableColumn<UsuarioDTO, String> colNombre = new TableColumn("Nombre");
-        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombreCompleto()));
-        TableColumn<UsuarioDTO, String> colCedula = new TableColumn("Cedula");
-        colCedula.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getCedula()));
-        TableColumn<UsuarioDTO, String> colFechaRe = new TableColumn("Fecha Registro");
-        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-        TableColumn<UsuarioDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
-        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-         tableviewUsuario.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-        tableviewUsuario.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-        tableviewUsuario.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
-        try {
-            usuarioList = Usuariocontroller.getInstance().getAll();
-            if (usuarioList != null && !usuarioList.isEmpty()) {
-                tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
-                HboxTable.getChildren().clear();
-                HboxTable.getChildren().add(tableviewUsuario);
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-            }
-        } catch (Exception e) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-        }
-    }
+    
 
     private void llenarDepartamento() {
         TableColumn<DepartamentoDTO, String> colNombre = new TableColumn("Nombre");
@@ -259,8 +221,8 @@ public class MantenimientoController extends Controller implements Initializable
 
     @FXML
     private void actionMovenTam(MouseEvent event) {
-        tableviewUsuario.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
-        tableviewUsuario.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+//        tableviewUsuario.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
+//        tableviewUsuario.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
         tableviewTramiteTipo.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
         tableviewTramiteTipo.setMinSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
         tableviewDepartamento.setMaxSize(HboxTable.getPrefWidth(), HboxTable.getPrefHeight());
