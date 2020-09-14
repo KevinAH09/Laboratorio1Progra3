@@ -21,17 +21,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.TramiteTipoDTO;
+import org.una.laboratorio.utils.AppContext;
+import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
-
 
 /**
  * FXML Controller class
  *
  * @author colo7
  */
-public class TramitesViewController implements Initializable {
+public class TipoTramitesViewController extends Controller implements Initializable {
 
     @FXML
     private TextField txtBuscar;
@@ -51,9 +53,51 @@ public class TramitesViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        actionTramitesClick();
-        llenarTremites();
-    }    
+        actionDepartamentoClick();
+        llenarDepartamento();
+    }
+
+    private void actionDepartamentoClick() {
+        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                    TramiteTipoDTO tra = (TramiteTipoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("TraObject", tra);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchTipoTramite", ((Stage) btnBuscar.getScene().getWindow()), false);
+                    tableview.selectionModelProperty().get().clearSelection();
+                }
+
+            }
+        });
+    }
+
+    private void llenarDepartamento() {
+        TableColumn<TramiteTipoDTO, String> colid = new TableColumn("ID");
+        colid.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        TableColumn<TramiteTipoDTO, String> colDepar = new TableColumn("Departamento");
+        colDepar.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDepartamento().getNombre()));
+        TableColumn<TramiteTipoDTO, String> colNombre = new TableColumn("Descripcion");
+        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        TableColumn<TramiteTipoDTO, String> colCedula = new TableColumn("Estado");
+        colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
+        TableColumn<TramiteTipoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
+        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
+        TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
+        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
+        tableview.getColumns().addAll(colid,colDepar,colNombre, colCedula, colFechaRe, colFechaMo);
+
+        try {
+            List<TramiteTipoDTO> tramiteList = TramiteTipoController.getInstance().getAll();
+            if (tramiteList != null && !tramiteList.isEmpty()) {
+                tableview.setItems(FXCollections.observableArrayList(tramiteList));
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+            }
+        } catch (Exception e) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+        }
+    }
 
     @FXML
     private void buscar(ActionEvent event) {
@@ -69,49 +113,13 @@ public class TramitesViewController implements Initializable {
 
     @FXML
     private void save(ActionEvent event) {
-    }
-    
-    
-     private void actionTramitesClick() {
-        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    TramiteTipoDTO depa = (TramiteTipoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
-
-            }
-        });
+        AppContext.getInstance().set("TraObject", null);
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchTipoTramite", ((Stage) btnBuscar.getScene().getWindow()), Boolean.FALSE);
     }
 
-    
-
-    
-
-    private void llenarTremites() {
-        TableColumn<TramiteTipoDTO, String> colCedula = new TableColumn("ID");
-        colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getId()));
-        TableColumn<TramiteTipoDTO, String> colNombre = new TableColumn("Descripcion");
-        colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-        TableColumn<TramiteTipoDTO, String> colestado = new TableColumn("Estado");
-        colestado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-        TableColumn<TramiteTipoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
-        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-        TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
-        colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colCedula,colNombre,colestado, colFechaRe, colFechaMo);
-
-        try {
-            List<TramiteTipoDTO> tramiteList = TramiteTipoController.getInstance().getAll();
-            if (tramiteList != null && !tramiteList.isEmpty()) {
-                tableview.setItems(FXCollections.observableArrayList(tramiteList));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-            }
-        } catch (Exception e) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-        }
+    @Override
+    public void initialize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

@@ -45,6 +45,8 @@ public class AddEditWatchPermisoController extends Controller implements Initial
     private Label lblFechaModificacion;
     @FXML
     private TextArea txtDescripcion;
+    
+    
     PermisoDTO permisoDTO;
 
     /**

@@ -189,7 +189,7 @@ public class PrincipalController extends Controller implements Initializable {
     void cambiarTramites() throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
-                .getResource("TramitesView.fxml"));
+                .getResource("TipoTramitesView.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
     }

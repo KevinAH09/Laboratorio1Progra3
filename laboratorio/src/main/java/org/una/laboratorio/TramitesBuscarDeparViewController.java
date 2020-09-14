@@ -8,7 +8,6 @@ package org.una.laboratorio;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -24,19 +23,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.DepartamentoController;
+import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.DepartamentoDTO;
+import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.utils.AppContext;
-import org.una.laboratorio.utils.Mensaje;
 import org.una.laboratorio.utils.FlowController;
+import org.una.laboratorio.utils.Mensaje;
+
 
 /**
  * FXML Controller class
  *
  * @author colo7
  */
-public class DepartamentoViewController extends Controller implements Initializable {
+public class TramitesBuscarDeparViewController extends Controller implements Initializable {
 
-    public List<DepartamentoDTO> departamentoList;
     @FXML
     private TextField txtBuscar;
     @FXML
@@ -47,37 +48,41 @@ public class DepartamentoViewController extends Controller implements Initializa
     private TableView<DepartamentoDTO> tableview;
     @FXML
     private Button btnCancelar;
-    @FXML
-    private Button btnGuardar;
+    public List<DepartamentoDTO> departamentoList;
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actionDepartamentoClick();
         llenarDepartamento();
+    }    
+
+    @FXML
+    private void buscar(ActionEvent event) {
     }
 
-    @Override
-    public void initialize() {
-
+    @FXML
+    private void borrar(ActionEvent event) {
     }
 
-    private void actionFilter(ActionEvent event) {
-        if (txtBuscar != null) {
-            tableview.setItems(FXCollections.observableArrayList(departamentoList.stream().filter(x -> x.getNombre().toUpperCase().startsWith(txtBuscar.getText().toUpperCase())).collect(Collectors.toList())));
-        } else {
-            tableview.setItems(FXCollections.observableArrayList(departamentoList));
-        }
+    @FXML
+    private void cancel(ActionEvent event) {
+        AppContext.getInstance().set("BuscadoDepar", null);
+        ((Stage) btnBuscar.getScene().getWindow()).close();
     }
 
-    private void actionDepartamentoClick() {
+    
+    
+      private void actionDepartamentoClick() {
         tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
                     DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("DepaObject", depa);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
+                    AppContext.getInstance().set("BuscadoDepar", depa);
+                    ((Stage) btnBuscar.getScene().getWindow()).close();
                 }
 
             }
@@ -107,21 +112,9 @@ public class DepartamentoViewController extends Controller implements Initializa
         }
     }
 
-    @FXML
-    private void buscar(ActionEvent event) {
+    @Override
+    public void initialize() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @FXML
-    private void borrar(ActionEvent event) {
-    }
-
-    @FXML
-    private void cancel(ActionEvent event) {
-    }
-
-    @FXML
-    private void save(ActionEvent event) {
-        AppContext.getInstance().set("DepaObject", null);
-        FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), Boolean.FALSE);
-    }
+    
 }

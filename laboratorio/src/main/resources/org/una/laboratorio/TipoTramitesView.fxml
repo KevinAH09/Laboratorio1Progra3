@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.laboratorio.TramitesViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@Style2.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.laboratorio.TipoTramitesViewController">
    <children>
       <StackPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,7 +18,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0">
                      <children>
-                        <Label text="Informacion Tramites Tipo" />
+                        <Label text="Tipo de Tramites" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0">
@@ -40,7 +40,7 @@
                   <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
                      <children>
                         <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancel" text="Cancelar " />
-                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Guardar" />
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Agregar" />
                      </children>
                   </HBox>
                </children>
