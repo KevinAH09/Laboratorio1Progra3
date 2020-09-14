@@ -14,12 +14,12 @@ import java.util.Date;
 public class VariacionDTO {
     private Long id;
     private String descripcion;
-    private boolean grupo;
+    private Long grupo;
     private boolean estado;
     private Date fechaRegistro;
     private TramiteTipoDTO tramiteTipo;
 
-    public VariacionDTO(Long id, String descripcion, boolean grupo, boolean estado, Date fechaRegistro, TramiteTipoDTO tramiteTipo) {
+    public VariacionDTO(Long id, String descripcion, Long grupo, boolean estado, Date fechaRegistro, TramiteTipoDTO tramiteTipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.grupo = grupo;
@@ -47,11 +47,11 @@ public class VariacionDTO {
         this.descripcion = descripcion;
     }
 
-    public boolean isGrupo() {
+    public Long getGrupo() {
         return grupo;
     }
 
-    public void setGrupo(boolean grupo) {
+    public void setGrupo(Long grupo) {
         this.grupo = grupo;
     }
 
