@@ -69,30 +69,32 @@ public class AutorizacionesController extends Controller implements Initializabl
     private Label labelCedula;
     List<UsuarioDTO> U;
     ObservableList<PermisoDTO> items;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tableView = new TableView<>();
-        listaUsuario= (UsuarioDTO) AppContext.getInstance().get("selec");
-        
+        listaUsuario = (UsuarioDTO) AppContext.getInstance().get("selec");
+
         try {
             permisosOtorgados = (List<PermisoOtorgadoDTO>) PermisoOtorgadoController.getInstance().getUsuario(listaUsuario.getId().toString());
-           
+
             //usuarioDTO=(UsuarioDTO) AppContext.getInstance().get("usuarioLog");
         } catch (InterruptedException | ExecutionException | IOException ex) {
             Logger.getLogger(AutorizacionesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         actionDepartamentoClick();
         LLenarTableView();
-    } 
-     private void actionDepartamentoClick() {
+    }
+
+    private void actionDepartamentoClick() {
         tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if ( tableView.selectionModelProperty().get().getSelectedItem() != null) {
+                if (tableView.selectionModelProperty().get().getSelectedItem() != null) {
                     PerimisosCheBox tra = (PerimisosCheBox) tableView.selectionModelProperty().get().getSelectedItem();
                     System.out.println(tra.getBox().isSelected());
                 }
@@ -100,9 +102,9 @@ public class AutorizacionesController extends Controller implements Initializabl
             }
         });
     }
-    private void LLenarTableView()
-    {
-        
+
+    private void LLenarTableView() {
+
         try {
             permisos = PermisoController.getInstance().getAll();
         } catch (InterruptedException ex) {
@@ -114,50 +116,36 @@ public class AutorizacionesController extends Controller implements Initializabl
         }
         List<PerimisosCheBox> cheBoxs = new ArrayList<>();
         for (PermisoDTO permiso : permisos) {
-            PerimisosCheBox cheBox = new PerimisosCheBox(new CheckBox(), permiso);
-            cheBoxs.add(cheBox);
+            for (PermisoOtorgadoDTO permisosOtorgado : permisosOtorgados) {
+                if (permiso.getId() == permisosOtorgado.getPermisoId().getId()) {
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.setSelected(true);
+                    PerimisosCheBox cheBox = new PerimisosCheBox(checkBox, permiso);
+                    cheBoxs.add(cheBox);
+                }
+            }
+
         }
-       labelCedula.setText(listaUsuario.getCedula());
-       labelUsuario.setText(listaUsuario.getNombreCompleto());
-       
-       TableColumn<PerimisosCheBox, CheckBox> colunmcuadro = new TableColumn("Select");
-       colunmcuadro.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getBox()));
-       
-       TableColumn<PerimisosCheBox, String> colunmId = new TableColumn("ID");
+
+        labelCedula.setText(listaUsuario.getCedula());
+        labelUsuario.setText(listaUsuario.getNombreCompleto());
+
+        TableColumn<PerimisosCheBox, CheckBox> colunmcuadro = new TableColumn("Select");
+        colunmcuadro.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getBox()));
+
+        TableColumn<PerimisosCheBox, String> colunmId = new TableColumn("ID");
         colunmId.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getdTO().getId().toString()));
-        
+
         TableColumn<PerimisosCheBox, String> colunmCodigo = new TableColumn("Codigo");
         colunmCodigo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getdTO().getCodigo()));
         TableColumn<PerimisosCheBox, String> colunmNombre = new TableColumn("Nombre");
         colunmNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getdTO().getDescripcion()));
-        tableView.getColumns().addAll(colunmcuadro,colunmId, colunmCodigo ,colunmNombre);
+        tableView.getColumns().addAll(colunmcuadro, colunmId, colunmCodigo, colunmNombre);
         try {
-//            
-//            permisos = PermisoController.getInstance().getAll();
-//            if (permisos != null && !permisos.isEmpty()) {
-//               
-//               
-//                
-////                 items =tableView.getItems();
-//                for (PermisoDTO per: permisos) {
-//                    for (PermisoOtorgadoDTO permisosOtorgado1 : permisosOtorgados) {
-//                        if(per.getId().toString().equals(permisosOtorgado1.getPermisoId().toString()))
-//                        {
-//                            CheckBox c=colunmcuadro.getCellData(1);
-//                            c.setSelected(true);
-//                        }
-//                        
-//                    }
-//                }
-//                CheckBox c=colunmcuadro.getCellData(1);
-////                c.setSelected(true);
-//                System.out.println(c.isSelected());
-                tableView.setItems(FXCollections.observableArrayList(cheBoxs));
-                Hbox.getChildren().clear();
-                Hbox.getChildren().add(tableView);
-//            } else {
-//                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Permisos", null, "El usuario no tiene permisos ");
-//            }
+            tableView.setItems(FXCollections.observableArrayList(cheBoxs));
+            
+            Hbox.getChildren().clear();
+            Hbox.getChildren().add(tableView);
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Permisos", null, "estoy verificando en mantenimineto");
         }
@@ -170,6 +158,17 @@ public class AutorizacionesController extends Controller implements Initializabl
 
     @FXML
     private void actionBuscar(ActionEvent event) {
+        permisos.clear();
+        List<PerimisosCheBox> cheBoxs = new ArrayList<>();
+        cheBoxs=tableView.getItems();
+        for (PerimisosCheBox permisosOtorga : cheBoxs) {
+            if(permisosOtorga.getBox().isSelected()){
+                permisos.add(permisosOtorga.getdTO());
+                
+            }
+            
+        }
+        System.out.println(permisos);
 //        if (texFielFiltrar != null) {
 //            tableView.setItems(FXCollections.observableArrayList(listaUsuario.stream().filter(x -> x.getNombreCompleto().toUpperCase().startsWith(texFieldFiltro.getText().toUpperCase())).collect(Collectors.toList())));
 //        } else {

@@ -57,6 +57,7 @@ org\una\laboratorio\service\ArchivoRelacionadoService$2.class
 org\una\laboratorio\dto\PermisoOtorgadoDTO.class
 org\una\laboratorio\controller\ClienteController.class
 org\una\laboratorio\service\DepartementoService$3.class
+org\una\laboratorio\DisenoTramitesController$1.class
 org\una\laboratorio\service\ParametroGeneralService$2.class
 org\una\laboratorio\service\ArchivoRelacionadoService$1.class
 org\una\laboratorio\controller\Usuariocontroller$UsuariocontrollerHolder.class
