@@ -60,6 +60,7 @@ public class InformacionController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         tableviewUsuario = new TableView<>();
         //objeto = (String) AppContext.getInstance().get("objetoTabla");
+        
         actionusuarioClick();
         llenarUsuario();
     }
@@ -71,13 +72,9 @@ public class InformacionController extends Controller implements Initializable {
                 if (mouseEvent.getClickCount() == 2 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null) {
                     UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("selec", usuario);
-                    //FlowController.getInstance().goMain();
                     tableviewUsuario.selectionModelProperty().get().clearSelection();
-                    //FlowController.getInstance().goViewInWindowModal("AddEditWatchUsuario", ((Stage) tableviewUsuario.getScene().getWindow()), false);
-                    FlowController.getInstance().goView("AddEditWatchUsuario");
-                    
-//                    FlowController.getInstance().goView("AddEditWatchUsuario");
-                    
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchUsuario", ((Stage) tableviewUsuario.getScene().getWindow()), false);
+                  
                 }
                 else if(mouseEvent.getClickCount() == 1 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null)
                 {

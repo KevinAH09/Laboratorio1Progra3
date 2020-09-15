@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 
 /**
@@ -66,11 +67,15 @@ public class InformacionUsuariosController extends Controller implements Initial
 
     @FXML
     private void actionAutorizaciones(ActionEvent event) throws IOException {
-        Hbox.getChildren().clear();
+        if(AppContext.getInstance().get("selec")!=null)
+        {
+            Hbox.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
                 .getResource("Autorizaciones.fxml"));
         Hbox.getChildren()
                 .add(root);
+        }
+        
     }
 
     @FXML
