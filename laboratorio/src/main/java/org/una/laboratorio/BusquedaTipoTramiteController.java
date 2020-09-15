@@ -8,6 +8,7 @@ package org.una.laboratorio;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -46,6 +47,7 @@ public class BusquedaTipoTramiteController extends Controller implements Initial
     @FXML
     private Button btnCancelar;
     public List<TramiteTipoDTO> tipoList;
+    public List<TramiteTipoDTO> tipoList2;
 
     /**
      * Initializes the controller class.
@@ -58,10 +60,29 @@ public class BusquedaTipoTramiteController extends Controller implements Initial
 
     @FXML
     private void buscar(ActionEvent event) {
+        tableview.getItems().clear();
+        try {
+            tipoList2 = TramiteTipoController.getInstance().getAll();
+
+            if (txtBuscar != null) {
+                tipoList2 = tipoList2.stream().filter(x -> x.getDescripcion().toUpperCase().startsWith(txtBuscar.getText().toUpperCase())).collect(Collectors.toList());
+                tableview.setItems(FXCollections.observableArrayList(tipoList2));
+
+                actionTramiteClick();
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Lista Vacía");
+
+            }
+        } catch (Exception e) {
+
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Hubo un error");
+        }
     }
 
     @FXML
     private void borrar(ActionEvent event) {
+        tableview.getItems().clear();
+        llenarTramites();
     }
 
     @FXML
@@ -97,7 +118,7 @@ public class BusquedaTipoTramiteController extends Controller implements Initial
         TableColumn<TramiteTipoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getDepartamento()));
         TableColumn<TramiteTipoDTO, String> colFechaCre = new TableColumn("Fecha Creacion");
-        colFechaCre.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));  
+        colFechaCre.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         tableview.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaCre, colFechaMo);
@@ -107,7 +128,7 @@ public class BusquedaTipoTramiteController extends Controller implements Initial
             if (tipoList != null && !tipoList.isEmpty()) {
                 tableview.setItems(FXCollections.observableArrayList(tipoList));
             } else {
-                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
             }
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
