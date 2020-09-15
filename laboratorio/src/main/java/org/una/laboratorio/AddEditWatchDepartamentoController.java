@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
 import org.una.laboratorio.dto.DepartamentoDTO;
@@ -74,6 +75,7 @@ public class AddEditWatchDepartamentoController extends Controller implements In
 
     @FXML
     private void actionCancelar(ActionEvent event) {
+        ((Stage) txtId.getScene().getWindow()).close();
     }
 
     @FXML
@@ -91,9 +93,14 @@ public class AddEditWatchDepartamentoController extends Controller implements In
                     
                     departamentoDTO.setFechaModificacion(new Date());
                     departamentoDTO.setFechaRegistro(new Date());
-                    DepartamentoController.getInstance().add(departamentoDTO);
+                    if(DepartamentoController.getInstance().add(departamentoDTO)==201){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar departamento", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar departamento", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear departamentos", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear departamento", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
 
             } else {
@@ -105,9 +112,14 @@ public class AddEditWatchDepartamentoController extends Controller implements In
                         departamentoDTO.setEstado(false);
                     }
                     departamentoDTO.setFechaModificacion(new Date());
-                    DepartamentoController.getInstance().Update(departamentoDTO);
+                    if(DepartamentoController.getInstance().Update(departamentoDTO)==200){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar departamento", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar departamento", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar departamentos", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar departamentos", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
             }
 

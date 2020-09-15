@@ -25,8 +25,8 @@ public class ParametroGeneralController {
         return ParametroGeneralService.ListFromConnection(urlstring, ParametroGeneralDTO.class);
     }
 
-    public void add(ParametroGeneralDTO object) throws InterruptedException, ExecutionException, IOException {
-        ParametroGeneralService.ObjectToConnection(urlstring, object);
+    public int add(ParametroGeneralDTO object) throws InterruptedException, ExecutionException, IOException {
+        return ParametroGeneralService.ObjectToConnection(urlstring, object);
     }
 
   public Object getId(String id)throws InterruptedException, ExecutionException, IOException {
@@ -35,8 +35,8 @@ public class ParametroGeneralController {
   public Object getNombre(String nombre)throws InterruptedException, ExecutionException, IOException {
         return ParametroGeneralService.FromConnectionNombre(urlstring+"nombre/", nombre, ParametroGeneralDTO.class);
     }
-     public void Update(ParametroGeneralDTO dep)throws InterruptedException, ExecutionException, IOException {
-        ParametroGeneralService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
+     public int Update(ParametroGeneralDTO dep)throws InterruptedException, ExecutionException, IOException {
+        return ParametroGeneralService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
     }
     public static ParametroGeneralController getInstance() {
         return ParametroGeneralControllerHolder.INSTANCE;

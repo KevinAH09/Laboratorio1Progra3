@@ -26,8 +26,8 @@ public class PermisoController {
         return PermisoService.ListFromConnection(urlstring, PermisoDTO.class);
     }
 
-    public void add(PermisoDTO object) throws InterruptedException, ExecutionException, IOException {
-        PermisoService.ObjectToConnection(urlstring, object);
+    public int add(PermisoDTO object) throws InterruptedException, ExecutionException, IOException {
+        return PermisoService.ObjectToConnection(urlstring, object);
     }
 
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
@@ -38,8 +38,8 @@ public class PermisoController {
         return PermisoService.FromConnectionEstado(urlstring + "estado/", estado, PermisoDTO.class);
     }
 
-    public void Update(PermisoDTO dep) throws InterruptedException, ExecutionException, IOException {
-        PermisoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    public int  Update(PermisoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        return PermisoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
     }
 
     public static PermisoController getInstance() {

@@ -22,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
@@ -92,6 +93,7 @@ public class AddEditWatchParametroController extends Controller implements Initi
 
     @FXML
     private void actionCancelar(ActionEvent event) {
+        ((Stage) txtId.getScene().getWindow()).close();
     }
 
     @FXML
@@ -110,9 +112,15 @@ public class AddEditWatchParametroController extends Controller implements Initi
                     parametroGeneralDTO.setValor(txtValor.getText());
                     parametroGeneralDTO.setFechaModificacion(new Date());
                     parametroGeneralDTO.setFechaRegistro(new Date());
-                    ParametroGeneralController.getInstance().add(parametroGeneralDTO);
+                    
+                    if(ParametroGeneralController.getInstance().add(parametroGeneralDTO)==201){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Parametro", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Parametro", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear departamentos", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear Parametro", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
 
             } else {
@@ -126,9 +134,14 @@ public class AddEditWatchParametroController extends Controller implements Initi
                     parametroGeneralDTO.setDescripcion(txtDescripcion.getText());
                     parametroGeneralDTO.setValor(txtValor.getText());
                     parametroGeneralDTO.setFechaModificacion(new Date());
-                    ParametroGeneralController.getInstance().Update(parametroGeneralDTO);
+                     if(ParametroGeneralController.getInstance().Update(parametroGeneralDTO)==200){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Parametro", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Parametro", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar departamentos", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar Parametro", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
             }
 

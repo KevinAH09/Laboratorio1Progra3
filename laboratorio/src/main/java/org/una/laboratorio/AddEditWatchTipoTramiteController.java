@@ -114,9 +114,14 @@ public class AddEditWatchTipoTramiteController extends Controller implements Ini
                     tramiteTipoDTO.setDepartamento((DepartamentoDTO) AppContext.getInstance().get("BuscadoDepar"));
                     tramiteTipoDTO.setFechaModificacion(new Date());
                     tramiteTipoDTO.setFechaRegistro(new Date());
-                    TramiteTipoController.getInstance().add(tramiteTipoDTO);
+                    if(TramiteTipoController.getInstance().add(tramiteTipoDTO)==201){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar tramite", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear tramites", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar tramite", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
 
             } else {
@@ -129,9 +134,14 @@ public class AddEditWatchTipoTramiteController extends Controller implements Ini
                     }
                     tramiteTipoDTO.setDepartamento((DepartamentoDTO) AppContext.getInstance().get("BuscadoDepar"));
                     tramiteTipoDTO.setFechaModificacion(new Date());
-                    TramiteTipoController.getInstance().Update(tramiteTipoDTO);
+                    if(TramiteTipoController.getInstance().Update(tramiteTipoDTO)==200){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear tramite", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar tramites", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar tramites", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
             }
 

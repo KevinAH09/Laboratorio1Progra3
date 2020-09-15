@@ -26,8 +26,8 @@ public class TramiteTipoController {
         return TramiteTipoService.ListFromConnection(urlstring, TramiteTipoDTO.class);
     }
 
-    public void add(TramiteTipoDTO object) throws InterruptedException, ExecutionException, IOException {
-        TramiteTipoService.ObjectToConnection(urlstring, object);
+    public int add(TramiteTipoDTO object) throws InterruptedException, ExecutionException, IOException {
+        return TramiteTipoService.ObjectToConnection(urlstring, object);
     }
 
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
@@ -39,8 +39,8 @@ public class TramiteTipoController {
     public Object getDepartamento(String departamentoId) throws InterruptedException, ExecutionException, IOException {
         return TramiteTipoService.FromConnectionDepartamento(urlstring+"departamento_id/", departamentoId, TramiteTipoDTO.class);
     }
-    public void Update(TramiteTipoDTO dep) throws InterruptedException, ExecutionException, IOException {
-        TramiteTipoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    public int Update(TramiteTipoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        return TramiteTipoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
     }
 
     public static TramiteTipoController getInstance() {

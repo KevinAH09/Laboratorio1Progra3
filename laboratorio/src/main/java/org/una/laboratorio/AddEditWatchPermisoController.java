@@ -21,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.una.laboratorio.dto.PermisoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.controller.PermisoController;
@@ -81,6 +82,7 @@ public class AddEditWatchPermisoController extends Controller implements Initial
 
     @FXML
     private void actionCancelar(ActionEvent event) {
+        ((Stage) txtId.getScene().getWindow()).close();
     }
 
     @FXML
@@ -98,9 +100,14 @@ public class AddEditWatchPermisoController extends Controller implements Initial
                     permisoDTO.setCodigo(txtCodigo.getText());
                     permisoDTO.setFechaModificacion(new Date());
                     permisoDTO.setFechaRegistro(new Date());
-                    PermisoController.getInstance().add(permisoDTO);
+                    if(PermisoController.getInstance().add(permisoDTO)==201){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Permiso", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear departamentos", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear Permiso", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
 
             } else {
@@ -113,9 +120,14 @@ public class AddEditWatchPermisoController extends Controller implements Initial
                     permisoDTO.setDescripcion(txtDescripcion.getText());
                     permisoDTO.setCodigo(txtCodigo.getText());
                     permisoDTO.setFechaModificacion(new Date());
-                    PermisoController.getInstance().Update(permisoDTO);
+                    if(PermisoController.getInstance().Update(permisoDTO)==200){
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Permiso", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        ((Stage) txtId.getScene().getWindow()).close();
+                    }else{
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar departamentos", null, "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
             }
 
