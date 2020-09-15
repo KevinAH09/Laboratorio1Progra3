@@ -65,6 +65,7 @@ org\una\laboratorio\service\ParametroGeneralService$2.class
 org\una\laboratorio\service\ArchivoRelacionadoService$1.class
 org\una\laboratorio\controller\Usuariocontroller$UsuariocontrollerHolder.class
 org\una\laboratorio\AutorizacionesController.class
+org\una\laboratorio\ContrasenaController.class
 org\una\laboratorio\service\DepartementoService$4.class
 org\una\laboratorio\InformacionController$1.class
 org\una\laboratorio\dto\UsuarioDTO.class
