@@ -90,6 +90,7 @@ public class FlowController {
     public void goMain() { //muestra la scena de la "base"
         try {
             this.mainStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("base.fxml"), this.idioma)));
+            this.mainStage.setMinWidth(768);
             this.mainStage.show();
         } catch (Exception ex) {
             System.out.println("org.una.laboratorio.FlowController.goMain()"+ex);

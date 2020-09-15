@@ -5,9 +5,13 @@
  */
 package org.una.laboratorio;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -94,21 +98,13 @@ public class DepartamentoViewController extends Controller implements Initializa
         TableColumn<DepartamentoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
         tableview.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
+        llenarTable();
 
-        try {
-            departamentoList = DepartamentoController.getInstance().getAll();
-            if (departamentoList != null && !departamentoList.isEmpty()) {
-                tableview.setItems(FXCollections.observableArrayList(departamentoList));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-            }
-        } catch (Exception e) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-        }
     }
 
     @FXML
     private void buscar(ActionEvent event) {
+        
     }
 
     @FXML
@@ -117,11 +113,31 @@ public class DepartamentoViewController extends Controller implements Initializa
 
     @FXML
     private void cancel(ActionEvent event) {
+        
     }
 
     @FXML
     private void save(ActionEvent event) {
         AppContext.getInstance().set("DepaObject", null);
         FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), Boolean.FALSE);
+        llenarTable();
+
+    }
+
+    void llenarTable() {
+        try {
+            departamentoList = DepartamentoController.getInstance().getAll();
+            if (departamentoList != null && !departamentoList.isEmpty()) {
+                tableview.setItems(FXCollections.observableArrayList(departamentoList));
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de departamentos", ((Stage) btnBuscar.getScene().getWindow()), "No existen departamentos");
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
