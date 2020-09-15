@@ -5,6 +5,7 @@
  */
 package org.una.laboratorio.dto;
 
+import java.util.List;
 import javafx.scene.control.CheckBox;
 import org.una.laboratorio.dto.PermisoDTO;
 
@@ -15,6 +16,15 @@ import org.una.laboratorio.dto.PermisoDTO;
 public class PerimisosCheBox {
     CheckBox box ;
     PermisoDTO dTO;
+    List<PermisoDTO> list;
+
+    public List<PermisoDTO> getList() {
+        return list;
+    }
+
+    public void setList(List<PermisoDTO> list) {
+        this.list = list;
+    }
 
     public PerimisosCheBox() {
     }

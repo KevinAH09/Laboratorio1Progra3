@@ -100,6 +100,7 @@ public class InformacionController extends Controller implements Initializable {
         tableviewUsuario.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
         try {
             usuarioList = Usuariocontroller.getInstance().getAll();
+            AppContext.getInstance().set("hola", usuarioList);
             if (usuarioList != null && !usuarioList.isEmpty()) {
                 tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
                 Hbox.getChildren().clear();

@@ -7,6 +7,7 @@ package org.una.laboratorio;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import org.una.laboratorio.dto.PermisoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 
@@ -35,6 +37,8 @@ public class InformacionUsuariosController extends Controller implements Initial
     private Button btnContra;
     @FXML
     private HBox Hbox;
+    @FXML
+    private Button btnGuardar;
 
     /**
      * Initializes the controller class.
@@ -85,6 +89,12 @@ public class InformacionUsuariosController extends Controller implements Initial
     @Override
     public void initialize() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @FXML
+    private void guardar(ActionEvent event) {
+        List<PermisoDTO> lis= (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
+        System.out.println(lis);
     }
     
 }
