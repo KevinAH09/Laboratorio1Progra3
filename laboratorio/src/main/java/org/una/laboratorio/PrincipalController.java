@@ -71,7 +71,7 @@ public class PrincipalController extends Controller implements Initializable {
                     treeAcciones.getSelectionModel().select(item);
                     TreeDep = false;
                 }
-                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRA") && TreeTra) {
+                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRD") && TreeTra) {
                     TreeItem<String> item = new TreeItem<>("Diseño de Trámites");
                     itemInformacion.getChildren().add(item);
                     treeAcciones.getSelectionModel().select(item);

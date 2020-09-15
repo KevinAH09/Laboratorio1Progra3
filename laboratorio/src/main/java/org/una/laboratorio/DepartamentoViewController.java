@@ -33,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.dto.DepartamentoDTO;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
 import org.una.laboratorio.utils.FlowController;
@@ -57,8 +58,30 @@ public class DepartamentoViewController extends Controller implements Initializa
     @FXML
     private TextField txtNombre;
 
+    List<PermisoOtorgadoDTO> ListPerOtor;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+//         for (int i = 0; i < ListPerOtor.size(); i++) {
+        if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP1"))) {
+            btnGuardar.setVisible(false);
+            btnGuardar.setDisable(true);
+        }
+
+//                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
+//                    TreeItem<String> item = new TreeItem<>("Departamentos");
+//                    itemInformacion.getChildren().add(item);
+//                    treeAcciones.getSelectionModel().select(item);
+//                    TreeDep = false;
+//                }
+//                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRD") && TreeTra) {
+//                    TreeItem<String> item = new TreeItem<>("Diseño de Trámites");
+//                    itemInformacion.getChildren().add(item);
+//                    treeAcciones.getSelectionModel().select(item);
+//                    TreeTra = false;
+//                }
+//            }
         actionDepartamentoClick();
         llenarDepartamento();
     }
@@ -69,18 +92,23 @@ public class DepartamentoViewController extends Controller implements Initializa
     }
 
     private void actionDepartamentoClick() {
-        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("DepaObject", depa);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
+        if (ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP2")) || ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP3"))) {
+            btnGuardar.setVisible(false);
+            btnGuardar.setDisable(true);
 
-            }
-        });
+            tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                        DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        AppContext.getInstance().set("DepaObject", depa);
+                        FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), false);
+                        tableview.selectionModelProperty().get().clearSelection();
+                    }
+
+                }
+            });
+        }
     }
 
     private void llenarDepartamento() {

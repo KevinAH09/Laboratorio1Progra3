@@ -73,7 +73,7 @@
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Button mnemonicParsing="false" onAction="#actionCancelar" text="Cancelar" />
-                        <Button mnemonicParsing="false" onAction="#actionguardar" text="Guardar" />
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#actionguardar" text="Guardar" />
                      </children>
                   </HBox>
                </children>

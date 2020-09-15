@@ -22,7 +22,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtNombre" alignment="CENTER" onKeyPressed="#actionClearID" prefHeight="29.0" prefWidth="165.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtNombre" alignment="CENTER" onKeyPressed="#actionClearID" prefHeight="29.0" prefWidth="165.0" promptText="Buscar por id, nombre o estado(Activo-Desactivo)" HBox.hgrow="ALWAYS" />
                         <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
                         <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
                      </children>
