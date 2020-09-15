@@ -36,15 +36,18 @@ public class DepartementoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
     }
 
@@ -73,11 +76,11 @@ public class DepartementoService {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                
+
             }
-           
+
         }
-         return con.getResponseCode();
+        return con.getResponseCode();
     }
 
     public static <T> DepartamentoDTO FromConnectionID(String urlstring, String id, Class<T> type) throws MalformedURLException, IOException {
@@ -91,17 +94,21 @@ public class DepartementoService {
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            return gson.fromJson(response.toString(), listtype);
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
+            }
+        } else {
+            return null;
         }
     }
-    
+
     public static int UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         urlstring = urlstring + id;
@@ -120,7 +127,7 @@ public class DepartementoService {
             os.write(input, 0, input.length);
         }
 
-         if (con.getResponseCode() == 200) {
+        if (con.getResponseCode() == 200) {
 
             try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
                 StringBuilder response = new StringBuilder();
@@ -128,11 +135,11 @@ public class DepartementoService {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                
+
             }
-           
+
         }
-         return con.getResponseCode();
+        return con.getResponseCode();
     }
 
     public static <T> List<DepartamentoDTO> FromConnectionNombre(String urlstring, String nombre, Class<T> type) throws MalformedURLException, IOException {
@@ -145,15 +152,18 @@ public class DepartementoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
     }
 
@@ -167,16 +177,20 @@ public class DepartementoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
+
     }
 
 //    public static <T> Object ObjectLogin(String urlstring, Object object) throws MalformedURLException, IOException {

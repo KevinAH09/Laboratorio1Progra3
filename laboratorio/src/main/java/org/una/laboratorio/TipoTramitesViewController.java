@@ -55,13 +55,14 @@ public class TipoTramitesViewController extends Controller implements Initializa
     @FXML
     private TextField txtId;
 
-    List<TramiteTipoDTO> tramiteList ;
+    List<TramiteTipoDTO> tramiteList;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbEstado.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
+        cbEstado.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
         actionDepartamentoClick();
         llenarDepartamento();
     }
@@ -94,10 +95,10 @@ public class TipoTramitesViewController extends Controller implements Initializa
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colid,colDepar,colNombre, colCedula, colFechaRe, colFechaMo);
+        tableview.getColumns().addAll(colid, colDepar, colNombre, colCedula, colFechaRe, colFechaMo);
 
         try {
-           llenarTable();
+            llenarTable();
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
         }
@@ -106,43 +107,56 @@ public class TipoTramitesViewController extends Controller implements Initializa
     @FXML
     private void buscar(ActionEvent event) {
         tableview.getItems().clear();
+        tramiteList.clear();
         List<TramiteTipoDTO> lisAux = new ArrayList<>();
         System.out.println(txtId.getText());
-        if (!txtId.getText().isEmpty()) {
-            cbEstado.setValue(null);
-            for (int i = 0; i < tramiteList.size(); i++) {
-                if(txtId.getText().equals(String.valueOf(tramiteList.get(i).getId()))){
-                    lisAux.add(tramiteList.get(i));
-                    tableview.setItems(FXCollections.observableArrayList(lisAux));
+
+        try {
+            if (!txtId.getText().isEmpty()) {
+                Object o = TramiteTipoController.getInstance().getId(txtId.getText());
+                if (o != null) {
+                    tramiteList.add((TramiteTipoDTO)o);
+                    tableview.setItems(FXCollections.observableArrayList(tramiteList));
+                }else{
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron tramites");
                 }
-                
-            }
-            
-        } else if (cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < tramiteList.size(); i++) {
-                if (tramiteList.get(i).isEstado() == estado) {
-                    lisAux.add(tramiteList.get(i));
+
+            } else if (cbEstado.getValue() != null) {
+                if (cbEstado.getValue().equals("Activo")) {
+                    Object o = TramiteTipoController.getInstance().getEstado("1");
+                    if (o != null) {
+                        tableview.setItems(FXCollections.observableArrayList((List<TramiteTipoDTO>) o));
+                    }else{
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron tramites");
+                    }
+                } else {
+                    Object o = TramiteTipoController.getInstance().getEstado("0");
+                    if (o != null) {
+                        tableview.setItems(FXCollections.observableArrayList((List<TramiteTipoDTO>) o));
+                    }else{
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron tramites");
+                    }
                 }
+            } else {
+                llenarTable();
             }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else{
-            llenarTable();
+
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @FXML
     private void borrar(ActionEvent event) {
         txtId.setText("");
-        cbEstado.setValue(null);
+        cbEstado.setValue("");
         cbEstado.setPromptText("Estado");
     }
-
 
     @FXML
     private void save(ActionEvent event) {
@@ -163,24 +177,28 @@ public class TipoTramitesViewController extends Controller implements Initializa
 
     @FXML
     private void presID(KeyEvent event) {
-        cbEstado.setValue(null);
+        cbEstado.setValue("");
         cbEstado.setPromptText("Estado");
     }
-    
-    void llenarTable(){
+
+    void llenarTable() {
         try {
             tramiteList = TramiteTipoController.getInstance().getAll();
             if (tramiteList != null && !tramiteList.isEmpty()) {
                 tableview.setItems(FXCollections.observableArrayList(tramiteList));
             } else {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+
             }
         } catch (InterruptedException ex) {
-            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTramitesViewController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ExecutionException ex) {
-            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTramitesViewController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTramitesViewController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

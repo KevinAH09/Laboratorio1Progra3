@@ -76,6 +76,8 @@ public class AddEditWatchParametroController extends Controller implements Initi
             }
 
         } else {
+            comboEstado.setValue("Activo");
+            comboEstado.setDisable(true);
             parametroGeneralDTO = new ParametroGeneralDTO();
             txtId.setText("Nuevo");
             txtNombre.setText("");

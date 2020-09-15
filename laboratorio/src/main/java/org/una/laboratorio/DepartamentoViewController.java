@@ -33,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.dto.DepartamentoDTO;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
 import org.una.laboratorio.utils.FlowController;
@@ -56,14 +57,31 @@ public class DepartamentoViewController extends Controller implements Initializa
     private Button btnGuardar;
     @FXML
     private TextField txtNombre;
-    @FXML
-    private ComboBox<String> cbEstado;
-    @FXML
-    private TextField txtId;
+
+    List<PermisoOtorgadoDTO> ListPerOtor;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbEstado.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+//         for (int i = 0; i < ListPerOtor.size(); i++) {
+        if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP1"))) {
+            btnGuardar.setVisible(false);
+            btnGuardar.setDisable(true);
+        }
+
+//                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
+//                    TreeItem<String> item = new TreeItem<>("Departamentos");
+//                    itemInformacion.getChildren().add(item);
+//                    treeAcciones.getSelectionModel().select(item);
+//                    TreeDep = false;
+//                }
+//                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRD") && TreeTra) {
+//                    TreeItem<String> item = new TreeItem<>("Diseño de Trámites");
+//                    itemInformacion.getChildren().add(item);
+//                    treeAcciones.getSelectionModel().select(item);
+//                    TreeTra = false;
+//                }
+//            }
         actionDepartamentoClick();
         llenarDepartamento();
     }
@@ -74,18 +92,23 @@ public class DepartamentoViewController extends Controller implements Initializa
     }
 
     private void actionDepartamentoClick() {
-        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("DepaObject", depa);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
+        if (ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP2")) || ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP3"))) {
+            btnGuardar.setVisible(false);
+            btnGuardar.setDisable(true);
 
-            }
-        });
+            tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                        DepartamentoDTO depa = (DepartamentoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        AppContext.getInstance().set("DepaObject", depa);
+                        FlowController.getInstance().goViewInWindowModal("AddEditWatchDepartamento", ((Stage) btnBuscar.getScene().getWindow()), false);
+                        tableview.selectionModelProperty().get().clearSelection();
+                    }
+
+                }
+            });
+        }
     }
 
     private void llenarDepartamento() {
@@ -99,9 +122,8 @@ public class DepartamentoViewController extends Controller implements Initializa
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<DepartamentoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colID,colNombre, colCedula, colFechaRe, colFechaMo);
-        
-        
+        tableview.getColumns().addAll(colID, colNombre, colCedula, colFechaRe, colFechaMo);
+
         llenarTable();
         System.out.println(colCedula.getCellData(0));
     }
@@ -109,46 +131,35 @@ public class DepartamentoViewController extends Controller implements Initializa
     @FXML
     private void buscar(ActionEvent event) {
         tableview.getItems().clear();
-        List<DepartamentoDTO> lisAux = new ArrayList<>();
-        System.out.println(txtId.getText());
-        if (!txtId.getText().isEmpty()) {
-            cbEstado.setValue(null);
-            txtNombre.setText("");
-            for (int i = 0; i < departamentoList.size(); i++) {
-                if(txtId.getText().equals(String.valueOf(departamentoList.get(i).getId()))){
-                    lisAux.add(departamentoList.get(i));
-                    tableview.setItems(FXCollections.observableArrayList(lisAux));
-                }
-                
-            }
-            
-        } else if (txtNombre.getText() != null && cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < departamentoList.size(); i++) {
-                if (departamentoList.get(i).getNombre().toUpperCase().startsWith(txtNombre.getText().toUpperCase()) && departamentoList.get(i).isEstado() == estado) {
-                    lisAux.add(departamentoList.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else if (cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < departamentoList.size(); i++) {
-                if (departamentoList.get(i).isEstado() == estado) {
-                    lisAux.add(departamentoList.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else if (!txtNombre.getText().isEmpty()) {
+
+        if (!txtNombre.getText().isEmpty()) {
             try {
-                departamentoList = (List<DepartamentoDTO>) DepartamentoController.getInstance().getNombre(txtNombre.getText());
+                Object o;
+                if (txtNombre.getText().toUpperCase().equals("ACTIVO")) {
+                    o = DepartamentoController.getInstance().getEstado("1");
+                    tableview.setItems(FXCollections.observableArrayList((List<DepartamentoDTO>) o));
+                } else if (txtNombre.getText().toUpperCase().equals("DESACTIVO")) {
+                    o = DepartamentoController.getInstance().getEstado("0");
+                    tableview.setItems(FXCollections.observableArrayList((List<DepartamentoDTO>) o));
+                } else {
+                    o = null;
+                    o = DepartamentoController.getInstance().getId(txtNombre.getText());
+                    if (o != null) {
+                        departamentoList.clear();
+                        departamentoList.add((DepartamentoDTO) o);
+                        tableview.setItems(FXCollections.observableArrayList(departamentoList));
+                    } else {
+
+                        o = DepartamentoController.getInstance().getNombre(txtNombre.getText());
+                        if (o != null) {
+                            tableview.setItems(FXCollections.observableArrayList((List<DepartamentoDTO>) o));
+                        } else {
+                            new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron departamentos");
+                        }
+                    }
+
+                }
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ExecutionException ex) {
@@ -156,14 +167,8 @@ public class DepartamentoViewController extends Controller implements Initializa
             } catch (IOException ex) {
                 Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            for (int i = 0; i < departamentoList.size(); i++) {
-                if (departamentoList.get(i).getNombre().toUpperCase().startsWith(txtNombre.getText().toUpperCase())) {
-                    lisAux.add(departamentoList.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        }else{
+
+        } else {
             llenarTable();
         }
 
@@ -172,9 +177,6 @@ public class DepartamentoViewController extends Controller implements Initializa
     @FXML
     private void borrar(ActionEvent event) {
         txtNombre.setText("");
-        txtId.setText("");
-        cbEstado.setValue(null);
-        cbEstado.setPromptText("Estado");
     }
 
     @FXML
@@ -207,19 +209,8 @@ public class DepartamentoViewController extends Controller implements Initializa
     }
 
     @FXML
-    private void presID(KeyEvent event) {
-        txtNombre.setText("");
-        cbEstado.setValue(null);
-        cbEstado.setPromptText("Estado");
-    }
-
-    @FXML
     private void actionClearID(KeyEvent event) {
-        txtId.setText("");
+//        txtId.setText("");
     }
 
-    @FXML
-    private void actionClearID(ActionEvent event) {
-        txtId.setText("");
-    }
 }

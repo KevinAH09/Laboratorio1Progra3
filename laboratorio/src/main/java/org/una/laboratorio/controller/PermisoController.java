@@ -37,6 +37,9 @@ public class PermisoController {
     public Object getEstado(String estado) throws InterruptedException, ExecutionException, IOException {
         return PermisoService.FromConnectionEstado(urlstring + "estado/", estado, PermisoDTO.class);
     }
+    public Object getCodigo(String codigo) throws InterruptedException, ExecutionException, IOException {
+        return PermisoService.FromConnectionCodigo(urlstring + "codigo/", codigo, PermisoDTO.class);
+    }
 
     public int  Update(PermisoDTO dep) throws InterruptedException, ExecutionException, IOException {
         return PermisoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);

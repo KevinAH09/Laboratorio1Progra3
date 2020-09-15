@@ -53,10 +53,6 @@ public class PermisosViewController extends Controller implements Initializable 
     private Button btnGuardar;
     @FXML
     private TextField txtNombre;
-    @FXML
-    private ComboBox<String> cbEstado;
-    @FXML
-    private TextField txtId;
 
     List<PermisoDTO> lisPer;
 
@@ -65,7 +61,6 @@ public class PermisosViewController extends Controller implements Initializable 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbEstado.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
         actionPermisosClick();
         llenarTableView();
     }
@@ -115,63 +110,51 @@ public class PermisosViewController extends Controller implements Initializable 
     @FXML
     private void buscar(ActionEvent event) {
         tableview.getItems().clear();
-        List<PermisoDTO> lisAux = new ArrayList<>();
-        System.out.println(txtId.getText());
-        if (!txtId.getText().isEmpty()) {
-            cbEstado.setValue(null);
-            txtNombre.setText("");
-            for (int i = 0; i < lisPer.size(); i++) {
-                if (txtId.getText().equals(String.valueOf(lisPer.get(i).getId()))) {
-                    lisAux.add(lisPer.get(i));
-                    tableview.setItems(FXCollections.observableArrayList(lisAux));
+        if (!txtNombre.getText().isEmpty()) {
+            try {
+                Object o;
+                if (txtNombre.getText().toUpperCase().equals("ACTIVO")) {
+                    o = PermisoController.getInstance().getEstado("1");
+                    tableview.setItems(FXCollections.observableArrayList((List<PermisoDTO>) o));
+                } else if (txtNombre.getText().toUpperCase().equals("DESACTIVO")) {
+                    o = PermisoController.getInstance().getEstado("0");
+                    tableview.setItems(FXCollections.observableArrayList((List<PermisoDTO>) o));
+                } else {
+                    o = null;
+                    o = PermisoController.getInstance().getId(txtNombre.getText());
+                    if (o != null) {
+                        lisPer.clear();
+                        lisPer.add((PermisoDTO) o);
+                        tableview.setItems(FXCollections.observableArrayList(lisPer));
+                    } else {
+
+                        o = PermisoController.getInstance().getCodigo(txtNombre.getText());
+                        if (o != null) {
+                            tableview.setItems(FXCollections.observableArrayList((List<PermisoDTO>) o));
+                        } else {
+                            new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron permisos");
+                        }
+                    }
+
                 }
 
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else if (txtNombre.getText() != null && cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < lisPer.size(); i++) {
-                if (lisPer.get(i).getCodigo().toUpperCase().startsWith(txtNombre.getText().toUpperCase()) && lisPer.get(i).isEstado() == estado) {
-                    lisAux.add(lisPer.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else if (cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < lisPer.size(); i++) {
-                if (lisPer.get(i).isEstado() == estado) {
-                    lisAux.add(lisPer.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else if (!txtNombre.getText().isEmpty()) {
-
-            for (int i = 0; i < lisPer.size(); i++) {
-                if (lisPer.get(i).getCodigo().toUpperCase().startsWith(txtNombre.getText().toUpperCase())) {
-                    lisAux.add(lisPer.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
         } else {
             llenarTable();
         }
+
     }
 
     @FXML
     private void borrar(ActionEvent event) {
         txtNombre.setText("");
-        txtId.setText("");
-        cbEstado.setValue(null);
-        cbEstado.setPromptText("Estado");
     }
 
     @FXML
@@ -183,20 +166,10 @@ public class PermisosViewController extends Controller implements Initializable 
 
     @FXML
     private void actionClearID(KeyEvent event) {
-        txtId.setText("");
+       
     }
 
-    @FXML
-    private void actionClearID(ActionEvent event) {
-        txtId.setText("");
-    }
 
-    @FXML
-    private void presID(KeyEvent event) {
-        txtNombre.setText("");
-        cbEstado.setValue(null);
-        cbEstado.setPromptText("Estado");
-    }
 
     void llenarTable() {
         try {

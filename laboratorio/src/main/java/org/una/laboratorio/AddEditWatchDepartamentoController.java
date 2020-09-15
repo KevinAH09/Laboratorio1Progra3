@@ -8,6 +8,7 @@ package org.una.laboratorio;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,6 +27,7 @@ import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.Mensaje;
 import org.una.laboratorio.dto.DepartamentoDTO;
 import org.una.laboratorio.controller.DepartamentoController;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 
 /**
  * FXML Controller class
@@ -43,16 +46,26 @@ public class AddEditWatchDepartamentoController extends Controller implements In
     private Label lblFechaCreacion;
     @FXML
     private Label lblFechaModificacion;
-    
+
     DepartamentoDTO departamentoDTO;
+    @FXML
+    private Button btnGuardar;
+
+    List<PermisoOtorgadoDTO> ListPerOtor;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        comboEsatdo.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+        comboEsatdo.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
         if (AppContext.getInstance().get("DepaObject") != null) {
+            if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP2"))) {
+                txtNombre.setDisable(true);
+            }else if(!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP3"))){
+                comboEsatdo.setDisable(true);
+            }
             departamentoDTO = (DepartamentoDTO) AppContext.getInstance().get("DepaObject");
             txtId.setText(departamentoDTO.getId().toString());
             txtNombre.setText(departamentoDTO.getNombre());
@@ -65,6 +78,8 @@ public class AddEditWatchDepartamentoController extends Controller implements In
             }
 
         } else {
+            comboEsatdo.setValue("Activo");
+            comboEsatdo.setDisable(true);
             departamentoDTO = new DepartamentoDTO();
             txtId.setText("Nuevo");
             txtNombre.setText("");
@@ -85,19 +100,20 @@ public class AddEditWatchDepartamentoController extends Controller implements In
                 System.out.println("org.una.laboratorio.AddEditWatchDepartamentoController.actionguardar()");
                 if (!txtNombre.getText().isEmpty() && !comboEsatdo.getValue().isEmpty()) {
                     departamentoDTO.setNombre(txtNombre.getText());
+                    System.out.println(comboEsatdo.getValue());
                     if (comboEsatdo.getValue().equals("Activo")) {
                         departamentoDTO.setEstado(true);
                     } else {
                         departamentoDTO.setEstado(false);
                     }
-                    
+
                     departamentoDTO.setFechaModificacion(new Date());
                     departamentoDTO.setFechaRegistro(new Date());
-                    if(DepartamentoController.getInstance().add(departamentoDTO)==201){
+                    if (DepartamentoController.getInstance().add(departamentoDTO) == 201) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar departamento", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
-                    }else{
-                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar departamento", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    } else {
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar departamento", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear departamento", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
@@ -112,11 +128,11 @@ public class AddEditWatchDepartamentoController extends Controller implements In
                         departamentoDTO.setEstado(false);
                     }
                     departamentoDTO.setFechaModificacion(new Date());
-                    if(DepartamentoController.getInstance().Update(departamentoDTO)==200){
+                    if (DepartamentoController.getInstance().Update(departamentoDTO) == 200) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar departamento", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
-                    }else{
-                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar departamento", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    } else {
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar departamento", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar departamentos", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
