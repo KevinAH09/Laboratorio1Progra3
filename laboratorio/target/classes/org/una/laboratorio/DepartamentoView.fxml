@@ -24,9 +24,9 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtNombre" alignment="CENTER" prefHeight="29.0" prefWidth="165.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
-                        <ComboBox fx:id="cbEstado" prefHeight="25.0" prefWidth="78.0" promptText="Estado" />
-                        <TextField fx:id="txtId" alignment="CENTER" prefHeight="29.0" prefWidth="38.0" promptText="ID" />
+                        <TextField fx:id="txtNombre" alignment="CENTER" onKeyPressed="#actionClearID" prefHeight="29.0" prefWidth="165.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="cbEstado" onAction="#actionClearID" prefHeight="25.0" prefWidth="97.0" promptText="Estado" />
+                        <TextField fx:id="txtId" alignment="CENTER" onKeyPressed="#presID" prefHeight="29.0" prefWidth="38.0" promptText="ID" />
                         <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
                         <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
                      </children>

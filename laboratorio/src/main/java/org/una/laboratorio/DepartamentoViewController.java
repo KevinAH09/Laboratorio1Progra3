@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.DepartamentoController;
@@ -62,16 +63,13 @@ public class DepartamentoViewController extends Controller implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cbEstado.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
         actionDepartamentoClick();
         llenarDepartamento();
     }
 
     @Override
     public void initialize() {
-
-    }
-
-    private void actionFilter(ActionEvent event) {
 
     }
 
@@ -91,6 +89,8 @@ public class DepartamentoViewController extends Controller implements Initializa
     }
 
     private void llenarDepartamento() {
+        TableColumn<DepartamentoDTO, String> colID = new TableColumn("ID");
+        colID.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getId()));
         TableColumn<DepartamentoDTO, String> colNombre = new TableColumn("Nombre");
         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombre()));
         TableColumn<DepartamentoDTO, Boolean> colCedula = new TableColumn("Estado");
@@ -99,7 +99,7 @@ public class DepartamentoViewController extends Controller implements Initializa
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<DepartamentoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaMo);
+        tableview.getColumns().addAll(colID,colNombre, colCedula, colFechaRe, colFechaMo);
         
         
         llenarTable();
@@ -110,9 +110,17 @@ public class DepartamentoViewController extends Controller implements Initializa
     private void buscar(ActionEvent event) {
         tableview.getItems().clear();
         List<DepartamentoDTO> lisAux = new ArrayList<>();
-        System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        if (txtId.getText() != null) {
-            tableview.setItems(FXCollections.observableArrayList(departamentoList.stream().filter(x -> x.getId().equals(Long.getLong(txtId.getId()))).collect(Collectors.toList())));
+        System.out.println(txtId.getText());
+        if (!txtId.getText().isEmpty()) {
+            cbEstado.setValue(null);
+            txtNombre.setText("");
+            for (int i = 0; i < departamentoList.size(); i++) {
+                if(txtId.getText().equals(String.valueOf(departamentoList.get(i).getId()))){
+                    lisAux.add(departamentoList.get(i));
+                    tableview.setItems(FXCollections.observableArrayList(lisAux));
+                }
+                
+            }
             
         } else if (txtNombre.getText() != null && cbEstado.getValue() != null) {
             boolean estado = false;
@@ -147,6 +155,8 @@ public class DepartamentoViewController extends Controller implements Initializa
             }
             tableview.setItems(FXCollections.observableArrayList(lisAux));
             System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
+        }else{
+            llenarTable();
         }
 
     }
@@ -156,6 +166,7 @@ public class DepartamentoViewController extends Controller implements Initializa
         txtNombre.setText("");
         txtId.setText("");
         cbEstado.setValue(null);
+        cbEstado.setPromptText("Estado");
     }
 
     @FXML
@@ -185,5 +196,22 @@ public class DepartamentoViewController extends Controller implements Initializa
             Logger.getLogger(DepartamentoViewController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void presID(KeyEvent event) {
+        txtNombre.setText("");
+        cbEstado.setValue(null);
+        cbEstado.setPromptText("Estado");
+    }
+
+    @FXML
+    private void actionClearID(KeyEvent event) {
+        txtId.setText("");
+    }
+
+    @FXML
+    private void actionClearID(ActionEvent event) {
+        txtId.setText("");
     }
 }

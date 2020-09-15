@@ -5,9 +5,14 @@
  */
 package org.una.laboratorio;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -17,9 +22,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.TramiteTipoController;
@@ -36,23 +43,25 @@ import org.una.laboratorio.utils.Mensaje;
 public class TipoTramitesViewController extends Controller implements Initializable {
 
     @FXML
-    private TextField txtBuscar;
-    @FXML
     private Button btnBuscar;
     @FXML
     private Button btnBorrar;
     @FXML
     private TableView<TramiteTipoDTO> tableview;
     @FXML
-    private Button btnCancelar;
-    @FXML
     private Button btnGuardar;
+    @FXML
+    private ComboBox<String> cbEstado;
+    @FXML
+    private TextField txtId;
 
+    List<TramiteTipoDTO> tramiteList ;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cbEstado.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
         actionDepartamentoClick();
         llenarDepartamento();
     }
@@ -74,7 +83,7 @@ public class TipoTramitesViewController extends Controller implements Initializa
 
     private void llenarDepartamento() {
         TableColumn<TramiteTipoDTO, String> colid = new TableColumn("ID");
-        colid.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        colid.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
         TableColumn<TramiteTipoDTO, String> colDepar = new TableColumn("Departamento");
         colDepar.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDepartamento().getNombre()));
         TableColumn<TramiteTipoDTO, String> colNombre = new TableColumn("Descripcion");
@@ -88,12 +97,7 @@ public class TipoTramitesViewController extends Controller implements Initializa
         tableview.getColumns().addAll(colid,colDepar,colNombre, colCedula, colFechaRe, colFechaMo);
 
         try {
-            List<TramiteTipoDTO> tramiteList = TramiteTipoController.getInstance().getAll();
-            if (tramiteList != null && !tramiteList.isEmpty()) {
-                tableview.setItems(FXCollections.observableArrayList(tramiteList));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
-            }
+           llenarTable();
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
         }
@@ -101,25 +105,83 @@ public class TipoTramitesViewController extends Controller implements Initializa
 
     @FXML
     private void buscar(ActionEvent event) {
+        tableview.getItems().clear();
+        List<TramiteTipoDTO> lisAux = new ArrayList<>();
+        System.out.println(txtId.getText());
+        if (!txtId.getText().isEmpty()) {
+            cbEstado.setValue(null);
+            for (int i = 0; i < tramiteList.size(); i++) {
+                if(txtId.getText().equals(String.valueOf(tramiteList.get(i).getId()))){
+                    lisAux.add(tramiteList.get(i));
+                    tableview.setItems(FXCollections.observableArrayList(lisAux));
+                }
+                
+            }
+            
+        } else if (cbEstado.getValue() != null) {
+            boolean estado = false;
+            if (cbEstado.getValue().equals("Activo")) {
+                estado = true;
+            }
+            for (int i = 0; i < tramiteList.size(); i++) {
+                if (tramiteList.get(i).isEstado() == estado) {
+                    lisAux.add(tramiteList.get(i));
+                }
+            }
+            tableview.setItems(FXCollections.observableArrayList(lisAux));
+            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
+        } else{
+            llenarTable();
+        }
+        
     }
 
     @FXML
     private void borrar(ActionEvent event) {
+        txtId.setText("");
+        cbEstado.setValue(null);
+        cbEstado.setPromptText("Estado");
     }
 
-    @FXML
-    private void cancel(ActionEvent event) {
-    }
 
     @FXML
     private void save(ActionEvent event) {
         AppContext.getInstance().set("TraObject", null);
         FlowController.getInstance().goViewInWindowModal("AddEditWatchTipoTramite", ((Stage) btnBuscar.getScene().getWindow()), Boolean.FALSE);
+        llenarTable();
     }
 
     @Override
     public void initialize() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @FXML
+    private void actionClearID(ActionEvent event) {
+        txtId.setText("");
+    }
+
+    @FXML
+    private void presID(KeyEvent event) {
+        cbEstado.setValue(null);
+        cbEstado.setPromptText("Estado");
+    }
+    
+    void llenarTable(){
+        try {
+            tramiteList = TramiteTipoController.getInstance().getAll();
+            if (tramiteList != null && !tramiteList.isEmpty()) {
+                tableview.setItems(FXCollections.observableArrayList(tramiteList));
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TipoTramitesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
