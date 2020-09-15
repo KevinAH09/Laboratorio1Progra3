@@ -98,7 +98,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
         id.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
         variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
         estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-
+        grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
     }
 
     @Override
@@ -109,6 +109,20 @@ public class DisenoTramitesController extends Controller implements Initializabl
     @FXML
     private void buscar(ActionEvent event) {
         tableview.getItems().clear();
+        llenarVariacion();
+
+    }
+
+    @FXML
+    private void borrar(ActionEvent event) {
+    }
+
+    private void llenarVariacion() {
+
+        id.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
+        variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
+        grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
 
         try {
             variacionList = VariacionController.getInstance().getAll();
@@ -131,33 +145,6 @@ public class DisenoTramitesController extends Controller implements Initializabl
             }
         } catch (Exception e) {
 //            llenarTree();
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Hubo un error");
-        }
-    }
-
-    @FXML
-    private void borrar(ActionEvent event) {
-    }
-
-    private void llenarVariacion() {
-
-        id.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
-        variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-        estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-        grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
-
-        try {
-            variacionList = VariacionController.getInstance().getAll();
-            if (variacionList != null && !variacionList.isEmpty()) {
-                tableview.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon;");
-                tableview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-                tableview.getSelectionModel().setCellSelectionEnabled(true);
-//                tableview.setStyle("-fx-background-color: steelblue; -fx-text-background-color: red;");
-                tableview.setItems(FXCollections.observableArrayList(variacionList));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Lista Vacía");
-            }
-        } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Hubo un error");
         }
     }
@@ -242,6 +229,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
                     AppContext.getInstance().set("VarObject", var);
                     FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
                     tableview.selectionModelProperty().get().clearSelection();
+                    llenarVariacion();
                 } else {
                     if (mouseEvent.getClickCount() == 1 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
 
@@ -299,6 +287,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
     @FXML
     private void crearVar(ActionEvent event) {
         FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
+        llenarVariacion();
     }
 
     @FXML

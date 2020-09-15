@@ -56,7 +56,7 @@ public class AddEditWatchPermisoController extends Controller implements Initial
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         permisoDTO = new PermisoDTO();
-        comboEstado.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
+        comboEstado.setItems(FXCollections.observableArrayList("Activo", "Inactivo"));
         if (AppContext.getInstance().get("PerObject") != null) {
             permisoDTO = (PermisoDTO) AppContext.getInstance().get("PerObject");
             txtId.setText(permisoDTO.getId().toString());

@@ -64,7 +64,7 @@ public class AddEditWatchVariacionController extends Controller implements Initi
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         variacionDTO = new VariacionDTO();
-        comboEsatdo.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
+        comboEsatdo.setItems(FXCollections.observableArrayList("Activo", "Inactivo"));
         if (AppContext.getInstance().get("VarObject") != null) {
             variacionDTO = (VariacionDTO) AppContext.getInstance().get("VarObject");
             txtId.setText(variacionDTO.getId().toString());
@@ -114,7 +114,7 @@ public class AddEditWatchVariacionController extends Controller implements Initi
     private void actionguardar(ActionEvent event) throws InterruptedException {
         try {
             if (txtId.getText().equals("Nuevo")) {
-                
+
                 if (!txtDescr.getText().isEmpty() && !comboEsatdo.getValue().isEmpty() && !txtGrupo.getText().isEmpty() && !txtTramite.getText().isEmpty()) {
                     variacionDTO.setDescripcion(txtDescr.getText());
                     if (comboEsatdo.getValue().equals("Activo")) {
@@ -149,8 +149,8 @@ public class AddEditWatchVariacionController extends Controller implements Initi
                     if (VariacionController.getInstance().Update(variacionDTO) == 200) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar la Variacion", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
-                    } else{
-                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear la Variacion", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    } else {
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear la Variacion", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar la Variacion", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
