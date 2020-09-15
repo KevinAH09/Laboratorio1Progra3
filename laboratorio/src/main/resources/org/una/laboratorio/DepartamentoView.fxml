@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="570.0" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.DepartamentoViewController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="538.0" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.DepartamentoViewController">
    <children>
       <StackPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,7 +24,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" spacing="20.0">
                      <children>
-                        <TextField alignment="CENTER" prefHeight="29.0" prefWidth="211.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
+                        <TextField alignment="CENTER" prefHeight="29.0" prefWidth="165.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
                         <ComboBox prefHeight="25.0" prefWidth="78.0" promptText="Estado" />
                         <TextField fx:id="txtBuscar" alignment="CENTER" prefHeight="29.0" prefWidth="38.0" promptText="ID" />
                         <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
