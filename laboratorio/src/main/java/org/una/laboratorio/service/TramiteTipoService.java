@@ -20,11 +20,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.una.laboratorio.utils.AppContext;
+
 /**
  *
  * @author Bosco
  */
 public class TramiteTipoService {
+
     public static <T> List<TramiteTipoDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<TramiteTipoDTO>>() {
@@ -46,7 +48,7 @@ public class TramiteTipoService {
         }
     }
 
-    public static void ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
+    public static int ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
         URL url = new URL(urlstring);
@@ -64,19 +66,27 @@ public class TramiteTipoService {
             os.write(input, 0, input.length);
         }
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+        if (con.getResponseCode() == 201) {
+
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
             }
+
         }
+        return con.getResponseCode();
+
     }
-    public static <T> TramiteTipoDTO FromConnectionID(String urlstring,String id, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> TramiteTipoDTO FromConnectionID(String urlstring, String id, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<TramiteTipoDTO>() {
         }.getType();
-        urlstring = urlstring+id;
+        urlstring = urlstring + id;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -93,9 +103,10 @@ public class TramiteTipoService {
 
         }
     }
-    public static void UpdateObjectToConnection(String urlstring,String id, Object object) throws MalformedURLException, IOException {
+
+    public static int UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-        urlstring = urlstring+id;
+        urlstring = urlstring + id;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
@@ -111,19 +122,26 @@ public class TramiteTipoService {
             os.write(input, 0, input.length);
         }
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+        if (con.getResponseCode() == 200) {
+
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
             }
+
         }
+        return con.getResponseCode();
     }
-    public static <T>List<TramiteTipoDTO> FromConnectionEstado(String urlstring,String estado, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> List<TramiteTipoDTO> FromConnectionEstado(String urlstring, String estado, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<TramiteTipoDTO>>() {
         }.getType();
-        urlstring = urlstring+estado;
+        urlstring = urlstring + estado;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -140,11 +158,12 @@ public class TramiteTipoService {
 
         }
     }
-    public static <T> List<TramiteTipoDTO> FromConnectionDepartamento(String urlstring,String departamentoId, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> List<TramiteTipoDTO> FromConnectionDepartamento(String urlstring, String departamentoId, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<TramiteTipoDTO>>() {
         }.getType();
-        urlstring = urlstring+departamentoId;
+        urlstring = urlstring + departamentoId;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");

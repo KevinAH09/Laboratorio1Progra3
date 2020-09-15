@@ -34,6 +34,7 @@ public class FlowController {
     private static Stage mainStage; //El stage es la ventana 
     private static ResourceBundle idioma;
     private static HashMap<String, FXMLLoader> loaders = new HashMap<>(); //FXMLLoader es el que permite cargar los archivos fxml (vistas)
+    private Stage s;
     //El objeto loader es un Hashmap que guarda cada objeto de FXMLLoader mediante una llave.
     
     private FlowController() {
@@ -89,6 +90,7 @@ public class FlowController {
     public void goMain() { //muestra la scena de la "base"
         try {
             this.mainStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("base.fxml"), this.idioma)));
+            this.mainStage.setMinWidth(768);
             this.mainStage.show();
         } catch (Exception ex) {
             System.out.println("org.una.laboratorio.FlowController.goMain()"+ex);
@@ -113,6 +115,7 @@ public class FlowController {
         controller.setAccion(accion);
         controller.initialize();
         Stage stage = controller.getStage();
+        s = stage;
         if (stage == null) {
             stage = this.mainStage;
             controller.setStage(stage);

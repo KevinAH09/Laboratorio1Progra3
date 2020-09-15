@@ -26,9 +26,8 @@ import org.una.laboratorio.utils.AppContext;
  * @author colo7
  */
 public class DepartementoService {
-    
-    
-     public static <T> List<DepartamentoDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> List<DepartamentoDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<DepartamentoDTO>>() {
         }.getType();
@@ -49,7 +48,7 @@ public class DepartementoService {
         }
     }
 
-    public static void ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
+    public static int ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
         URL url = new URL(urlstring);
@@ -66,20 +65,26 @@ public class DepartementoService {
             byte[] input = data.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
+        if (con.getResponseCode() == 201) {
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                
             }
+           
         }
+         return con.getResponseCode();
     }
-     public static <T> DepartamentoDTO FromConnectionID(String urlstring,String id, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> DepartamentoDTO FromConnectionID(String urlstring, String id, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<DepartamentoDTO>() {
         }.getType();
-        urlstring = urlstring+id;
+        urlstring = urlstring + id;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -96,9 +101,10 @@ public class DepartementoService {
 
         }
     }
-    public static void UpdateObjectToConnection(String urlstring,String id, Object object) throws MalformedURLException, IOException {
+
+    public static int UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-        urlstring = urlstring+id;
+        urlstring = urlstring + id;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
@@ -114,19 +120,26 @@ public class DepartementoService {
             os.write(input, 0, input.length);
         }
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+         if (con.getResponseCode() == 200) {
+
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                
             }
+           
         }
+         return con.getResponseCode();
     }
-     public static <T>List<DepartamentoDTO> FromConnectionNombre(String urlstring,String nombre, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> List<DepartamentoDTO> FromConnectionNombre(String urlstring, String nombre, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<DepartamentoDTO>>() {
         }.getType();
-        urlstring = urlstring+nombre;
+        urlstring = urlstring + nombre;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -143,11 +156,12 @@ public class DepartementoService {
 
         }
     }
-     public static <T>List<DepartamentoDTO> FromConnectionEstado(String urlstring,String estado, Class<T> type) throws MalformedURLException, IOException {
+
+    public static <T> List<DepartamentoDTO> FromConnectionEstado(String urlstring, String estado, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<DepartamentoDTO>>() {
         }.getType();
-        urlstring = urlstring+estado;
+        urlstring = urlstring + estado;
         URL url = new URL(urlstring);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -164,7 +178,7 @@ public class DepartementoService {
 
         }
     }
-    
+
 //    public static <T> Object ObjectLogin(String urlstring, Object object) throws MalformedURLException, IOException {
 //        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 //        StringBuilder response = new StringBuilder();

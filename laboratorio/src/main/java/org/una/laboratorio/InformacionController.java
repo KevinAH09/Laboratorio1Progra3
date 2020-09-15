@@ -5,6 +5,7 @@
  */
 package org.una.laboratorio;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,7 +16,9 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -24,9 +27,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.AppContext;
+import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
 
 /**
@@ -34,7 +39,7 @@ import org.una.laboratorio.utils.Mensaje;
  *
  * @author Bosco
  */
-public class InformacionController implements Initializable {
+public class InformacionController extends Controller implements Initializable {
 
     private TableView<UsuarioDTO> tableviewUsuario;
     public List<UsuarioDTO> usuarioList;
@@ -54,7 +59,8 @@ public class InformacionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tableviewUsuario = new TableView<>();
-        objeto = (String) AppContext.getInstance().get("objetoTabla");
+        //objeto = (String) AppContext.getInstance().get("objetoTabla");
+        
         actionusuarioClick();
         llenarUsuario();
     }
@@ -66,14 +72,20 @@ public class InformacionController implements Initializable {
                 if (mouseEvent.getClickCount() == 2 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null) {
                     UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("selec", usuario);
-                    System.out.println(".handle()");
                     tableviewUsuario.selectionModelProperty().get().clearSelection();
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchUsuario", ((Stage) tableviewUsuario.getScene().getWindow()), false);
+                  
                 }
-
+                else if(mouseEvent.getClickCount() == 1 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null)
+                {
+                    UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("selec", usuario);
+                    //FlowController.getInstance().goViewInWindowModal("AddEditWatchUsuario", ((Stage) btnBuscar.getScene().getWindow()), false);
+                }
             }
         });
     }
-
+    
     private void llenarUsuario() {
         TableColumn<UsuarioDTO, String> colNombre = new TableColumn("Nombre");
         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNombreCompleto()));
@@ -107,5 +119,10 @@ public class InformacionController implements Initializable {
         } else {
             tableviewUsuario.setItems(FXCollections.observableArrayList(usuarioList));
         }
+    }
+
+    @Override
+    public void initialize() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -25,15 +25,10 @@ import javafx.scene.layout.VBox;
 
 import org.una.laboratorio.controller.DepartamentoController;
 
-import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 
-import org.una.laboratorio.controller.PermisoOtorgadoController;
-import org.una.laboratorio.dto.DepartamentoDTO;
 import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.AppContext;
-import org.una.laboratorio.service.DepartementoService;
-import org.una.laboratorio.service.PermisoOtorgadoService;
 import org.una.laboratorio.utils.FlowController;
 
 public class PrincipalController extends Controller implements Initializable {
@@ -57,7 +52,7 @@ public class PrincipalController extends Controller implements Initializable {
         if (AppContext.getInstance().get("permisosOTG") != null) {
             ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
 
-            TreeItem<String> root = new TreeItem<>((((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
+            TreeItem<String> root = new TreeItem<>("Funciones de "+(((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
             treeAcciones.setRoot(root);
             TreeItem<String> itemInformacion = new TreeItem<>("Informacion");
             root.getChildren().add(itemInformacion);
@@ -122,17 +117,22 @@ public class PrincipalController extends Controller implements Initializable {
                             .getSelectedItem();
                     try {
                         if (item.getValue().equals("Usuarios")) {
-                            AppContext.getInstance().set("objetoTabla", "Usuarios");
-                            cambiarPantallaUsuario("Informacion");
+                            cambiarUsuario("Informacion");
 
                         } else if (item.getValue().equals("Departamentos")) {
-                            AppContext.getInstance().set("objetoTabla", "Departamentos");
-                            cambiarPantalla("Departamentos");
+                            cambiarDepartamento("Departamentos");
 
                         } else if (item.getValue().equals("Diseño de Trámites")) {
-                            AppContext.getInstance().set("objetoTabla", "Tramites");
-                            cambiarDiseño("Tramites");
+                            cambiarDiseñoTramites("Tramites");
 
+                        } else if (item.getValue().equals("Permisos")) {
+                            cambiarPermisos();
+
+                        } else if (item.getValue().equals("Parametros")) {
+                            cambiarParametros();
+
+                        }else if (item.getValue().equals("Tipos de Trámites")) {
+                            cambiarTramites();
                         }
 
                     } catch (IOException ex) {
@@ -156,26 +156,47 @@ public class PrincipalController extends Controller implements Initializable {
 //       System.out.println(((List<DepartamentoDTO>)DepartamentoController.getInstance().getEstado("1")));
     }
 
-    void cambiarPantalla(String pantalla) throws IOException {
+    void cambiarDepartamento(String pantalla) throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
-                .getResource("Mantenimiento.fxml"));
+                .getResource("DepartamentoView.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
     }
 
-    void cambiarPantallaUsuario(String pantalla) throws IOException {
+    void cambiarUsuario(String pantalla) throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
-                .getResource("Informacion.fxml"));
+                .getResource("InformacionUsuarios.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
     }
 
-    void cambiarDiseño(String pantalla) throws IOException {
+    void cambiarDiseñoTramites(String pantalla) throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
                 .getResource("DisenoTramites.fxml"));
+        vboxPrincipal.getChildren()
+                .add(root);
+    }
+    void cambiarPermisos() throws IOException {
+        vboxPrincipal.getChildren().clear();
+        Parent root = FXMLLoader.load(App.class
+                .getResource("PermisosView.fxml"));
+        vboxPrincipal.getChildren()
+                .add(root);
+    }
+    void cambiarTramites() throws IOException {
+        vboxPrincipal.getChildren().clear();
+        Parent root = FXMLLoader.load(App.class
+                .getResource("TipoTramitesView.fxml"));
+        vboxPrincipal.getChildren()
+                .add(root);
+    }
+    void cambiarParametros() throws IOException {
+        vboxPrincipal.getChildren().clear();
+        Parent root = FXMLLoader.load(App.class
+                .getResource("ParametrosView.fxml"));
         vboxPrincipal.getChildren()
                 .add(root);
     }
