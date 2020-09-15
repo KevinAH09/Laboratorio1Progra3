@@ -24,9 +24,9 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" spacing="20.0">
                      <children>
-                        <TextField alignment="CENTER" prefHeight="29.0" prefWidth="165.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
-                        <ComboBox prefHeight="25.0" prefWidth="78.0" promptText="Estado" />
-                        <TextField fx:id="txtBuscar" alignment="CENTER" prefHeight="29.0" prefWidth="38.0" promptText="ID" />
+                        <TextField fx:id="txtNombre" alignment="CENTER" prefHeight="29.0" prefWidth="165.0" promptText="Nombre" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="cbEstado" prefHeight="25.0" prefWidth="78.0" promptText="Estado" />
+                        <TextField fx:id="txtId" alignment="CENTER" prefHeight="29.0" prefWidth="38.0" promptText="ID" />
                         <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
                         <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
                      </children>
@@ -43,11 +43,13 @@
                         </TableView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="600.0">
                      <children>
-                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancel" text="Cancelar " />
                         <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#save" text="Agregar" />
                      </children>
+                     <padding>
+                        <Insets right="100.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
