@@ -22,15 +22,18 @@ public class RequisitoDTO {
     private String descripcion;
     private boolean estado;
     private Date fechaRegistro;
+    private VariacionDTO variacion;
 
-//    private List<Usuario> usuarios = new ArrayList<>();
-
-    public RequisitoDTO(Long id, String descripcion, boolean estado, Date fechaRegistro) {
+    public RequisitoDTO(Long id, String descripcion, boolean estado, Date fechaRegistro, VariacionDTO variacion) {
         this.id = id;
         this.descripcion = descripcion;
         this.estado = estado;
         this.fechaRegistro = fechaRegistro;
+        this.variacion = variacion;
     }
+
+//    private List<Usuario> usuarios = new ArrayList<>();
+
 
     public RequisitoDTO() {
     }
@@ -65,6 +68,14 @@ public class RequisitoDTO {
 
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public VariacionDTO getVariacion() {
+        return variacion;
+    }
+
+    public void setVariacion(VariacionDTO variacion) {
+        this.variacion = variacion;
     }
     
     
