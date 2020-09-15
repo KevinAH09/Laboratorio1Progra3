@@ -48,7 +48,7 @@ public class VariacionService {
         }
     }
 
-    public static void ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
+    public static int ObjectToConnection(String urlstring, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
         URL url = new URL(urlstring);
@@ -65,14 +65,19 @@ public class VariacionService {
             byte[] input = data.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
+        if (con.getResponseCode() == 201) {
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
             }
+
         }
+        return con.getResponseCode();
     }
 
     public static <T> VariacionDTO FromConnectionID(String urlstring, String id, Class<T> type) throws MalformedURLException, IOException {
@@ -97,7 +102,7 @@ public class VariacionService {
         }
     }
 
-    public static void UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
+    public static int UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         urlstring = urlstring + id;
         URL url = new URL(urlstring);
@@ -115,13 +120,19 @@ public class VariacionService {
             os.write(input, 0, input.length);
         }
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+        if (con.getResponseCode() == 200) {
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
             }
+
         }
+        return con.getResponseCode();
     }
 
     public static <T> List<VariacionDTO> FromConnectionEstado(String urlstring, String estado, Class<T> type) throws MalformedURLException, IOException {

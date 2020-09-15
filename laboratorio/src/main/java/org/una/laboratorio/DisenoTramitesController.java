@@ -85,8 +85,6 @@ public class DisenoTramitesController extends Controller implements Initializabl
     private Button btnVar;
     @FXML
     private TreeView<String> treeVar;
-    @FXML
-    private Button btnModificar;
 
     /**
      * Initializes the controller class.
@@ -201,24 +199,25 @@ public class DisenoTramitesController extends Controller implements Initializabl
         tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 1 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-
-                    VariacionDTO depa = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    if (variacionList2.contains(depa)) {
-                        System.out.println("Eliminado");
-                        variacionList2.remove(depa);
-                    } else {
-                        System.out.println("Agregado");
-                        variacionList2.add(depa);
-                    }
-                    System.out.println(variacionList2.size());
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
                 if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
                     VariacionDTO var = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("VarObject",var);
+                    AppContext.getInstance().set("VarObject", var);
                     FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
                     tableview.selectionModelProperty().get().clearSelection();
+                } else {
+                    if (mouseEvent.getClickCount() == 1 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+
+                        VariacionDTO depa = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        if (variacionList2.contains(depa)) {
+                            System.out.println("Eliminado");
+                            variacionList2.remove(depa);
+                        } else {
+                            System.out.println("Agregado");
+                            variacionList2.add(depa);
+                        }
+                        System.out.println(variacionList2.size());
+                        tableview.selectionModelProperty().get().clearSelection();
+                    }
                 }
             }
         });
@@ -242,10 +241,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
 
     @FXML
     private void crearVar(ActionEvent event) {
-        
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
     }
 
-    @FXML
-    private void editVar(ActionEvent event) {
-    }
 }

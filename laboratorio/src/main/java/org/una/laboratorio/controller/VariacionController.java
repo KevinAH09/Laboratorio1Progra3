@@ -8,7 +8,9 @@ package org.una.laboratorio.controller;
 import java.util.List;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import org.una.laboratorio.dto.DepartamentoDTO;
 import org.una.laboratorio.dto.VariacionDTO;
+import org.una.laboratorio.service.DepartementoService;
 import org.una.laboratorio.service.VariacionService;
 
 /**
@@ -26,16 +28,16 @@ public class VariacionController {
         return VariacionService.ListFromConnection(urlstring, VariacionDTO.class);
     }
 
-    public void add(VariacionDTO object) throws InterruptedException, ExecutionException, IOException {
-        VariacionService.ObjectToConnection(urlstring, object);
+    public int add(VariacionDTO object) throws InterruptedException, ExecutionException, IOException {
+        return VariacionService.ObjectToConnection(urlstring, object);
     }
 
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
         return VariacionService.FromConnectionID(urlstring, id, VariacionDTO.class);
     }
 
-    public void Update(VariacionDTO dep) throws InterruptedException, ExecutionException, IOException {
-        VariacionService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    public int Update(VariacionDTO dep) throws InterruptedException, ExecutionException, IOException {
+        return VariacionService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
     }
 
     public static VariacionController getInstance() {

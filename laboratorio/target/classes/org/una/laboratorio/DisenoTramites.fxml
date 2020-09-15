@@ -44,7 +44,6 @@
                                              <children>
                                                 <HBox alignment="TOP_RIGHT" prefHeight="65.0" prefWidth="712.0" spacing="10.0">
                                                    <children>
-                                                      <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#editVar" text="Modificar" />
                                                       <Button fx:id="btnVar" mnemonicParsing="false" onAction="#crearVar" text="Agregar" />
                                                    </children>
                                                    <padding>
