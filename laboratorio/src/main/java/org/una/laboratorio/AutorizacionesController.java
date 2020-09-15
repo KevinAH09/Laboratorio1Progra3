@@ -7,6 +7,7 @@ package org.una.laboratorio;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -20,6 +21,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -30,9 +32,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.PermisoController;
 import org.una.laboratorio.controller.PermisoOtorgadoController;
+import org.una.laboratorio.dto.PerimisosCheBox;
 import org.una.laboratorio.dto.PermisoDTO;
 import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.UsuarioDTO;
@@ -54,7 +59,7 @@ public class AutorizacionesController extends Controller implements Initializabl
     private Button btnBorrar;
     @FXML
     private Label labelUsuario;
-    private TableView<PermisoDTO> tableView;
+    private TableView<PerimisosCheBox> tableView;
     List<PermisoOtorgadoDTO> permisosOtorgados;
     List<PermisoDTO> permisos;
     UsuarioDTO listaUsuario;
@@ -80,54 +85,79 @@ public class AutorizacionesController extends Controller implements Initializabl
             Logger.getLogger(AutorizacionesController.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-        
+        actionDepartamentoClick();
         LLenarTableView();
-    }    
+    } 
+     private void actionDepartamentoClick() {
+        tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if ( tableView.selectionModelProperty().get().getSelectedItem() != null) {
+                    PerimisosCheBox tra = (PerimisosCheBox) tableView.selectionModelProperty().get().getSelectedItem();
+                    System.out.println(tra.getBox().isSelected());
+                }
+
+            }
+        });
+    }
     private void LLenarTableView()
     {
-       CheckBox check = new CheckBox();
+        
+        try {
+            permisos = PermisoController.getInstance().getAll();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AutorizacionesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(AutorizacionesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AutorizacionesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<PerimisosCheBox> cheBoxs = new ArrayList<>();
+        for (PermisoDTO permiso : permisos) {
+            PerimisosCheBox cheBox = new PerimisosCheBox(new CheckBox(), permiso);
+            cheBoxs.add(cheBox);
+        }
        labelCedula.setText(listaUsuario.getCedula());
        labelUsuario.setText(listaUsuario.getNombreCompleto());
        
-       TableColumn<PermisoDTO, CheckBox> colunmcuadro = new TableColumn("Select");
-       colunmcuadro.setCellValueFactory((param) -> new SimpleObjectProperty(new CheckBox()));
+       TableColumn<PerimisosCheBox, CheckBox> colunmcuadro = new TableColumn("Select");
+       colunmcuadro.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getBox()));
        
-       TableColumn<PermisoDTO, String> colunmId = new TableColumn("ID");
-        colunmId.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
-        TableColumn<PermisoDTO, String> colunmCodigo = new TableColumn("Codigo");
-        colunmCodigo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getCodigo()));
-        TableColumn<PermisoDTO, String> colunmNombre = new TableColumn("Nombre");
-        colunmNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-        tableView.setMaxSize(Hbox.getPrefWidth(), Hbox.getPrefHeight());
-        tableView.setMinSize(Hbox.getPrefWidth(), Hbox.getPrefHeight());
+       TableColumn<PerimisosCheBox, String> colunmId = new TableColumn("ID");
+        colunmId.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getdTO().getId().toString()));
+        
+        TableColumn<PerimisosCheBox, String> colunmCodigo = new TableColumn("Codigo");
+        colunmCodigo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getdTO().getCodigo()));
+        TableColumn<PerimisosCheBox, String> colunmNombre = new TableColumn("Nombre");
+        colunmNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getdTO().getDescripcion()));
         tableView.getColumns().addAll(colunmcuadro,colunmId, colunmCodigo ,colunmNombre);
         try {
-            
-            permisos = PermisoController.getInstance().getAll();
-            if (permisos != null && !permisos.isEmpty()) {
-               
-               
-                
-                 items =tableView.getItems();
-                for (PermisoDTO per: permisos) {
-                    for (PermisoOtorgadoDTO permisosOtorgado1 : permisosOtorgados) {
-                        if(per.getId().toString().equals(permisosOtorgado1.getPermisoId().toString()))
-                        {
-                            CheckBox c=colunmcuadro.getCellData(1);
-                            c.setSelected(true);
-                        }
-                        
-                    }
-                }
-                CheckBox c=colunmcuadro.getCellData(1);
-//                c.setSelected(true);
-                System.out.println(c.isSelected());
-                tableView.setItems(FXCollections.observableArrayList(permisos));
+//            
+//            permisos = PermisoController.getInstance().getAll();
+//            if (permisos != null && !permisos.isEmpty()) {
+//               
+//               
+//                
+////                 items =tableView.getItems();
+//                for (PermisoDTO per: permisos) {
+//                    for (PermisoOtorgadoDTO permisosOtorgado1 : permisosOtorgados) {
+//                        if(per.getId().toString().equals(permisosOtorgado1.getPermisoId().toString()))
+//                        {
+//                            CheckBox c=colunmcuadro.getCellData(1);
+//                            c.setSelected(true);
+//                        }
+//                        
+//                    }
+//                }
+//                CheckBox c=colunmcuadro.getCellData(1);
+////                c.setSelected(true);
+//                System.out.println(c.isSelected());
+                tableView.setItems(FXCollections.observableArrayList(cheBoxs));
                 Hbox.getChildren().clear();
                 Hbox.getChildren().add(tableView);
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Permisos", null, "El usuario no tiene permisos ");
-            }
+//            } else {
+//                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Permisos", null, "El usuario no tiene permisos ");
+//            }
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Permisos", null, "estoy verificando en mantenimineto");
         }
