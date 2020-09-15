@@ -36,7 +36,7 @@
                   
                </VBox.margin>
             </HBox>
-            <HBox fx:id="Hbox" prefHeight="155.0" prefWidth="695.0" />
+            <HBox fx:id="Hbox" alignment="CENTER" prefHeight="155.0" prefWidth="695.0" />
          </children>
       </VBox>
    </children>

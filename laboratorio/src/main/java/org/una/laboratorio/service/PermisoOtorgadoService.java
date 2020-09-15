@@ -56,7 +56,6 @@ public class PermisoOtorgadoService {
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
         con.setDoOutput(true);
-
         String data = gson.toJson(object);
 
         try ( OutputStream os = con.getOutputStream()) {

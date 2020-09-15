@@ -95,21 +95,22 @@ public class AutorizacionesController extends Controller implements Initializabl
     }
 
     private void actionDepartamentoClick() {
+        permisos.clear();
         for (PerimisosCheBox permisosOtorgado : cheBoxs) {
             permisosOtorgado.getBox().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     if (permisosOtorgado.getBox().isSelected()) {
-                        permisos.clear();
-                        List<PerimisosCheBox> cheBoxs = new ArrayList<>();
-                        cheBoxs = tableView.getItems();
-                        for (PerimisosCheBox permisosOtorga : cheBoxs) {
-                            if (permisosOtorga.getBox().isSelected()) {
-                                permisos.add(permisosOtorga.getdTO());
+                        
+                        //List<PerimisosCheBox> cheBoxs = new ArrayList<>();
+                        //cheBoxs = tableView.getItems();
+//                        for (PerimisosCheBox permisosOtorga : cheBoxs) {
+//                            if (permisosOtorga.getBox().isSelected()) {
+                                permisos.add(permisosOtorgado.getdTO());
 
-                            }
-
-                        }
+//                            }
+//
+//                        }
                         AppContext.getInstance().set("paraGuardar", permisos);
                     }
                 }
