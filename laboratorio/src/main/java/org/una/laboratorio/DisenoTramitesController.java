@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -131,14 +132,14 @@ public class DisenoTramitesController extends Controller implements Initializabl
                 tableview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
                 tableview.getSelectionModel().setCellSelectionEnabled(true);
                 tableview.setItems(FXCollections.observableArrayList(variacionList.stream().filter(y -> y.getTramiteTipo().getId() == val).collect(Collectors.toList())));
-                llenarTree();
+//                llenarTree();
                 actionVariacionClick();
             } else {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Lista Vacía");
-                llenarTree();
+//                llenarTree();
             }
         } catch (Exception e) {
-            llenarTree();
+//            llenarTree();
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Hubo un error");
         }
     }
@@ -191,8 +192,48 @@ public class DisenoTramitesController extends Controller implements Initializabl
     private void llenarTree() {
         TreeItem<String> root = new TreeItem<>(tra);
         treeVar.setRoot(root);
-        TreeItem<String> itemInformacion = new TreeItem<>("Variaciones");
-        root.getChildren().add(itemInformacion);
+        TreeItem<String> inicio = new TreeItem<>("Variaciones");
+        root.getChildren().add(inicio);
+        for (int i = 0; i < variacionList2.size(); i++) {
+            TreeItem<String> item = new TreeItem<>(variacionList2.get(i).getDescripcion());
+            inicio.getChildren().add(item);
+            treeVar.getSelectionModel().select(item);
+        }
+        treeVar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                if (mouseEvent.getClickCount() == 2) {
+                    TreeItem<String> item = (TreeItem<String>) treeVar.getSelectionModel()
+                            .getSelectedItem();
+                    System.out.println(item.getValue());
+//                    try {
+//                        if (item.getValue().equals("Usuarios")) {
+//                            cambiarUsuario("Informacion");
+//
+//                        } else if (item.getValue().equals("Departamentos")) {
+//                            cambiarDepartamento("Departamentos");
+//
+//                        } else if (item.getValue().equals("Diseño de Trámites")) {
+//                            cambiarDiseñoTramites("Tramites");
+//
+//                        } else if (item.getValue().equals("Permisos")) {
+//                            cambiarPermisos();
+//
+//                        } else if (item.getValue().equals("Parametros")) {
+//                            cambiarParametros();
+//
+//                        } else if (item.getValue().equals("Tipos de Trámites")) {
+//                            cambiarTramites();
+//                        }
+//
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+                }
+
+            }
+        });
     }
 
     private void actionVariacionClick() {
@@ -242,6 +283,11 @@ public class DisenoTramitesController extends Controller implements Initializabl
     @FXML
     private void crearVar(ActionEvent event) {
         FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
+    }
+
+    @FXML
+    private void actionRequisitos(Event event) {
+        llenarTree();
     }
 
 }
