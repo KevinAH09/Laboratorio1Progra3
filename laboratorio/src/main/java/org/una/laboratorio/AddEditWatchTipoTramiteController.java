@@ -72,6 +72,8 @@ public class AddEditWatchTipoTramiteController extends Controller implements Ini
             }
 
         } else {
+            comboEsatdo.setValue("Activo");
+            comboEsatdo.setDisable(true);
             tramiteTipoDTO = new TramiteTipoDTO();
             txtId.setText("Nuevo");
             txtDescipcion.setText("");

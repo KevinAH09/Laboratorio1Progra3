@@ -71,6 +71,8 @@ public class AddEditWatchPermisoController extends Controller implements Initial
             }
 
         } else {
+            comboEstado.setValue("Activo");
+            comboEstado.setDisable(true);
             permisoDTO = new PermisoDTO();
             txtId.setText("Nuevo");
             txtCodigo.setText("");

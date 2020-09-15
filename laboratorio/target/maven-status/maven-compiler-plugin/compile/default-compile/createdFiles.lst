@@ -22,6 +22,8 @@ org\una\laboratorio\controller\DepartamentoController$DepartamentoControllerHold
 org\una\laboratorio\TipoTramitesViewController.class
 org\una\laboratorio\service\VariacionService$2.class
 org\una\laboratorio\dto\DepartamentoDTO.class
+org\una\laboratorio\service\ParametroGeneralService$4.class
+org\una\laboratorio\service\PermisoService$4.class
 org\una\laboratorio\controller\ArchivoRelacionadoController$DepartamentoControllerHolder.class
 org\una\laboratorio\controller\DepartamentoController.class
 org\una\laboratorio\dto\AuthenticationRequest.class

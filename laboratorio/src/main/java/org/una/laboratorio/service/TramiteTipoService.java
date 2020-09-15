@@ -36,15 +36,18 @@ public class TramiteTipoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
     }
 
@@ -92,15 +95,18 @@ public class TramiteTipoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
     }
 
@@ -147,15 +153,18 @@ public class TramiteTipoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
     }
 
@@ -169,15 +178,18 @@ public class TramiteTipoService {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("Authorization", "bearer " + AppContext.getInstance().get("token"));
+        if (con.getResponseCode() == 200) {
+            try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return gson.fromJson(response.toString(), listtype);
 
-        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
             }
-            return gson.fromJson(response.toString(), listtype);
-
+        } else {
+            return null;
         }
     }
 }

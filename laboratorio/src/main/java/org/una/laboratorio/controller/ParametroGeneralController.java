@@ -35,6 +35,9 @@ public class ParametroGeneralController {
   public Object getNombre(String nombre)throws InterruptedException, ExecutionException, IOException {
         return ParametroGeneralService.FromConnectionNombre(urlstring+"nombre/", nombre, ParametroGeneralDTO.class);
     }
+  public Object getEstado(String nombre)throws InterruptedException, ExecutionException, IOException {
+        return ParametroGeneralService.FromConnectionEstado(urlstring+"estado/", nombre, ParametroGeneralDTO.class);
+    }
      public int Update(ParametroGeneralDTO dep)throws InterruptedException, ExecutionException, IOException {
         return ParametroGeneralService.UpdateObjectToConnection(urlstring, dep.getId().toString(),dep);
     }

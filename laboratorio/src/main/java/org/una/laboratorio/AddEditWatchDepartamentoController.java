@@ -65,6 +65,8 @@ public class AddEditWatchDepartamentoController extends Controller implements In
             }
 
         } else {
+            comboEsatdo.setValue("Activo");
+            comboEsatdo.setDisable(true);
             departamentoDTO = new DepartamentoDTO();
             txtId.setText("Nuevo");
             txtNombre.setText("");
@@ -85,6 +87,7 @@ public class AddEditWatchDepartamentoController extends Controller implements In
                 System.out.println("org.una.laboratorio.AddEditWatchDepartamentoController.actionguardar()");
                 if (!txtNombre.getText().isEmpty() && !comboEsatdo.getValue().isEmpty()) {
                     departamentoDTO.setNombre(txtNombre.getText());
+                    System.out.println(comboEsatdo.getValue());
                     if (comboEsatdo.getValue().equals("Activo")) {
                         departamentoDTO.setEstado(true);
                     } else {

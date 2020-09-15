@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import org.una.laboratorio.controller.ParametroGeneralController;
 import org.una.laboratorio.dto.ParametroGeneralDTO;
 import org.una.laboratorio.controller.TramiteTipoController;
+import org.una.laboratorio.dto.ParametroGeneralDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
@@ -49,65 +50,51 @@ public class ParametrosViewController implements Initializable {
     @FXML
     private TextField txtNombre;
     @FXML
-    private ComboBox<String> cbEstado;
-    @FXML
-    private TextField txtId;
-    @FXML
     private Button btnBuscar;
     @FXML
     private Button btnBorrar;
+    
     List<ParametroGeneralDTO> tramiteList;
 
     @FXML
     private void buscar(ActionEvent event) {
-        cbEstado.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
         tableview.getItems().clear();
-        List<ParametroGeneralDTO> lisAux = new ArrayList<>();
-        System.out.println(txtId.getText());
-        if (!txtId.getText().isEmpty()) {
-            cbEstado.setValue(null);
-            txtNombre.setText("");
-            for (int i = 0; i < tramiteList.size(); i++) {
-                if (txtId.getText().equals(String.valueOf(tramiteList.get(i).getId()))) {
-                    lisAux.add(tramiteList.get(i));
-                    tableview.setItems(FXCollections.observableArrayList(lisAux));
+       if (!txtNombre.getText().isEmpty()) {
+            try {
+                Object o;
+                if (txtNombre.getText().toUpperCase().equals("ACTIVO")) {
+                    o = ParametroGeneralController.getInstance().getEstado("1");
+                    tableview.setItems(FXCollections.observableArrayList((List<ParametroGeneralDTO>) o));
+                } else if (txtNombre.getText().toUpperCase().equals("DESACTIVO")) {
+                    o = ParametroGeneralController.getInstance().getEstado("0");
+                    tableview.setItems(FXCollections.observableArrayList((List<ParametroGeneralDTO>) o));
+                } else {
+                    o = ParametroGeneralController.getInstance().getId(txtNombre.getText());
+                    if (o != null) {
+                        List<ParametroGeneralDTO> list = new ArrayList<>();
+                        list.add((ParametroGeneralDTO) o);
+                        System.out.println(((ParametroGeneralDTO) o).getNombre());
+                        tableview.setItems(FXCollections.observableArrayList(list));
+                    } else {
+
+                        o = ParametroGeneralController.getInstance().getNombre(txtNombre.getText());
+                        if (o != null) {
+                            tableview.setItems(FXCollections.observableArrayList((List<ParametroGeneralDTO>) o));
+                        } else {
+                            new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron parametros");
+                        }
+                    }
+
                 }
 
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else if (txtNombre.getText() != null && cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < tramiteList.size(); i++) {
-                if (tramiteList.get(i).getNombre().toUpperCase().startsWith(txtNombre.getText().toUpperCase()) && tramiteList.get(i).isEstado() == estado) {
-                    lisAux.add(tramiteList.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else if (cbEstado.getValue() != null) {
-            boolean estado = false;
-            if (cbEstado.getValue().equals("Activo")) {
-                estado = true;
-            }
-            for (int i = 0; i < tramiteList.size(); i++) {
-                if (tramiteList.get(i).isEstado() == estado) {
-                    lisAux.add(tramiteList.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
-        } else if (!txtNombre.getText().isEmpty()) {
-
-            for (int i = 0; i < tramiteList.size(); i++) {
-                if (tramiteList.get(i).getNombre().toUpperCase().startsWith(txtNombre.getText().toUpperCase())) {
-                    lisAux.add(tramiteList.get(i));
-                }
-            }
-            tableview.setItems(FXCollections.observableArrayList(lisAux));
-            System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
         } else {
             llenarTable();
         }
@@ -116,9 +103,6 @@ public class ParametrosViewController implements Initializable {
     @FXML
     private void borrar(ActionEvent event) {
         txtNombre.setText("");
-        txtId.setText("");
-        cbEstado.setValue(null);
-        cbEstado.setPromptText("Estado");
     }
 
     @Override
@@ -196,18 +180,7 @@ public class ParametrosViewController implements Initializable {
 
     @FXML
     private void actionClearID(KeyEvent event) {
-        txtId.setText("");
+     
     }
 
-    @FXML
-    private void actionClearID(ActionEvent event) {
-        txtId.setText("");
-    }
-
-    @FXML
-    private void presID(KeyEvent event) {
-        txtNombre.setText("");
-        cbEstado.setValue(null);
-        cbEstado.setPromptText("Estado");
-    }
 }
