@@ -8,6 +8,7 @@ package org.una.laboratorio;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import org.una.laboratorio.controller.TramiteEstadoController;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.DepartamentoDTO;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
@@ -46,18 +48,32 @@ public class AddEditWatchTipoTramiteController extends Controller implements Ini
     private Label lblFechaCreacion;
     @FXML
     private Label lblFechaModificacion;
-    TramiteTipoDTO tramiteTipoDTO;
+  
     @FXML
     private TextArea txtDescipcion;
     @FXML
     private TextField txtDeparta;
+    
+      TramiteTipoDTO tramiteTipoDTO;
+    @FXML
+    private Button btnBuscar;
+    private List<PermisoOtorgadoDTO> ListPerOtor;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          comboEsatdo.setItems(FXCollections.observableArrayList("Activo","Desactivo"));
+          ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+          
         if (AppContext.getInstance().get("TraObject") != null) {
+            if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("TRA2"))) {
+                txtDescipcion.setDisable(true);
+                btnBuscar.setDisable(true);
+                btnBuscar.setVisible(false);
+            }else if(!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("TRA3"))){
+                comboEsatdo.setDisable(true);
+            }
             tramiteTipoDTO = (TramiteTipoDTO) AppContext.getInstance().get("TraObject");
             txtId.setText(tramiteTipoDTO.getId().toString());
             txtDescipcion.setText(tramiteTipoDTO.getDescripcion());

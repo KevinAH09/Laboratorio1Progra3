@@ -63,25 +63,10 @@ public class DepartamentoViewController extends Controller implements Initializa
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
-//         for (int i = 0; i < ListPerOtor.size(); i++) {
         if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP1"))) {
             btnGuardar.setVisible(false);
             btnGuardar.setDisable(true);
         }
-
-//                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("DEP") && TreeDep) {
-//                    TreeItem<String> item = new TreeItem<>("Departamentos");
-//                    itemInformacion.getChildren().add(item);
-//                    treeAcciones.getSelectionModel().select(item);
-//                    TreeDep = false;
-//                }
-//                if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("TRD") && TreeTra) {
-//                    TreeItem<String> item = new TreeItem<>("Diseño de Trámites");
-//                    itemInformacion.getChildren().add(item);
-//                    treeAcciones.getSelectionModel().select(item);
-//                    TreeTra = false;
-//                }
-//            }
         actionDepartamentoClick();
         llenarDepartamento();
     }
@@ -93,9 +78,6 @@ public class DepartamentoViewController extends Controller implements Initializa
 
     private void actionDepartamentoClick() {
         if (ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP2")) || ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("DEP3"))) {
-            btnGuardar.setVisible(false);
-            btnGuardar.setDisable(true);
-
             tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {

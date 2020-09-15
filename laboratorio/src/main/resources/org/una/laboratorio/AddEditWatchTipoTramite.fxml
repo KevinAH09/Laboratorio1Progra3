@@ -55,7 +55,7 @@
                            <children>
                               <Label prefHeight="0.0" prefWidth="110.0" text="Departamento" />
                               <TextField fx:id="txtDeparta" disable="true" prefHeight="30.0" prefWidth="330.0" />
-                              <Button mnemonicParsing="false" onAction="#actionbuscarDep" text="Buscar" />
+                              <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionbuscarDep" text="Buscar" />
                            </children>
                            <padding>
                               <Insets left="95.0" />

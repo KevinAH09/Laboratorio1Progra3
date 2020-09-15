@@ -27,7 +27,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="20.0">
                            <children>
                               <Label prefWidth="110.0" text="Id:" />
-                              <TextField fx:id="txtId" prefHeight="30.0" prefWidth="330.0" />
+                              <TextField fx:id="txtId" disable="true" prefHeight="30.0" prefWidth="330.0" />
                            </children>
                            <padding>
                               <Insets left="100.0" />

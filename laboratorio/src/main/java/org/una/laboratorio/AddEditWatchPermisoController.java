@@ -8,6 +8,7 @@ package org.una.laboratorio;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 import org.una.laboratorio.dto.PermisoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.controller.PermisoController;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.utils.Mensaje;
 
 /**
@@ -46,18 +48,26 @@ public class AddEditWatchPermisoController extends Controller implements Initial
     private Label lblFechaModificacion;
     @FXML
     private TextArea txtDescripcion;
-    
-    
+
     PermisoDTO permisoDTO;
+    List<PermisoOtorgadoDTO> ListPerOtor;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+        
         permisoDTO = new PermisoDTO();
         comboEstado.setItems(FXCollections.observableArrayList("Activo", "Inactivo"));
         if (AppContext.getInstance().get("PerObject") != null) {
+            if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PER2"))) {
+                txtCodigo.setDisable(true);
+                txtDescripcion.setDisable(true);
+            }else if(!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PER3"))){
+                comboEstado.setDisable(true);
+            }
             permisoDTO = (PermisoDTO) AppContext.getInstance().get("PerObject");
             txtId.setText(permisoDTO.getId().toString());
             txtCodigo.setText(permisoDTO.getCodigo());
@@ -102,11 +112,11 @@ public class AddEditWatchPermisoController extends Controller implements Initial
                     permisoDTO.setCodigo(txtCodigo.getText());
                     permisoDTO.setFechaModificacion(new Date());
                     permisoDTO.setFechaRegistro(new Date());
-                    if(PermisoController.getInstance().add(permisoDTO)==201){
+                    if (PermisoController.getInstance().add(permisoDTO) == 201) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Permiso", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
-                    }else{
-                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    } else {
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear Permiso", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
@@ -122,11 +132,11 @@ public class AddEditWatchPermisoController extends Controller implements Initial
                     permisoDTO.setDescripcion(txtDescripcion.getText());
                     permisoDTO.setCodigo(txtCodigo.getText());
                     permisoDTO.setFechaModificacion(new Date());
-                    if(PermisoController.getInstance().Update(permisoDTO)==200){
+                    if (PermisoController.getInstance().Update(permisoDTO) == 200) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Permiso", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
-                    }else{
-                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                    } else {
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar Permiso", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");

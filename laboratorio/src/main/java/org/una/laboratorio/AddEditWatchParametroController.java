@@ -8,6 +8,7 @@ package org.una.laboratorio;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -29,6 +30,7 @@ import org.una.laboratorio.utils.Mensaje;
 import org.una.laboratorio.dto.ParametroGeneralDTO;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.controller.ParametroGeneralController;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 
 /**
  * FXML Controller class
@@ -53,15 +55,23 @@ public class AddEditWatchParametroController extends Controller implements Initi
     private Label lblFechaModificacion;
 
     ParametroGeneralDTO parametroGeneralDTO;
-
+    List<PermisoOtorgadoDTO> ListPerOtor;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
         parametroGeneralDTO = new ParametroGeneralDTO();
         comboEstado.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
         if (AppContext.getInstance().get("ParaObject") != null) {
+            if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PAR2"))) {
+                txtNombre.setDisable(true);
+                txtDescripcion.setDisable(true);
+                txtValor.setDisable(true);
+            }else if(!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PAR3"))){
+                comboEstado.setDisable(true);
+            }
             parametroGeneralDTO = (ParametroGeneralDTO) AppContext.getInstance().get("ParaObject");
             txtId.setText(parametroGeneralDTO.getId().toString());
             txtNombre.setText(parametroGeneralDTO.getNombre());

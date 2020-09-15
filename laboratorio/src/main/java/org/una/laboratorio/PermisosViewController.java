@@ -32,6 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.PermisoController;
 import org.una.laboratorio.dto.PermisoDTO;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
@@ -55,29 +56,37 @@ public class PermisosViewController extends Controller implements Initializable 
     private TextField txtNombre;
 
     List<PermisoDTO> lisPer;
+    List<PermisoOtorgadoDTO> ListPerOtor;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+        if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PER1"))) {
+            btnGuardar.setVisible(false);
+            btnGuardar.setDisable(true);
+        }
         actionPermisosClick();
         llenarTableView();
     }
 
     private void actionPermisosClick() {
-        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    PermisoDTO per = (PermisoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("PerObject", per);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchPermiso", ((Stage) btnBuscar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
+        if (ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PER2")) || ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PER3"))) {
+            tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                        PermisoDTO per = (PermisoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        AppContext.getInstance().set("PerObject", per);
+                        FlowController.getInstance().goViewInWindowModal("AddEditWatchPermiso", ((Stage) btnBuscar.getScene().getWindow()), false);
+                        tableview.selectionModelProperty().get().clearSelection();
+                    }
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void llenarTableView() {
@@ -166,10 +175,8 @@ public class PermisosViewController extends Controller implements Initializable 
 
     @FXML
     private void actionClearID(KeyEvent event) {
-       
+
     }
-
-
 
     void llenarTable() {
         try {

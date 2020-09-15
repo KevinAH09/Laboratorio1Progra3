@@ -30,6 +30,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.TramiteTipoController;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
@@ -56,30 +57,38 @@ public class TipoTramitesViewController extends Controller implements Initializa
     private TextField txtId;
 
     List<TramiteTipoDTO> tramiteList;
+    List<PermisoOtorgadoDTO> ListPerOtor;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+        if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("TRA1"))) {
+            btnGuardar.setVisible(false);
+            btnGuardar.setDisable(true);
+        }
         cbEstado.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
         actionDepartamentoClick();
         llenarDepartamento();
     }
 
     private void actionDepartamentoClick() {
-        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    TramiteTipoDTO tra = (TramiteTipoDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("TraObject", tra);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchTipoTramite", ((Stage) btnBuscar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
+        if (ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("TRA2")) || ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("TRA3"))) {
+            tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                        TramiteTipoDTO tra = (TramiteTipoDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        AppContext.getInstance().set("TraObject", tra);
+                        FlowController.getInstance().goViewInWindowModal("AddEditWatchTipoTramite", ((Stage) btnBuscar.getScene().getWindow()), false);
+                        tableview.selectionModelProperty().get().clearSelection();
+                    }
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void llenarDepartamento() {
@@ -115,9 +124,9 @@ public class TipoTramitesViewController extends Controller implements Initializa
             if (!txtId.getText().isEmpty()) {
                 Object o = TramiteTipoController.getInstance().getId(txtId.getText());
                 if (o != null) {
-                    tramiteList.add((TramiteTipoDTO)o);
+                    tramiteList.add((TramiteTipoDTO) o);
                     tableview.setItems(FXCollections.observableArrayList(tramiteList));
-                }else{
+                } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron tramites");
                 }
 
@@ -126,14 +135,14 @@ public class TipoTramitesViewController extends Controller implements Initializa
                     Object o = TramiteTipoController.getInstance().getEstado("1");
                     if (o != null) {
                         tableview.setItems(FXCollections.observableArrayList((List<TramiteTipoDTO>) o));
-                    }else{
+                    } else {
                         new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron tramites");
                     }
                 } else {
                     Object o = TramiteTipoController.getInstance().getEstado("0");
                     if (o != null) {
                         tableview.setItems(FXCollections.observableArrayList((List<TramiteTipoDTO>) o));
-                    }else{
+                    } else {
                         new Mensaje().showModal(Alert.AlertType.ERROR, "Error al filtrar", ((Stage) btnBuscar.getScene().getWindow()), "No se encontraron tramites");
                     }
                 }

@@ -33,6 +33,7 @@ import org.una.laboratorio.controller.ParametroGeneralController;
 import org.una.laboratorio.dto.ParametroGeneralDTO;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.ParametroGeneralDTO;
+import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
@@ -53,13 +54,15 @@ public class ParametrosViewController implements Initializable {
     private Button btnBuscar;
     @FXML
     private Button btnBorrar;
-    
+
     List<ParametroGeneralDTO> tramiteList;
+    List<PermisoOtorgadoDTO> ListPerOtor;
 
     @FXML
     private void buscar(ActionEvent event) {
+
         tableview.getItems().clear();
-       if (!txtNombre.getText().isEmpty()) {
+        if (!txtNombre.getText().isEmpty()) {
             try {
                 Object o;
                 if (txtNombre.getText().toUpperCase().equals("ACTIVO")) {
@@ -107,6 +110,11 @@ public class ParametrosViewController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+        if (!ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PAR1"))) {
+            btnAgregar.setVisible(false);
+            btnAgregar.setDisable(true);
+        }
         actionParametroGeneralClick();
         llenarParametroGeneral();
 
@@ -114,24 +122,26 @@ public class ParametrosViewController implements Initializable {
     }
 
     private void actionParametroGeneralClick() {
-        tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
-                    ParametroGeneralDTO para = (ParametroGeneralDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                    AppContext.getInstance().set("ParaObject", para);
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", ((Stage) btnBuscar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
-                }
+        if (ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PAR2")) || ListPerOtor.stream().anyMatch(x -> x.getPermisoId().getCodigo().equals("PAR3"))) {
+            tableview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                        ParametroGeneralDTO para = (ParametroGeneralDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        AppContext.getInstance().set("ParaObject", para);
+                        FlowController.getInstance().goViewInWindowModal("AddEditWatchParametro", ((Stage) btnBuscar.getScene().getWindow()), false);
+                        tableview.selectionModelProperty().get().clearSelection();
+                    }
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void llenarParametroGeneral() {
         TableColumn<ParametroGeneralDTO, String> colCedula = new TableColumn("ID");
         colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getId()));
-        TableColumn<ParametroGeneralDTO, String> colNombbre= new TableColumn("Nombre");
+        TableColumn<ParametroGeneralDTO, String> colNombbre = new TableColumn("Nombre");
         colNombbre.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getNombre()));
         TableColumn<ParametroGeneralDTO, String> colNombre = new TableColumn("Descripcion");
         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
@@ -143,7 +153,7 @@ public class ParametrosViewController implements Initializable {
         colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<ParametroGeneralDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaModificacion()));
-        tableview.getColumns().addAll(colCedula,colNombbre, colNombre, colValor, colestado, colFechaRe, colFechaMo);
+        tableview.getColumns().addAll(colCedula, colNombbre, colNombre, colValor, colestado, colFechaRe, colFechaMo);
 
         try {
             llenarTable();
@@ -180,7 +190,7 @@ public class ParametrosViewController implements Initializable {
 
     @FXML
     private void actionClearID(KeyEvent event) {
-     
+
     }
 
 }
