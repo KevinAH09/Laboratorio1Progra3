@@ -26,16 +26,16 @@ public class RequisitoController {
         return RequisitoService.ListFromConnection(urlstring, RequisitoDTO.class);
     }
 
-    public void add(RequisitoDTO object) throws InterruptedException, ExecutionException, IOException {
-        RequisitoService.ObjectToConnection(urlstring, object);
+    public int add(RequisitoDTO object) throws InterruptedException, ExecutionException, IOException {
+        return RequisitoService.ObjectToConnection(urlstring, object);
     }
 
     public Object getId(String id) throws InterruptedException, ExecutionException, IOException {
         return RequisitoService.FromConnectionID(urlstring, id, RequisitoDTO.class);
     }
 
-    public void Update(RequisitoDTO dep) throws InterruptedException, ExecutionException, IOException {
-        RequisitoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
+    public int Update(RequisitoDTO dep) throws InterruptedException, ExecutionException, IOException {
+        return RequisitoService.UpdateObjectToConnection(urlstring, dep.getId().toString(), dep);
     }
 
     public static RequisitoController getInstance() {

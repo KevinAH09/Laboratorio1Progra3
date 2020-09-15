@@ -107,6 +107,7 @@ public class AddEditWatchVariacionController extends Controller implements Initi
 
     @FXML
     private void actionCancelar(ActionEvent event) {
+        ((Stage) txtId.getScene().getWindow()).close();
     }
 
     @FXML
@@ -146,20 +147,20 @@ public class AddEditWatchVariacionController extends Controller implements Initi
                     variacionDTO.setFechaRegistro(new Date());
                     variacionDTO.setGrupo(Long.parseLong(txtGrupo.getText()));
                     if (VariacionController.getInstance().Update(variacionDTO) == 200) {
-                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar la Variacion", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else{
-                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear tramite", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
+                       new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear la Variacion", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente"); 
                     }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar tramites", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar la Variacion", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
             }
 
         } catch (ExecutionException ex) {
-            Logger.getLogger(AddEditWatchDepartamentoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddEditWatchVariacionController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(AddEditWatchDepartamentoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddEditWatchVariacionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
