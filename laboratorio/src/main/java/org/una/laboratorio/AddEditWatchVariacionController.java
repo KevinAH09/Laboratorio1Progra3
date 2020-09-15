@@ -124,7 +124,7 @@ public class AddEditWatchVariacionController extends Controller implements Initi
                     variacionDTO.setTramiteTipo((TramiteTipoDTO) AppContext.getInstance().get("BuscadoTra"));
                     variacionDTO.setFechaRegistro(new Date());
                     variacionDTO.setGrupo(Long.parseLong(txtGrupo.getText()));
-                    if (VariacionController.getInstance().add(variacionDTO) == 201) {
+                    if (VariacionController.getInstance().add(variacionDTO) == 200) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else {
@@ -145,7 +145,7 @@ public class AddEditWatchVariacionController extends Controller implements Initi
                     variacionDTO.setTramiteTipo((TramiteTipoDTO) AppContext.getInstance().get("BuscadoTra"));
                     variacionDTO.setFechaRegistro(new Date());
                     variacionDTO.setGrupo(Long.parseLong(txtGrupo.getText()));
-                    if (VariacionController.getInstance().Update(variacionDTO) == 201) {
+                    if (VariacionController.getInstance().Update(variacionDTO) == 200) {
                         new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else{
