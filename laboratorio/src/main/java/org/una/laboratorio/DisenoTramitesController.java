@@ -29,10 +29,13 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.RequisitoController;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.RequisitoDTO;
 import org.una.laboratorio.dto.TramiteTipoDTO;
+import org.una.laboratorio.utils.AppContext;
+import org.una.laboratorio.utils.FlowController;
 
 /**
  * FXML Controller class
@@ -211,6 +214,12 @@ public class DisenoTramitesController extends Controller implements Initializabl
                     System.out.println(variacionList2.size());
                     tableview.selectionModelProperty().get().clearSelection();
                 }
+                if (mouseEvent.getClickCount() == 2 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
+                    VariacionDTO var = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("VarObject",var);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
+                    tableview.selectionModelProperty().get().clearSelection();
+                }
             }
         });
     }
@@ -233,6 +242,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
 
     @FXML
     private void crearVar(ActionEvent event) {
+        
     }
 
     @FXML
