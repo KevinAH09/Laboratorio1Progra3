@@ -101,7 +101,7 @@ public class DepartementoService {
 
         }
     }
-
+    
     public static int UpdateObjectToConnection(String urlstring, String id, Object object) throws MalformedURLException, IOException {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         urlstring = urlstring + id;

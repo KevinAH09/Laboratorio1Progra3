@@ -147,7 +147,15 @@ public class DepartamentoViewController extends Controller implements Initializa
             tableview.setItems(FXCollections.observableArrayList(lisAux));
             System.out.println("org.una.laboratorio.DepartamentoViewController.buscar()");
         } else if (!txtNombre.getText().isEmpty()) {
-
+            try {
+                departamentoList = (List<DepartamentoDTO>) DepartamentoController.getInstance().getNombre(txtNombre.getText());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DepartamentoViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             for (int i = 0; i < departamentoList.size(); i++) {
                 if (departamentoList.get(i).getNombre().toUpperCase().startsWith(txtNombre.getText().toUpperCase())) {
                     lisAux.add(departamentoList.get(i));
