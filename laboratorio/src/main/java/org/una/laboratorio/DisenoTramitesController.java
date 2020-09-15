@@ -64,6 +64,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
     public List<VariacionDTO> variacionList;
     public List<VariacionDTO> variacionList2 = new ArrayList();
     public List<RequisitoDTO> requisitosList;
+    public List<RequisitoDTO> requisitosList2;
     public List<TramiteTipoDTO> tramiteList;
     String tra;
     @FXML
@@ -86,6 +87,8 @@ public class DisenoTramitesController extends Controller implements Initializabl
     private Button btnVar;
     @FXML
     private TreeView<String> treeVar;
+    @FXML
+    private TableColumn<RequisitoDTO, String> tramiteReq;
 
     /**
      * Initializes the controller class.
@@ -96,9 +99,6 @@ public class DisenoTramitesController extends Controller implements Initializabl
         variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
         estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
         grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
-//        llenarVariacion();
-        llenarRequisitos();
-
     }
 
     @Override
@@ -109,16 +109,21 @@ public class DisenoTramitesController extends Controller implements Initializabl
     @FXML
     private void buscar(ActionEvent event) {
         tableview.getItems().clear();
+        llenarVariacion();
 
-//        TableColumn<VariacionDTO, String> id = new TableColumn("ID");
-//        id.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
-//        TableColumn<VariacionDTO, String> variacion = new TableColumn("Descripcion");
-//        variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-//        TableColumn<VariacionDTO, String> estado = new TableColumn("Estado");
-//        estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-//        TableColumn<VariacionDTO, String> grupo = new TableColumn("Grupo");
-//        grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
-//        tableview.getColumns().addAll(id, variacion, estado, grupo);
+    }
+
+    @FXML
+    private void borrar(ActionEvent event) {
+    }
+
+    private void llenarVariacion() {
+
+        id.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
+        variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
+        estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
+        grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
+
         try {
             variacionList = VariacionController.getInstance().getAll();
             tramiteList = TramiteTipoController.getInstance().getAll();
@@ -144,46 +149,32 @@ public class DisenoTramitesController extends Controller implements Initializabl
         }
     }
 
-    @FXML
-    private void borrar(ActionEvent event) {
-    }
-
-    private void llenarVariacion() {
-
-        id.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
-        variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
-        estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-        grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
-
-        try {
-            variacionList = VariacionController.getInstance().getAll();
-            if (variacionList != null && !variacionList.isEmpty()) {
-                tableview.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon;");
-                tableview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-                tableview.getSelectionModel().setCellSelectionEnabled(true);
-//                tableview.setStyle("-fx-background-color: steelblue; -fx-text-background-color: red;");
-                tableview.setItems(FXCollections.observableArrayList(variacionList));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Lista Vacía");
-            }
-        } catch (Exception e) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Hubo un error");
-        }
-    }
-
     private void llenarRequisitos() {
 
         idReq.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getId().toString()));
         desReq.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
         estReq.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-
+        tramiteReq.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getVariacion().getDescripcion()));
         try {
             requisitosList = RequisitoController.getInstance().getAll();
+            VariacionDTO vari = (VariacionDTO) AppContext.getInstance().get("variacion");
+            Long vale = vari.getId();
             if (requisitosList != null && !requisitosList.isEmpty()) {
-                tableViewReq.setItems(FXCollections.observableArrayList(requisitosList));
+                System.out.println(requisitosList.get(0).getVariacion().getDescripcion());
+                tableViewReq.setItems(FXCollections.observableArrayList(requisitosList.stream().filter(y -> y.getVariacion().getId() == vale).collect(Collectors.toList())));
+//                llenarTree();
             } else {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Requisitos", null, "Lista Vacía");
             }
+        } catch (Exception e) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Requisitos", null, "Hubo un error");
+        }
+    }
+
+    private void llenarLista2() {
+
+        try {
+            requisitosList2 = RequisitoController.getInstance().getAll();
         } catch (Exception e) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Requisitos", null, "Hubo un error");
         }
@@ -195,8 +186,16 @@ public class DisenoTramitesController extends Controller implements Initializabl
         TreeItem<String> inicio = new TreeItem<>("Variaciones");
         root.getChildren().add(inicio);
         for (int i = 0; i < variacionList2.size(); i++) {
-            TreeItem<String> item = new TreeItem<>(variacionList2.get(i).getDescripcion());
+            String title = variacionList2.get(i).getDescripcion();
+            VariacionDTO v1 = variacionList2.get(i);
+            TreeItem<String> item = new TreeItem<>(title);
             inicio.getChildren().add(item);
+            for (RequisitoDTO requisitoDTO : requisitosList2) {
+                if (requisitoDTO.getVariacion().getId() == v1.getId()) {
+                    TreeItem<String> item2 = new TreeItem<>(requisitoDTO.getDescripcion());
+                    item.getChildren().add(item2);
+                }
+            }
             treeVar.getSelectionModel().select(item);
         }
         treeVar.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -206,30 +205,15 @@ public class DisenoTramitesController extends Controller implements Initializabl
                 if (mouseEvent.getClickCount() == 2) {
                     TreeItem<String> item = (TreeItem<String>) treeVar.getSelectionModel()
                             .getSelectedItem();
-                    System.out.println(item.getValue());
-//                    try {
-//                        if (item.getValue().equals("Usuarios")) {
-//                            cambiarUsuario("Informacion");
-//
-//                        } else if (item.getValue().equals("Departamentos")) {
-//                            cambiarDepartamento("Departamentos");
-//
-//                        } else if (item.getValue().equals("Diseño de Trámites")) {
-//                            cambiarDiseñoTramites("Tramites");
-//
-//                        } else if (item.getValue().equals("Permisos")) {
-//                            cambiarPermisos();
-//
-//                        } else if (item.getValue().equals("Parametros")) {
-//                            cambiarParametros();
-//
-//                        } else if (item.getValue().equals("Tipos de Trámites")) {
-//                            cambiarTramites();
-//                        }
-//
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
+                    for (VariacionDTO variacionDTO : variacionList2) {
+                        if (variacionDTO.getDescripcion().equals(item.getValue())) {
+                            System.out.println(item.getValue());
+                            AppContext.getInstance().set("variacion", variacionDTO);
+                            llenarRequisitos();
+                            actionRequisitosClick();
+                        }
+                    }
+
                 }
 
             }
@@ -245,6 +229,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
                     AppContext.getInstance().set("VarObject", var);
                     FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
                     tableview.selectionModelProperty().get().clearSelection();
+                    llenarVariacion();
                 } else {
                     if (mouseEvent.getClickCount() == 1 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
 
@@ -264,6 +249,22 @@ public class DisenoTramitesController extends Controller implements Initializabl
         });
     }
 
+    private void actionRequisitosClick() {
+        tableViewReq.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2 && tableViewReq.selectionModelProperty().get().getSelectedItem() != null) {
+                    RequisitoDTO var = (RequisitoDTO) tableViewReq.selectionModelProperty().get().getSelectedItem();
+                    AppContext.getInstance().set("ReqObject", var);
+                    FlowController.getInstance().goViewInWindowModal("AddEditWatchRequisito", ((Stage) btnVar.getScene().getWindow()), false);
+                    tableview.selectionModelProperty().get().clearSelection();
+                    llenarTree();
+                    llenarRequisitos();
+                }
+            }
+        });
+    }
+
     @FXML
     private void saveVar(ActionEvent event) {
     }
@@ -278,15 +279,20 @@ public class DisenoTramitesController extends Controller implements Initializabl
 
     @FXML
     private void crearRequisito(ActionEvent event) {
+        FlowController.getInstance().goViewInWindowModal("AddEditWatchRequisito", ((Stage) btnVar.getScene().getWindow()), false);
+        llenarTree();
+        llenarRequisitos();
     }
 
     @FXML
     private void crearVar(ActionEvent event) {
         FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
+        llenarVariacion();
     }
 
     @FXML
     private void actionRequisitos(Event event) {
+        llenarLista2();
         llenarTree();
     }
 
