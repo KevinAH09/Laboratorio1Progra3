@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -18,7 +19,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import org.una.laboratorio.controller.PermisoOtorgadoController;
+import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.PermisoDTO;
+import org.una.laboratorio.dto.UsuarioDTO;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 
@@ -92,9 +96,21 @@ public class InformacionUsuariosController extends Controller implements Initial
     }
 
     @FXML
-    private void guardar(ActionEvent event) {
-        List<PermisoDTO> lis= (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
-        System.out.println(lis);
+    private void guardar(ActionEvent event) throws InterruptedException {
+//        List<PermisoDTO> lis= (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
+//        UsuarioDTO o=(UsuarioDTO) AppContext.getInstance().get("selec");
+//        PermisoOtorgadoController.getInstance().Update();
+//        System.out.println(lis);
+//         if (lis != null) {
+//            try {
+//                Usuariocontroller.getInstance().Update();
+//            } catch (ExecutionException ex) {
+//                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IOException ex) {
+//                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//         }
+         
     }
     
 }
