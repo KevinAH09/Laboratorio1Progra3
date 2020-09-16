@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -94,6 +95,9 @@ public class LoginController extends Controller implements Initializable {
                     AppContext.getInstance().set("token", ar.getJwt());
                     AppContext.getInstance().set("usuarioLog", ar.getUsuario());
                     List<PermisoOtorgadoDTO> list = (List<PermisoOtorgadoDTO>) PermisoOtorgadoController.getInstance().getUsuario(ar.getUsuario().getId().toString());
+                    System.out.println(list);
+                    list=list.stream().filter(x->x.isEstado()).collect(Collectors.toList());
+                    System.out.println(list);
                     if (!list.isEmpty()) {
                         AppContext.getInstance().set("permisosOTG", list);
                     } else {
