@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.una.laboratorio.controller.DepartamentoController;
 import org.una.laboratorio.controller.PermisoOtorgadoController;
 import org.una.laboratorio.controller.Usuariocontroller;
@@ -134,6 +135,14 @@ public class LoginController extends Controller implements Initializable {
             imgNotPassword.setVisible(true);
             imgViewPassword.setVisible(false);
         }
+    }
+
+    @FXML
+    private void actionSalir(ActionEvent event) {
+        if(new Mensaje().showConfirmation("Cerrar aplicacion", ((Stage) btnCancelar.getScene().getWindow()), "Desea salir de la aplicacion")){
+             ((Stage) btnCancelar.getScene().getWindow()).close();
+        }
+       
     }
 
 }
