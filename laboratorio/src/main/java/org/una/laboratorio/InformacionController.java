@@ -74,7 +74,7 @@ public class InformacionController extends Controller implements Initializable {
                     AppContext.getInstance().set("selec", usuario);
                     //tableviewUsuario.selectionModelProperty().get().clearSelection();
                     FlowController.getInstance().goViewInWindowModal("vistaUsuario", ((Stage) tableviewUsuario.getScene().getWindow()), false);
-                  
+                    llenarUsuario();
                 }
                 else if(mouseEvent.getClickCount() == 1 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null)
                 {

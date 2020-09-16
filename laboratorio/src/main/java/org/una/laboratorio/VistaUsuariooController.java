@@ -117,7 +117,7 @@ public class VistaUsuariooController extends Controller implements Initializable
                 usaurioGuardar.setDepartamento(usuario.getDepartamento());
                 usaurioGuardar.setFechaRegistro(new Date());
                 usaurioGuardar.setFechaModificacion(new Date());
-                usuario.setNombreCompleto(txtnombre.getText());
+                usaurioGuardar.setNombreCompleto(txtnombre.getText());
                 System.out.println("org.una.laboratorio.VistaUsuariooController.actionGuardar()" + Usuariocontroller.getInstance().Update(usaurioGuardar));
                 if (Usuariocontroller.getInstance().Update(usaurioGuardar) == 200) {
                     new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar usuario", ((Stage) txtId.getScene().getWindow()), "Se guardó correctamente");
