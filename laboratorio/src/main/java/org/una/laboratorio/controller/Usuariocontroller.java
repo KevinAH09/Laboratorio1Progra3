@@ -49,8 +49,8 @@ public class Usuariocontroller {
     public Object getCedula(String cedula)throws InterruptedException, ExecutionException, IOException {
         return UsuarioService.FromConnectionCedula(urlstring+"cedula/", cedula,UsuarioDTO.class);
     }
-     public void Update(UsuarioDTO usu)throws InterruptedException, ExecutionException, IOException {
-        UsuarioService.UpdateObjectToConnection(urlstring, usu.getId().toString(),usu);
+     public int Update(UsuarioDTO usu)throws InterruptedException, ExecutionException, IOException {
+        return UsuarioService.UpdateObjectToConnection(urlstring, usu.getId().toString(),usu);
     }
     public static Usuariocontroller getInstance() {
         return UsuariocontrollerHolder.INSTANCE;
