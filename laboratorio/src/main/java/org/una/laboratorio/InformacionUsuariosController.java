@@ -115,7 +115,7 @@ public class InformacionUsuariosController extends Controller implements Initial
             if (lis != null) {
                 for (int i = 0; i < lis.size(); i++) {
                     PermisoOtorgadoDTO DTO = new PermisoOtorgadoDTO();
-                    DTO.setPermisoId(lis.get(1));
+                    DTO.setPermisoId(lis.get(i));
                     DTO.setUsuarios(o);
                     DTO.setFechaRegistro(new Date());
                     PermisoOtorgadoController.getInstance().add(DTO);
