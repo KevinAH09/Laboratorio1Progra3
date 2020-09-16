@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.utils.AppContext;
-import org.una.laboratorio.utils.FlowController;
 import org.una.laboratorio.utils.Mensaje;
 
 /**

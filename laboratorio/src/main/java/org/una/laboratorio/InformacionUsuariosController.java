@@ -57,9 +57,9 @@ public class InformacionUsuariosController extends Controller implements Initial
         } catch (IOException ex) {
             Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    }    
+
+    }
+
     void cambiarUsuario(String pantalla) throws IOException {
         Hbox.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
@@ -67,6 +67,7 @@ public class InformacionUsuariosController extends Controller implements Initial
         Hbox.getChildren()
                 .add(root);
     }
+
     @FXML
     private void actionInformacion(ActionEvent event) throws IOException {
         Hbox.getChildren().clear();
@@ -78,26 +79,24 @@ public class InformacionUsuariosController extends Controller implements Initial
 
     @FXML
     private void actionAutorizaciones(ActionEvent event) throws IOException {
-        if(AppContext.getInstance().get("selec")!=null)
-        {
+        if (AppContext.getInstance().get("selec") != null) {
             Hbox.getChildren().clear();
-        Parent root = FXMLLoader.load(App.class
-                .getResource("Autorizaciones.fxml"));
-        Hbox.getChildren()
-                .add(root);
+            Parent root = FXMLLoader.load(App.class
+                    .getResource("Autorizaciones.fxml"));
+            Hbox.getChildren()
+                    .add(root);
         }
-        
+
     }
 
     @FXML
     private void actionContra(ActionEvent event) throws IOException {
-        if(AppContext.getInstance().get("selec")!=null)
-        {
+        if (AppContext.getInstance().get("selec") != null) {
             Hbox.getChildren().clear();
-        Parent root = FXMLLoader.load(App.class
-                .getResource("Contrasena.fxml"));
-        Hbox.getChildren()
-                .add(root);
+            Parent root = FXMLLoader.load(App.class
+                    .getResource("Contrasena.fxml"));
+            Hbox.getChildren()
+                    .add(root);
         }
     }
 
@@ -108,33 +107,27 @@ public class InformacionUsuariosController extends Controller implements Initial
 
     @FXML
     private void guardar(ActionEvent event) throws InterruptedException, ExecutionException, IOException {
-//        PermisoOtorgadoDTO DTO = new PermisoOtorgadoDTO();
-//        List<PermisoDTO> lis= (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
-//        UsuarioDTO o=(UsuarioDTO) AppContext.getInstance().get("selec");
-//         if (lis != null) {
-//            try {
-//                DTO.setPermisoId(lis.get(0));
-//                DTO.setUsuarios((UsuarioDTO) AppContext.getInstance().get("selec"));
-//                DTO.setFechaRegistro(new Date());
-//                PermisoOtorgadoController.getInstance().add(DTO);
-//            } catch (ExecutionException ex) {
-//                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (IOException ex) {
-//                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//         }
 
-            if(AppContext.getInstance().get("guardarC").equals("si"))
-            {
-                UsuarioDTO o=(UsuarioDTO) AppContext.getInstance().get("selec");
-                 String s= (String) AppContext.getInstance().get("guardarContra");
-               UsuarioDTO DTO = new UsuarioDTO();
-               DTO.setNombreCompleto(o.getNombreCompleto());
-               DTO.setCedula(o.getCedula());
-               //Usuariocontroller.getInstance().Update(DTO);
-              
-               
+        List<PermisoDTO> lis = (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
+        UsuarioDTO o = (UsuarioDTO) AppContext.getInstance().get("selec");
+
+        try {
+            if (lis != null) {
+                for (int i = 0; i < lis.size(); i++) {
+                    PermisoOtorgadoDTO DTO = new PermisoOtorgadoDTO();
+                    DTO.setPermisoId(lis.get(i));
+                    DTO.setUsuarios(o);
+                    DTO.setFechaRegistro(new Date());
+                    PermisoOtorgadoController.getInstance().add(DTO);
+                }
             }
+
+        } catch (ExecutionException ex) {
+            Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-    
+
 }
