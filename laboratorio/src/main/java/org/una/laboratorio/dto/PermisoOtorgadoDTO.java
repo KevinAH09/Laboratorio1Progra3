@@ -23,14 +23,14 @@ public class PermisoOtorgadoDTO {
     private boolean estado;
     private Date fechaRegistro;
     private PermisoDTO permisoId;
-    private UsuarioDTO usuarios;
+    private UsuarioDTO usuario;
 
     public PermisoOtorgadoDTO(Long id, boolean estado, Date fechaRegistro, PermisoDTO permisoId, UsuarioDTO usuarios) {
         this.id = id;
         this.estado = estado;
         this.fechaRegistro = fechaRegistro;
         this.permisoId = permisoId;
-        this.usuarios = usuarios;
+        this.usuario = usuarios;
     }
 
     public PermisoOtorgadoDTO() {
@@ -69,11 +69,11 @@ public class PermisoOtorgadoDTO {
     }
 
     public UsuarioDTO getUsuarios() {
-        return usuarios;
+        return usuario;
     }
 
     public void setUsuarios(UsuarioDTO usuarios) {
-        this.usuarios = usuarios;
+        this.usuario = usuarios;
     }
     
 }
