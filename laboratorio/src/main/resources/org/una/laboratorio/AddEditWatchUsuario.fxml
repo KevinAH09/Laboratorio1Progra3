@@ -9,9 +9,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="712.0" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.AddEditWatchUsuarioController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.laboratorio.AddEditWatchUsuarioController">
    <children>
-      <StackPane prefHeight="465.0" prefWidth="712.0">
+      <StackPane layoutX="10.0" layoutY="10.0" prefHeight="465.0" prefWidth="712.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                <children>
@@ -27,70 +28,48 @@
                               <Label prefHeight="20.0" prefWidth="120.0" text="Id:" />
                               <TextField fx:id="txtId" prefHeight="29.0" prefWidth="324.0" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0">
                            <children>
                               <Label prefHeight="21.0" prefWidth="131.0" text="Nombre completo:" />
-                              <TextField prefHeight="29.0" prefWidth="324.0" />
+                              <TextField fx:id="txtnombre" prefHeight="29.0" prefWidth="324.0" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="10.0">
                            <children>
-                              <Label prefHeight="21.0" prefWidth="120.0" text="Contraseña" />
-                              <TextField prefHeight="29.0" prefWidth="324.0" />
-                           </children>
-                           </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="10.0">
-                           <children>
                               <Label prefHeight="20.0" prefWidth="120.0" text="Cédula:" />
-                              <TextField prefHeight="29.0" prefWidth="324.0" />
+                              <TextField fx:id="txtcedula" prefHeight="29.0" prefWidth="324.0" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="10.0">
                            <children>
                               <Label prefHeight="20.0" prefWidth="120.0" text="Estado" />
-                              <ComboBox prefHeight="31.0" prefWidth="324.0" />
+                              <ComboBox fx:id="cmbEstado" prefHeight="31.0" prefWidth="324.0" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="10.0">
                            <children>
                               <Label prefHeight="20.0" prefWidth="120.0" text="Departamento:" />
-                              <TextField prefHeight="29.0" prefWidth="324.0" />
+                              <TextField fx:id="txtdepartamento" prefHeight="29.0" prefWidth="324.0" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="120.0" spacing="10.0">
                            <children>
                               <Label prefHeight="20.0" prefWidth="120.0" text="Es jefe:" />
-                              <TextField prefHeight="29.0" prefWidth="324.0" />
+                              <ComboBox fx:id="cmbJefe" prefHeight="31.0" prefWidth="324.0" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="10.0">
                            <children>
                               <Label prefHeight="21.0" prefWidth="142.0" text="Última Modificación" />
-                              <Label prefHeight="26.0" prefWidth="217.0" text="Label" />
+                              <Label fx:id="fechaModi" prefHeight="26.0" prefWidth="217.0" text="Label" />
                            </children>
-                           
-                           
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="712.0" spacing="10.0">
                            <children>
                               <Label prefHeight="21.0" prefWidth="128.0" text=" Creado el" />
-                              <Label prefHeight="26.0" prefWidth="217.0" text="Label" />
+                              <Label fx:id="fechaRegis" prefHeight="26.0" prefWidth="217.0" text="Label" />
                            </children>
-                           
-                           
                         </HBox>
                      </children>
                   </VBox>

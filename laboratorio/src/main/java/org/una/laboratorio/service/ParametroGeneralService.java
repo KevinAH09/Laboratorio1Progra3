@@ -157,7 +157,6 @@ public class ParametroGeneralService {
                     response.append(responseLine.trim());
                 }
                 return gson.fromJson(response.toString(), listtype);
-
             }
         } else {
             return null;

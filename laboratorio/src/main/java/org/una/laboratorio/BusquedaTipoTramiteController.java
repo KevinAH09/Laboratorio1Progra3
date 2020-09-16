@@ -114,13 +114,11 @@ public class BusquedaTipoTramiteController extends Controller implements Initial
         colNombre.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
         TableColumn<TramiteTipoDTO, String> colCedula = new TableColumn("Estado");
         colCedula.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
-        TableColumn<TramiteTipoDTO, String> colFechaRe = new TableColumn("Fecha Registro");
-        colFechaRe.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getDepartamento()));
         TableColumn<TramiteTipoDTO, String> colFechaCre = new TableColumn("Fecha Creacion");
         colFechaCre.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
         TableColumn<TramiteTipoDTO, String> colFechaMo = new TableColumn("Fecha Modificacion");
         colFechaMo.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getFechaRegistro()));
-        tableview.getColumns().addAll(colNombre, colCedula, colFechaRe, colFechaCre, colFechaMo);
+        tableview.getColumns().addAll(colNombre, colCedula, colFechaCre, colFechaMo);
 
         try {
             tipoList = TramiteTipoController.getInstance().getAll();

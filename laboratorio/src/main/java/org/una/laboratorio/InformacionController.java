@@ -72,14 +72,16 @@ public class InformacionController extends Controller implements Initializable {
                 if (mouseEvent.getClickCount() == 2 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null) {
                     UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("selec", usuario);
-                    tableviewUsuario.selectionModelProperty().get().clearSelection();
-                    FlowController.getInstance().goViewInWindowModal("AddEditWatchUsuario", ((Stage) tableviewUsuario.getScene().getWindow()), false);
+                    //tableviewUsuario.selectionModelProperty().get().clearSelection();
+                    FlowController.getInstance().goViewInWindowModal("vistaUsuario", ((Stage) tableviewUsuario.getScene().getWindow()), false);
                   
                 }
                 else if(mouseEvent.getClickCount() == 1 && tableviewUsuario.selectionModelProperty().get().getSelectedItem() != null)
                 {
+                    
                     UsuarioDTO usuario = (UsuarioDTO) tableviewUsuario.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("selec", usuario);
+                    //tableviewUsuario.selectionModelProperty().get().clearSelection();
                     //FlowController.getInstance().goViewInWindowModal("AddEditWatchUsuario", ((Stage) btnBuscar.getScene().getWindow()), false);
                 }
             }
