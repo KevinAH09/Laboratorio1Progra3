@@ -89,29 +89,36 @@ public class AutorizacionesController extends Controller implements Initializabl
         } catch (InterruptedException | ExecutionException | IOException ex) {
             Logger.getLogger(AutorizacionesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         LLenarTableView();
         actionDepartamentoClick();
     }
+    List<PermisoOtorgadoDTO> perElimi = new ArrayList<>();
 
     private void actionDepartamentoClick() {
+
         permisos.clear();
         for (PerimisosCheBox permisosOtorgado : cheBoxs) {
             permisosOtorgado.getBox().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     if (permisosOtorgado.getBox().isSelected()) {
-                        
+
                         //List<PerimisosCheBox> cheBoxs = new ArrayList<>();
                         //cheBoxs = tableView.getItems();
 //                        for (PerimisosCheBox permisosOtorga : cheBoxs) {
 //                            if (permisosOtorga.getBox().isSelected()) {
-                                permisos.add(permisosOtorgado.getdTO());
+                        permisos.add(permisosOtorgado.getdTO());
+                        AppContext.getInstance().set("paraGuardar", permisos);
 
 //                            }
 //
 //                        }
-                        AppContext.getInstance().set("paraGuardar", permisos);
+                    } else {
+                        if (permisos.stream().anyMatch(x -> x.getId() == permisosOtorgado.getdTO().getId())) {
+                            permisos.remove(permisosOtorgado.getdTO());
+                            AppContext.getInstance().set("paraGuardar", permisos);
+                        }
                     }
                 }
             });
@@ -198,9 +205,7 @@ public class AutorizacionesController extends Controller implements Initializabl
                         Hbox.getChildren().clear();
                         LLenarTableView();
                         actionDepartamentoClick();
-                    }
-                    else if(texFielFiltrar.getText().equals(UsuarioDTO.getNombreCompleto()))
-                    {
+                    } else if (texFielFiltrar.getText().equals(UsuarioDTO.getNombreCompleto())) {
                         cheBoxs.clear();
                         permisos.clear();
                         U = (List<UsuarioDTO>) Usuariocontroller.getInstance().getCedula(UsuarioDTO.getCedula());
