@@ -29,7 +29,7 @@
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/Usuario-48.png" />
+                              <Image url="@icons/usuario%20(2).png" />
                            </image>
                         </ImageView>
                         <TextField fx:id="txtUsuario" prefHeight="44.0" prefWidth="240.0" />
@@ -40,13 +40,13 @@
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/Contraseña-48.png" />
+                              <Image url="@icons/iniciar-sesion.png" />
                            </image>
                         </ImageView>
                         <AnchorPane prefHeight="83.0" prefWidth="238.0">
                            <children>
-                              <PasswordField fx:id="txtPassOculto" layoutY="19.0" prefHeight="44.0" prefWidth="240.0" />
-                              <TextField fx:id="txtPassMostrado" layoutY="19.0" prefHeight="45.0" prefWidth="240.0" />
+                              <PasswordField fx:id="txtPassOculto" layoutY="29.0" prefHeight="44.0" prefWidth="240.0" />
+                              <TextField fx:id="txtPassMostrado" layoutY="28.0" prefHeight="45.0" prefWidth="240.0" />
                            </children>
                         </AnchorPane>
                         <StackPane prefHeight="30.0" prefWidth="30.0">

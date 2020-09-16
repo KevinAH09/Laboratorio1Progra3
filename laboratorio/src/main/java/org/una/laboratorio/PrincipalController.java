@@ -57,7 +57,7 @@ public class PrincipalController extends Controller implements Initializable {
             Node imgroot = new ImageView(new Image("org/una/laboratorio/icons/menu.png"));
             Node imgInformacion = new ImageView(new Image("org/una/laboratorio/icons/informacion.png"));
             Node imgAdmin = new ImageView(new Image("org/una/laboratorio/icons/lengueta.png"));
-
+            lblHora.setText((((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
             TreeItem<String> root = new TreeItem<>("Funciones de " + (((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
             root.setGraphic(imgroot);
             treeAcciones.setRoot(root);
