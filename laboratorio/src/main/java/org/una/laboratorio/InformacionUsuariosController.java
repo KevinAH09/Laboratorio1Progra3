@@ -25,6 +25,7 @@ import org.una.laboratorio.controller.Usuariocontroller;
 import org.una.laboratorio.dto.PermisoDTO;
 import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.UsuarioDTO;
+import org.una.laboratorio.service.UsuarioService;
 import org.una.laboratorio.utils.AppContext;
 import org.una.laboratorio.utils.FlowController;
 
@@ -107,21 +108,33 @@ public class InformacionUsuariosController extends Controller implements Initial
 
     @FXML
     private void guardar(ActionEvent event) throws InterruptedException, ExecutionException, IOException {
-        PermisoOtorgadoDTO DTO = new PermisoOtorgadoDTO();
-        List<PermisoDTO> lis= (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
-        UsuarioDTO o=(UsuarioDTO) AppContext.getInstance().get("selec");
-         if (lis != null) {
-            try {
-                DTO.setPermisoId(lis.get(0));
-                DTO.setUsuarios((UsuarioDTO) AppContext.getInstance().get("selec"));
-                DTO.setFechaRegistro(new Date());
-                PermisoOtorgadoController.getInstance().add(DTO);
-            } catch (ExecutionException ex) {
-                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+//        PermisoOtorgadoDTO DTO = new PermisoOtorgadoDTO();
+//        List<PermisoDTO> lis= (List<PermisoDTO>) AppContext.getInstance().get("paraGuardar");
+//        UsuarioDTO o=(UsuarioDTO) AppContext.getInstance().get("selec");
+//         if (lis != null) {
+//            try {
+//                DTO.setPermisoId(lis.get(0));
+//                DTO.setUsuarios((UsuarioDTO) AppContext.getInstance().get("selec"));
+//                DTO.setFechaRegistro(new Date());
+//                PermisoOtorgadoController.getInstance().add(DTO);
+//            } catch (ExecutionException ex) {
+//                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IOException ex) {
+//                Logger.getLogger(InformacionUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//         }
+
+            if(AppContext.getInstance().get("guardarC").equals("si"))
+            {
+                UsuarioDTO o=(UsuarioDTO) AppContext.getInstance().get("selec");
+                 String s= (String) AppContext.getInstance().get("guardarContra");
+               UsuarioDTO DTO = new UsuarioDTO();
+               DTO.setNombreCompleto(o.getNombreCompleto());
+               DTO.setCedula(o.getCedula());
+               //Usuariocontroller.getInstance().Update(DTO);
+              
+               
             }
-         }
     }
     
 }
