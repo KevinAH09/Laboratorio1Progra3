@@ -240,7 +240,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
                                     }
                                     System.out.println(variacionList2.size());
                                 } else {
-                                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error seleccion de grupo", null, "Ya se encuentra seleccionado un item del mismo grupo con el nombre: " + variacionDTO.getDescripcion());
+                                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error seleccion de grupo", null, "Ya se encuentra seleccionado un item del mismo grupo con el nombre: " + variacionDTO.getDescripcion()+" por favor deseleccionalo si desea seleccionar este item");
                                 }
                             }
                         } else {

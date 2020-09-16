@@ -128,10 +128,10 @@ public class BusquedaTipoTramiteController extends Controller implements Initial
             if (tipoList != null && !tipoList.isEmpty()) {
                 tableview.setItems(FXCollections.observableArrayList(tipoList));
             } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error de tramite", null, "La lista está nula o vacía");
             }
         } catch (Exception e) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Usuario", null, "estoy verificando en mantenimineto");
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error de tramite", null, "Hubo un error al obtener los datos a cargar");
         }
     }
 }

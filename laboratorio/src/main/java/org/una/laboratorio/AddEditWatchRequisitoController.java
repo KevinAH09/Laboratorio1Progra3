@@ -21,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.una.laboratorio.controller.RequisitoController;
 import org.una.laboratorio.dto.RequisitoDTO;
@@ -58,7 +57,7 @@ public class AddEditWatchRequisitoController extends Controller implements Initi
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         reqDTO = new RequisitoDTO();
-        cmbEstado.setItems(FXCollections.observableArrayList("Activo", "Desactivo"));
+        cmbEstado.setItems(FXCollections.observableArrayList("Activo", "Inactivo"));
         if (AppContext.getInstance().get("ReqObject") != null) {
             reqDTO = (RequisitoDTO) AppContext.getInstance().get("ReqObject");
             txtId.setText(reqDTO.getId().toString());
@@ -103,10 +102,10 @@ public class AddEditWatchRequisitoController extends Controller implements Initi
                     reqDTO.setVariacion((VariacionDTO) AppContext.getInstance().get("variacion"));
                     reqDTO.setFechaRegistro(new Date());
                     if (RequisitoController.getInstance().add(reqDTO) == 201) {
-                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Requisito", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Requisito", ((Stage) txtId.getScene().getWindow()), "Se guardó correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else {
-                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar el Requisito", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar el Requisito", ((Stage) txtId.getScene().getWindow()), "No se guardó correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar  el Requisito", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
@@ -124,13 +123,13 @@ public class AddEditWatchRequisitoController extends Controller implements Initi
                     reqDTO.setFechaRegistro(new Date());
 
                     if (RequisitoController.getInstance().Update(reqDTO) == 200) {
-                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Requisito", ((Stage) txtId.getScene().getWindow()), "Se guardó correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else {
-                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear tramite", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear el Requisito", ((Stage) txtId.getScene().getWindow()), "No se guardó correctamente");
                     }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar tramites", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar el Requisito", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
             }
 
