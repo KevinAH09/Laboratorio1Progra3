@@ -27,10 +27,12 @@ import org.una.laboratorio.dto.VariacionDTO;
 import org.una.laboratorio.utils.Mensaje;
 import javafx.scene.control.Alert;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.una.laboratorio.controller.RequisitoController;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.RequisitoDTO;
@@ -68,8 +70,6 @@ public class DisenoTramitesController extends Controller implements Initializabl
     public List<TramiteTipoDTO> tramiteList;
     String tra;
     @FXML
-    private Button btnGuardarVar;
-    @FXML
     private TableView<RequisitoDTO> tableViewReq;
     @FXML
     private TableColumn<RequisitoDTO, String> idReq;
@@ -78,10 +78,6 @@ public class DisenoTramitesController extends Controller implements Initializabl
     @FXML
     private TableColumn<RequisitoDTO, String> estReq;
     @FXML
-    private Button btnCancelarReq;
-    @FXML
-    private Button btnGuardarReq;
-    @FXML
     private Button btnRequisito;
     @FXML
     private Button btnVar;
@@ -89,6 +85,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
     private TreeView<String> treeVar;
     @FXML
     private TableColumn<RequisitoDTO, String> tramiteReq;
+    VariacionDTO depa;
 
     /**
      * Initializes the controller class.
@@ -99,6 +96,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
         variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
         estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
         grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
+
     }
 
     @Override
@@ -115,6 +113,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
 
     @FXML
     private void borrar(ActionEvent event) {
+        txtBuscar.clear();
     }
 
     private void llenarVariacion() {
@@ -133,18 +132,17 @@ public class DisenoTramitesController extends Controller implements Initializabl
                 tramiteList = tramiteList.stream().filter(x -> x.getDescripcion().toUpperCase().startsWith(txtBuscar.getText().toUpperCase())).collect(Collectors.toList());
                 Long val = tramiteList.get(0).getId();
                 tra = tramiteList.get(0).getDescripcion().toString();
-                tableview.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon;");
+//                
                 tableview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-                tableview.getSelectionModel().setCellSelectionEnabled(true);
                 tableview.setItems(FXCollections.observableArrayList(variacionList.stream().filter(y -> y.getTramiteTipo().getId() == val).collect(Collectors.toList())));
-//                llenarTree();
+//               
                 actionVariacionClick();
             } else {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Lista Vacía");
-//                llenarTree();
+//               
             }
         } catch (Exception e) {
-//            llenarTree();
+//          
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Variacion", null, "Hubo un error");
         }
     }
@@ -162,7 +160,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
             if (requisitosList != null && !requisitosList.isEmpty()) {
                 System.out.println(requisitosList.get(0).getVariacion().getDescripcion());
                 tableViewReq.setItems(FXCollections.observableArrayList(requisitosList.stream().filter(y -> y.getVariacion().getId() == vale).collect(Collectors.toList())));
-//                llenarTree();
+//             
             } else {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error de Requisitos", null, "Lista Vacía");
             }
@@ -228,21 +226,29 @@ public class DisenoTramitesController extends Controller implements Initializabl
                     VariacionDTO var = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
                     AppContext.getInstance().set("VarObject", var);
                     FlowController.getInstance().goViewInWindowModal("AddEditWatchVariacion", ((Stage) btnVar.getScene().getWindow()), false);
-                    tableview.selectionModelProperty().get().clearSelection();
                     llenarVariacion();
                 } else {
                     if (mouseEvent.getClickCount() == 1 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
 
-                        VariacionDTO depa = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
-                        if (variacionList2.contains(depa)) {
-                            System.out.println("Eliminado");
-                            variacionList2.remove(depa);
+                        depa = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        if (!variacionList2.isEmpty()) {
+                            if (variacionList2.contains(depa)) {
+                                System.out.println("Eliminado");
+                                variacionList2.remove(depa);
+                            } else {
+                                for (VariacionDTO variacionDTO : variacionList2) {
+
+                                    if (variacionDTO.getGrupo() != depa.getGrupo()) {
+                                        System.out.println("Agregado");
+                                        variacionList2.add(depa);
+                                    } else {
+                                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error seleccion de grupo", null, "Ya se encuentra seleccionado un item del mismo grupo con el nombre: " + variacionDTO.getDescripcion() + " por favor deseleccionalo si desea seleccionar este item");
+                                    }
+                                }
+                            }
                         } else {
-                            System.out.println("Agregado");
                             variacionList2.add(depa);
                         }
-                        System.out.println(variacionList2.size());
-                        tableview.selectionModelProperty().get().clearSelection();
                     }
                 }
             }
@@ -263,18 +269,6 @@ public class DisenoTramitesController extends Controller implements Initializabl
                 }
             }
         });
-    }
-
-    @FXML
-    private void saveVar(ActionEvent event) {
-    }
-
-    @FXML
-    private void cancelReq(ActionEvent event) {
-    }
-
-    @FXML
-    private void saveReq(ActionEvent event) {
     }
 
     @FXML

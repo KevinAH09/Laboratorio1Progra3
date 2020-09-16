@@ -22,9 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.controller.VariacionController;
-import org.una.laboratorio.dto.DepartamentoDTO;
 import org.una.laboratorio.dto.TramiteTipoDTO;
 import org.una.laboratorio.dto.VariacionDTO;
 import org.una.laboratorio.utils.AppContext;
@@ -126,13 +124,13 @@ public class AddEditWatchVariacionController extends Controller implements Initi
                     variacionDTO.setFechaRegistro(new Date());
                     variacionDTO.setGrupo(Long.parseLong(txtGrupo.getText()));
                     if (VariacionController.getInstance().add(variacionDTO) == 200) {
-                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar Tramite", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar la variacion", ((Stage) txtId.getScene().getWindow()), "Se guardó correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else {
-                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar tramite", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar la variacion", ((Stage) txtId.getScene().getWindow()), "No se guardó correctamente");
                     }
                 } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar tramite", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error al guardar la variacion", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
                 }
 
             } else {
@@ -147,10 +145,10 @@ public class AddEditWatchVariacionController extends Controller implements Initi
                     variacionDTO.setFechaRegistro(new Date());
                     variacionDTO.setGrupo(Long.parseLong(txtGrupo.getText()));
                     if (VariacionController.getInstance().Update(variacionDTO) == 200) {
-                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar la Variacion", ((Stage) txtId.getScene().getWindow()), "Se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.CONFIRMATION, "Guardar la Variacion", ((Stage) txtId.getScene().getWindow()), "Se guardó correctamente");
                         ((Stage) txtId.getScene().getWindow()).close();
                     } else {
-                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear la Variacion", ((Stage) txtId.getScene().getWindow()), "No se guardo correctamente");
+                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error al crear la Variacion", ((Stage) txtId.getScene().getWindow()), "No se guardó correctamente");
                     }
                 } else {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error al modificar la Variacion", ((Stage) txtId.getScene().getWindow()), "Rellene los campos necesarios");
