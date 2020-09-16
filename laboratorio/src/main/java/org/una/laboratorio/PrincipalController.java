@@ -14,17 +14,19 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import org.una.laboratorio.controller.DepartamentoController;
-
 
 import org.una.laboratorio.dto.PermisoOtorgadoDTO;
 import org.una.laboratorio.dto.UsuarioDTO;
@@ -44,6 +46,7 @@ public class PrincipalController extends Controller implements Initializable {
     boolean TreeUsu = true;
     boolean TreeDep = true;
     boolean TreeTra = true;
+
     @FXML
     private AnchorPane ancgor;
 
@@ -51,12 +54,19 @@ public class PrincipalController extends Controller implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         if (AppContext.getInstance().get("permisosOTG") != null) {
             ListPerOtor = (List<PermisoOtorgadoDTO>) AppContext.getInstance().get("permisosOTG");
+            Node imgroot = new ImageView(new Image("org/una/laboratorio/icons/menu.png"));
+            Node imgInformacion = new ImageView(new Image("org/una/laboratorio/icons/informacion.png"));
+            Node imgAdmin = new ImageView(new Image("org/una/laboratorio/icons/lengueta.png"));
 
-            TreeItem<String> root = new TreeItem<>("Funciones de "+(((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
+            TreeItem<String> root = new TreeItem<>("Funciones de " + (((UsuarioDTO) AppContext.getInstance().get("usuarioLog")).getNombreCompleto()));
+            root.setGraphic(imgroot);
             treeAcciones.setRoot(root);
+
             TreeItem<String> itemInformacion = new TreeItem<>("Informacion");
+            itemInformacion.setGraphic(imgInformacion);
             root.getChildren().add(itemInformacion);
             TreeItem<String> itemAdministracion = new TreeItem<>("Administracion");
+            itemAdministracion.setGraphic(imgAdmin);
             root.getChildren().add(itemAdministracion);
 
             for (int i = 0; i < ListPerOtor.size(); i++) {
@@ -79,9 +89,11 @@ public class PrincipalController extends Controller implements Initializable {
                 }
 
             }
+
             TreeUsu = true;
             TreeDep = true;
             TreeTra = true;
+
             for (int i = 0; i < ListPerOtor.size(); i++) {
                 if (ListPerOtor.get(i).getPermisoId().getCodigo().contains("PER") && TreeUsu) {
                     TreeItem<String> item = new TreeItem<>("Permisos");
@@ -131,7 +143,7 @@ public class PrincipalController extends Controller implements Initializable {
                         } else if (item.getValue().equals("Parametros")) {
                             cambiarParametros();
 
-                        }else if (item.getValue().equals("Tipos de Trámites")) {
+                        } else if (item.getValue().equals("Tipos de Trámites")) {
                             cambiarTramites();
                         }
 
@@ -179,6 +191,7 @@ public class PrincipalController extends Controller implements Initializable {
         vboxPrincipal.getChildren()
                 .add(root);
     }
+
     void cambiarPermisos() throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
@@ -186,6 +199,7 @@ public class PrincipalController extends Controller implements Initializable {
         vboxPrincipal.getChildren()
                 .add(root);
     }
+
     void cambiarTramites() throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class
@@ -193,6 +207,7 @@ public class PrincipalController extends Controller implements Initializable {
         vboxPrincipal.getChildren()
                 .add(root);
     }
+
     void cambiarParametros() throws IOException {
         vboxPrincipal.getChildren().clear();
         Parent root = FXMLLoader.load(App.class

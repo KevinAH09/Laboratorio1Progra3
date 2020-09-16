@@ -18,7 +18,7 @@
          <left>
             <VBox prefHeight="522.0" prefWidth="230.0" BorderPane.alignment="CENTER">
                <children>
-                  <TreeView fx:id="treeAcciones" prefHeight="538.0" prefWidth="230.0" VBox.vgrow="ALWAYS" />
+                  <TreeView fx:id="treeAcciones" prefHeight="538.0" prefWidth="230.0" stylesheets="@Style2.css" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </left>

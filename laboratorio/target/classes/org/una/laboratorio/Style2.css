@@ -8,11 +8,22 @@ and open the template in the editor.
     Author     : colo7
 */
 
-.jfx-btn-general{
-    -fx-background-color: #64B5F6;
+
+.tree-view, .tree-cell {
+    -fx-background-color: #333333 ;
+    -fx-text-fill: white ;
 }
-.jfx-btn-general:hover{
-    -fx-background-color: #FFC107;
+.tree-cell:sub-tree-item {
+    -fx-background-color: #006666 ;
+}
+.tree-cell:selected {
+    -fx-font-weight: bold ;
+}
+.tree-cell {
+    -fx-padding: 0.75em 0em 0.75em 0em ;
+}
+.tree-cell:sub-tree-item {
+    -fx-padding: 0.25em ;
 }
 /*.jfx-btnimg-tbveliminar{
     -fx-opacity: 0.8;
@@ -44,26 +55,29 @@ and open the template in the editor.
     -fx-azul: #0000FF;
 }
 
-/*.root{
-    -fx-background-image : url("../recursos/fond.jpg");
-    -fx-background-color: linear-gradient(to left, #24C6DC, #514A9D);
+.root{
+    /*-fx-background-image : url("../recursos/fond.jpg");*/
+    -fx-background-color: linear-gradient(to left, #666666, #333333);
 }
-.rootLogin{
-    -fx-background-image : url("../recursos/loginfondo.jpg");
-}*/
+/*.rootLogin{*/
+    /*-fx-background-image : url("../recursos/loginfondo.jpg");*/
+/*}*/
 .button:hover{
-    -fx-background-color:#3399ff;
+    -fx-background-color: #333333;
     -fx-text-fill: linear-gradient(white, #d0d0d0);
 }
-.anchorPane,stackPane{
-    /*-fx-background-color: linear-gradient(to left, #24C6DC, #514A9D);*/
-    -fx-background-color: linear-gradient(to bottom, rgba(14,0,138,1) 0%, rgba(0,255,255,1) 100%);
+.stackPane{
+    -fx-background-color: #333333;
 }
-.titulos{
+.hbox,vbox{
+    -fx-background-color: #333333;
+    /*-fx-background-color: linear-gradient(to bottom, rgba(14,0,138,1) 0%, rgba(0,255,255,1) 100%);*/
+}
+/*.titulos{
     -fx-text-fill: -fx-blanco;
     -fx-font-family: "century";
     -fx-font-size: 16px;
-}
+}*/
 .text-field, .jfx-text-area{
     -fx-prompt-text-fill: #2a4f9a;
     -fx-text-fill: black;
@@ -80,7 +94,7 @@ and open the template in the editor.
     -jfx-unfocus-color: -fx-azul;
 }
 
-.datePicker{
+/*.datePicker{
     -fx-font-family: "century";
     -jfx-focus-color: -fx-verde;
     -jfx-unfocus-color: -fx-verde;
@@ -91,11 +105,11 @@ and open the template in the editor.
     -fx-prompt-text-fill: -fx-blanco;
     -fx-font-family: "century";
     -fx-font-size: 15px;
-    /*    -fx-focus-color: -fx-celeste;
-        -fx-unfocus-color: -fx-celeste;*/
+        -fx-focus-color: -fx-celeste;
+        -fx-unfocus-color: -fx-celeste;
     -fx-selected-color: -fx-celeste;
     -fx-unselected-color: -fx-celeste;
-}
+}*/
 
 
 /*.radioButtonFX .radio-button .radio:selected {
@@ -104,7 +118,7 @@ and open the template in the editor.
 .button{
     -fx-font-family: "century";
     -fx-text-fill: -fx-blanco;
-    -fx-background-color: #2a4f9a;
+    -fx-background-color: black;
     -fx-font-size: 15px;
 }
 

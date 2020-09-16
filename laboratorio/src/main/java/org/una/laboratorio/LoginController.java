@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -62,6 +63,7 @@ public class LoginController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
         // TODO
         txtPassMostrado.setVisible(false);
         txtPassOculto.setText(txtPassMostrado.getText());
