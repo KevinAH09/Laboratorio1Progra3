@@ -27,10 +27,12 @@ import org.una.laboratorio.dto.VariacionDTO;
 import org.una.laboratorio.utils.Mensaje;
 import javafx.scene.control.Alert;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.una.laboratorio.controller.RequisitoController;
 import org.una.laboratorio.controller.TramiteTipoController;
 import org.una.laboratorio.dto.RequisitoDTO;
@@ -83,6 +85,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
     private TreeView<String> treeVar;
     @FXML
     private TableColumn<RequisitoDTO, String> tramiteReq;
+    VariacionDTO depa;
 
     /**
      * Initializes the controller class.
@@ -93,6 +96,7 @@ public class DisenoTramitesController extends Controller implements Initializabl
         variacion.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getDescripcion()));
         estado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().isEstado()));
         grupo.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getGrupo().toString()));
+
     }
 
     @Override
@@ -226,21 +230,20 @@ public class DisenoTramitesController extends Controller implements Initializabl
                 } else {
                     if (mouseEvent.getClickCount() == 1 && tableview.selectionModelProperty().get().getSelectedItem() != null) {
 
-                        VariacionDTO depa = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
+                        depa = (VariacionDTO) tableview.selectionModelProperty().get().getSelectedItem();
                         if (!variacionList2.isEmpty()) {
-                            for (VariacionDTO variacionDTO : variacionList2) {
+                            if (variacionList2.contains(depa)) {
+                                System.out.println("Eliminado");
+                                variacionList2.remove(depa);
+                            } else {
+                                for (VariacionDTO variacionDTO : variacionList2) {
 
-                                if (variacionDTO.getGrupo() != depa.getGrupo()) {
-                                    if (variacionList2.contains(depa)) {
-                                        System.out.println("Eliminado");
-                                        variacionList2.remove(depa);
-                                    } else {
+                                    if (variacionDTO.getGrupo() != depa.getGrupo()) {
                                         System.out.println("Agregado");
                                         variacionList2.add(depa);
+                                    } else {
+                                        new Mensaje().showModal(Alert.AlertType.ERROR, "Error seleccion de grupo", null, "Ya se encuentra seleccionado un item del mismo grupo con el nombre: " + variacionDTO.getDescripcion() + " por favor deseleccionalo si desea seleccionar este item");
                                     }
-                                    System.out.println(variacionList2.size());
-                                } else {
-                                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error seleccion de grupo", null, "Ya se encuentra seleccionado un item del mismo grupo con el nombre: " + variacionDTO.getDescripcion()+" por favor deseleccionalo si desea seleccionar este item");
                                 }
                             }
                         } else {
